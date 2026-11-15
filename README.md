@@ -110,7 +110,9 @@ Abra o link gerado para criar a conta. O Go serve o web e a API em `http://local
 
 Para habilitar voz, câmera e tela em grupo, o servidor também precisa da configuração de WebRTC e de uma porta UDP acessível aos clientes. As variáveis estão em [.env.harmony.example](.env.harmony.example), e a forma de rodar em produção em [docker-compose.harmony.yml](docker-compose.harmony.yml), [harmony.Dockerfile](harmony.Dockerfile) e [Caddyfile.harmony](Caddyfile.harmony). O exemplo acima não configura essas peças.
 
-Os aplicativos Android e Windows vêm apontados para a instância do autor; para usar a sua, troque o endereço do servidor nos ajustes de cada um (ou no código, ao compilar).
+Os aplicativos Android e Windows vêm apontados para a instância do autor. Para usar a sua: no Android, digite o endereço na tela de entrada; no Windows, defina a variável de ambiente `HARMONY_URL` (ou troque o padrão no código, ao compilar).
+
+Para compilar o Android você precisa de dois itens próprios, que não estão no repositório: o `android/app/google-services.json` de um projeto Firebase seu (os avisos com o app fechado dependem dele) e, para a versão de lançamento, uma chave de assinatura indicada por `HARMONY_KEYSTORE` e `HARMONY_KEYSTORE_PASSWORD`.
 
 Depois de alterar o cliente web, repita `build:harmony` e reinicie o Go para incorporar o novo bundle. Para trabalhar com Vite, o script existente é `npm --prefix web run dev:harmony`; a configuração de base e dos proxies fica em [web/harmony/vite.config.ts](web/harmony/vite.config.ts).
 
@@ -134,4 +136,4 @@ No Windows, use Git Bash para o script de testes Go. Ele mantém os executáveis
 
 [GNU Affero General Public License v3.0](LICENSE). Quem rodar uma versão modificada como serviço precisa oferecer o código dessa versão aos usuários dela.
 
-Componentes de terceiros mantêm as próprias licenças: a lista e os textos estão em [THIRD-PARTY.md](THIRD-PARTY.md) e [licencas/](licencas/) (fonte Inter, Twemoji, ícones do Gravity UI, libwebrtc, NVIDIA Video Codec SDK, DeepFilterNet).
+Componentes de terceiros mantêm as próprias licenças: a lista e os textos estão em [THIRD-PARTY.md](THIRD-PARTY.md) e [licencas/](licencas/) (fonte Inter, Twemoji, ícones do Gravity UI, libwebrtc, NVIDIA Video Codec SDK, DeepFilterNet). Os sons do aplicativo **não** estão sob a AGPL; veja a seção de sons no `THIRD-PARTY.md`.
