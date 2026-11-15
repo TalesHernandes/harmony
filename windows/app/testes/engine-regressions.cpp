@@ -112,15 +112,36 @@ static void RunSuppressionRegression() {
   };
   recover();
   for(int i=0;i<40;++i) { pulse(); Check(slot->active && !apm->GetConfig().noise_suppression.enabled,"engine steady DFN keeps NS disabled"); }
-  for(int mode : {1,2,3,4}) {
+  for(int mode : {1,3,4}) {
     control->mode=mode; auto before=slot->fallbacks.load(); pulse();
     Check(!slot->active && !slot->nsApplied && slot->fallbacks==before+1 && apm->GetConfig().noise_suppression.enabled && sink.first!=777,
           "engine fallen DFN restores APM NS immediately");
     pulse(); Check(!slot->active && slot->nsApplied && sink.first!=777,"engine DFN failure has at most one unsuppressed block");
     recover();
   }
+  // DFN over 10 ms once (03/11/2026, an i3-3110M): the late block still goes
+  // out filtered and DFN stays; a second one within 200 ms falls back.
+  for(int i=0;i<20;++i) pulse();
+  control->mode=2; auto beforeLate=slot->fallbacks.load(); pulse();
+  Check(slot->active && !slot->nsApplied && slot->fallbacks==beforeLate && !apm->GetConfig().noise_suppression.enabled && sink.first==777,
+        "engine keeps DFN through one isolated late block and sends it filtered");
+  control->mode=0;
+  for(int i=0;i<19;++i) pulse();
+  control->mode=2; pulse();
+  Check(!slot->active && !slot->nsApplied && slot->fallbacks==beforeLate+1 && apm->GetConfig().noise_suppression.enabled && sink.first!=777,
+        "engine second late block within 200 ms restores APM NS immediately");
+  pulse(); Check(!slot->active && slot->nsApplied && sink.first!=777,"engine late DFN failure has at most one unsuppressed block");
+  recover();
   slot->enabled=false; pulse();
   Check(!slot->active && slot->nsApplied && apm->GetConfig().noise_suppression.enabled,"engine disabled DFN restores NS in same block");
+  // While probing, one isolated late block keeps the streak without adding to it.
+  slot->enabled=true; control->mode=0;
+  for(int i=0;i<10;++i) pulse();
+  control->mode=2; pulse(); control->mode=0;
+  for(int i=0;i<10;++i) { pulse(); Check(!slot->active && slot->nsApplied && apm->GetConfig().noise_suppression.enabled,"engine late probe does not count as good"); }
+  pulse();
+  Check(slot->active && !slot->nsApplied && sink.first==777,"engine isolated late probe keeps the 20-block recovery streak");
+  slot->enabled=false; pulse();
   slot->enabled=true;
   // Ten 190 ms good bursts followed by a failure must never toggle NS off.
   for(int burst=0;burst<10;++burst) {

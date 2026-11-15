@@ -131,7 +131,7 @@ struct Recording {
   // DFN over the second: blocks it filtered, calls that fell back and why,
   // and the slowest call. The level columns alone could not tell a call
   // where DFN never once ran from one where it ran (03/11/2026).
-  int dfnBlocks = 0, dfnFailures = 0; uint32_t dfnSlowest = 0;
+  int dfnBlocks = 0, dfnFailures = 0, dfnLate = 0; uint32_t dfnSlowest = 0;
   std::array<int, FilterSlot::Alone + 1> dfnWhy{};
   // Recording queue only.
   Wave sent; FILE* numbers = nullptr; bool attached = false;
@@ -223,7 +223,7 @@ std::shared_ptr<Recording> ClaimRecording(webrtc::AudioProcessing* apm, uint32_t
            "harmony nativo · gravação da chamada\n"
            "microfone %u Hz %zu canais · eco=%d ruído=%d nivelar=%d DFN=%d força=%d ganho=%.0f%%\n\n"
            "segundo | entrada dBFS (média pico estouros) | enviado dBFS (média pico estouros) | filtro | "
-           "DFN: blocos_filtrados/100 falhas maior_ms motivo | "
+           "DFN: blocos_filtrados/100 falhas atrasos_tolerados maior_ms motivo | "
            "eco: ERL ERLE atraso_ms divergência eco_residual | atraso informado ms\n"
            "segundo rede | ida_volta_ms rota | envio kbit/s alvo | o outro recebe: perda%% jitter_ms | "
            "você recebe: perdidos jitter_ms buracos%% espera_ms\n\n",
@@ -257,11 +257,11 @@ void FinishRecording(std::shared_ptr<Recording> rec) {
 // What DFN did with one quantum: `tried` when it was handed the block (as the
 // published filter or as a recovery probe), `failed` when it gave it back.
 struct DfnQuantum {
-  bool tried = false, failed = false, published = false; FilterSlot::Reason reason = FilterSlot::Warming; uint32_t micros = 0;
+  bool tried = false, failed = false, published = false, late = false; FilterSlot::Reason reason = FilterSlot::Warming; uint32_t micros = 0;
   // Right after FilterSlot::Process. Switched off in Ajustes is not a failure.
   void Took(const FilterSlot& slot, bool ok) {
     reason = slot.reason.load(); micros = slot.lastMicros.load();
-    tried = slot.enabled.load(); failed = tried && !ok;
+    tried = slot.enabled.load(); failed = tried && !ok; late = ok && slot.lastLate.load();
   }
 };
 // Capture thread, every quantum once the files are open. `raw` is the
@@ -281,6 +281,7 @@ void RecordQuantum(Recording& rec, const int16_t* raw, size_t rawCount, const st
   if (dfn.published) ++rec.dfnBlocks;
   if (dfn.tried) rec.dfnSlowest = std::max(rec.dfnSlowest, dfn.micros);
   if (dfn.failed) { ++rec.dfnFailures; ++rec.dfnWhy[dfn.reason]; }
+  if (dfn.late) ++rec.dfnLate;
   rec.pending.insert(rec.pending.end(), out.begin(), out.end());
   if (rec.pending.size() >= 4800) {
     RecordingQueue()->PostTask([self = rec.self.lock(), pcm = std::move(rec.pending)] { self->sent.Write(pcm); });
@@ -295,16 +296,16 @@ void RecordQuantum(Recording& rec, const int16_t* raw, size_t rawCount, const st
   FilterSlot::Reason why = dfn.reason;
   if (rec.dfnFailures) why = FilterSlot::Reason(std::max_element(rec.dfnWhy.begin(), rec.dfnWhy.end()) - rec.dfnWhy.begin());
   char line[512];
-  snprintf(line, sizeof line, "%3.0f | %6.1f %6.1f %4d | %6.1f %6.1f %4d | %s | %3d %3d %5.1f %s | %s %s %s %s %s | %u\n",
+  snprintf(line, sizeof line, "%3.0f | %6.1f %6.1f %4d | %6.1f %6.1f %4d | %s | %3d %3d %3d %5.1f %s | %s %s %s %s %s | %u\n",
            rec.Seconds(), Dbfs(std::sqrt(rec.inSquares / (100 * 480))), Dbfs(rec.inPeak), rec.inClipped,
            Dbfs(std::sqrt(rec.outSquares / (100 * 480))), Dbfs(rec.outPeak), rec.outClipped, effective,
-           rec.dfnBlocks, rec.dfnFailures, rec.dfnSlowest / 1000.0, FilterSlot::ReasonText(why),
+           rec.dfnBlocks, rec.dfnFailures, rec.dfnLate, rec.dfnSlowest / 1000.0, FilterSlot::ReasonText(why),
            Fixed(stats.echo_return_loss).c_str(), Fixed(stats.echo_return_loss_enhancement).c_str(),
            Fixed(opt(stats.delay_ms), "%.0f").c_str(), Fixed(stats.divergent_filter_fraction, "%.2f").c_str(),
            Fixed(stats.residual_echo_likelihood, "%.2f").c_str(), delayMs);
   rec.Line(line);
   rec.block = 0; rec.inSquares = rec.outSquares = 0; rec.inPeak = rec.outPeak = rec.inClipped = rec.outClipped = 0;
-  rec.dfnBlocks = rec.dfnFailures = 0; rec.dfnSlowest = 0; rec.dfnWhy.fill(0);
+  rec.dfnBlocks = rec.dfnFailures = rec.dfnLate = 0; rec.dfnSlowest = 0; rec.dfnWhy.fill(0);
 }
 
 // The microphone's processed 10 ms blocks on their way back to the ears, for
@@ -432,8 +433,9 @@ class Transport : public webrtc::AudioTransport {
       filter_->active=false;
       filter_->reason=filter_->enabled ? FilterSlot::Alone : FilterSlot::Disabled;
     } else if (dfn_ready_) {
-      clean=filter_->Process(out_, 48000, 1);
+      clean=filter_->Process(out_, 48000, 1, -1, true, LateIsIsolated());
       dfn.Took(*filter_, clean); dfn.published=clean;
+      CountLate(dfn.tried);
       if (!clean) {
         dfn_ready_=false; good_blocks_=0;
         // This quantum can be unsuppressed; NS protects the very next one.
@@ -442,9 +444,11 @@ class Transport : public webrtc::AudioTransport {
       }
     } else {
       probe_.assign(out_.begin(), out_.end());
-      bool good=filter_->Process(probe_, 48000, 1, -1, false);
+      bool good=filter_->Process(probe_, 48000, 1, -1, false, LateIsIsolated());
       dfn.Took(*filter_, good);
-      good_blocks_=good ? good_blocks_+1 : 0;
+      CountLate(dfn.tried);
+      // A tolerated late probe keeps the streak but does not add to it.
+      good_blocks_=good ? good_blocks_+(dfn.late ? 0 : 1) : 0;
       // Discard probes: no published block ever receives both NS and DFN.
       dfn_ready_=good_blocks_>=kDfnRecoveryBlocks;
     }
@@ -563,6 +567,19 @@ class Transport : public webrtc::AudioTransport {
   // 20 consecutive 10 ms probes: measured recovery and burst tests in w3-dfn.md.
   static constexpr unsigned kDfnRecoveryBlocks=20;
   unsigned good_blocks_=0;
+  // DFN over 10 ms once is tolerated: the block goes out filtered, late,
+  // and DFN stays. On an i3-3110M DFN never stayed on through a whole call
+  // when the first late block brought NS back (03/11/2026). A second late
+  // block within 20 blocks (200 ms) is a slow machine, not a hiccup, and
+  // falls back as before. NaN, exceptions and bad shapes never have output
+  // worth keeping and fall back at once.
+  unsigned since_late_=kDfnRecoveryBlocks;
+  bool LateIsIsolated() const { return since_late_>=kDfnRecoveryBlocks; }
+  void CountLate(bool tried) {
+    if (!tried) return;
+    if (filter_->reason.load()==FilterSlot::Deadline) since_late_=0;
+    else if (since_late_<kDfnRecoveryBlocks) ++since_late_;
+  }
   bool dfn_ready_=false;
   std::shared_ptr<std::atomic<bool>> audience_;
   bool config_applied_=false;

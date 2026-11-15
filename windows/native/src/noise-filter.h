@@ -39,8 +39,12 @@ class FilterSlot {
   // included (0 when it was not called): the call recording prints the
   // slowest of each second, since "DFN excedeu 10 ms" is a matter of how far.
   std::atomic<uint32_t> lastMicros{0};
-  bool Process(std::vector<int16_t>& samples, int rate, size_t channels, int overrideStrength = -1, bool publish = true) {
-    lastMicros=0;
+  // The last block was over 10 ms but kept: the caller allowed it with
+  // `tolerateLate`, since DFN's output is still right, only late.
+  std::atomic<bool> lastLate{false};
+  bool Process(std::vector<int16_t>& samples, int rate, size_t channels, int overrideStrength = -1, bool publish = true,
+               bool tolerateLate = false) {
+    lastMicros=0; lastLate=false;
     if (!enabled) { active=false; reason=Disabled; return false; }
     block_.assign(samples.begin(), samples.end());
     auto& block = block_;
@@ -49,7 +53,11 @@ class FilterSlot {
     try { if (backend_) ok=backend_->Process(block,rate,channels,std::clamp(overrideStrength<0?strength.load():overrideStrength,10,100)); } catch (...) { reason=Exception; }
     auto took=std::chrono::steady_clock::now()-start;
     lastMicros=uint32_t(std::chrono::duration_cast<std::chrono::microseconds>(took).count());
-    if (!ok || block.size()!=samples.size() || took >= std::chrono::milliseconds(10)) {
+    const bool late = took >= std::chrono::milliseconds(10);
+    if (ok && block.size()==samples.size() && late && tolerateLate) {
+      samples.swap(block); active=publish; reason=Deadline; lastLate=true; return true;
+    }
+    if (!ok || block.size()!=samples.size() || late) {
       if (ok) reason=block.size()!=samples.size() ? Shape : Deadline;
       active=false; ++fallbacks; return false;
     }
