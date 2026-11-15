@@ -1,0 +1,111 @@
+{
+  "production_changed": false,
+  "fixture": "WGC 1920x1080 synthetic pattern at 60 Hz; local counting sink, no encoder or remote viewer; fully rebuilt GPU sources",
+  "measurements": [
+    {
+      "requested_fps": 30,
+      "frames": 140,
+      "seconds": 6.00143,
+      "capture_cpu_core_pct": 1.30177,
+      "capture_stage_frames": 140,
+      "capture_stage_busy_ms": 114.918
+    },
+    {
+      "requested_fps": 5,
+      "frames": 28,
+      "seconds": 6.00223,
+      "capture_cpu_core_pct": 3.38416,
+      "capture_stage_frames": 28,
+      "capture_stage_busy_ms": 33.8732
+    }
+  ],
+  "snapshots": [
+    {
+      "stage": "preview-30fps",
+      "pid": 4200,
+      "tick_ms": 28489171,
+      "private_bytes": 90447872,
+      "working_set_bytes": 61374464,
+      "foreground_owned": 0,
+      "handles": 637,
+      "cpu_ms": 1343.75,
+      "threads": {
+        "CRYPT32.dll": 1,
+        "GraphicsCapture.dll": 1,
+        "combase.dll": 1,
+        "gpu_selftest.exe": 1,
+        "harmony-capture": 1,
+        "ntdll.dll": 8,
+        "nvwgf2umx.dll": 13
+      },
+      "handle_types": {
+        "ALPC Port": 13,
+        "Desktop": 1,
+        "Directory": 2,
+        "DxgkCompositionObject": 3,
+        "DxgkSharedResource": 5,
+        "DxgkSharedSyncObject": 1,
+        "EtwRegistration": 163,
+        "Event": 173,
+        "File": 36,
+        "IRTimer": 8,
+        "IoCompletion": 10,
+        "IoCompletionReserve": 1,
+        "Key": 50,
+        "Mutant": 10,
+        "SchedulerSharedData": 1,
+        "Section": 28,
+        "Semaphore": 40,
+        "Thread": 24,
+        "Timer": 23,
+        "TpWorkerFactory": 4,
+        "WaitCompletionPacket": 40,
+        "WindowStation": 2
+      }
+    },
+    {
+      "stage": "preview-5fps",
+      "pid": 4200,
+      "tick_ms": 28496671,
+      "private_bytes": 295505920,
+      "working_set_bytes": 61669376,
+      "foreground_owned": 0,
+      "handles": 638,
+      "cpu_ms": 2031.25,
+      "threads": {
+        "CRYPT32.dll": 1,
+        "GraphicsCapture.dll": 1,
+        "combase.dll": 1,
+        "gpu_selftest.exe": 1,
+        "harmony-capture": 1,
+        "ntdll.dll": 8,
+        "nvwgf2umx.dll": 13
+      },
+      "handle_types": {
+        "ALPC Port": 13,
+        "Desktop": 1,
+        "Directory": 2,
+        "DxgkCompositionObject": 3,
+        "DxgkSharedResource": 5,
+        "DxgkSharedSyncObject": 1,
+        "EtwRegistration": 163,
+        "Event": 174,
+        "File": 36,
+        "IRTimer": 8,
+        "IoCompletion": 10,
+        "IoCompletionReserve": 1,
+        "Key": 50,
+        "Mutant": 10,
+        "SchedulerSharedData": 1,
+        "Section": 28,
+        "Semaphore": 40,
+        "Thread": 24,
+        "Timer": 23,
+        "TpWorkerFactory": 4,
+        "WaitCompletionPacket": 40,
+        "WindowStation": 2
+      }
+    }
+  ],
+  "source_sha256": "4e6320c1ab4baec26817ec8170f2c586bcd19ef730eae9c9b234f40314378eb6"
+}

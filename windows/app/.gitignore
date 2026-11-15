@@ -1,0 +1,17 @@
+out/
+obj/
+temp/
+.nuget-packages/
+build-*.log
+build-*.err
+*.runtime-error.txt
+
+test-output/
+assets/Inter.ttf
+unpack-font.exe
+unpack-font.obj
+autoteste.json
+autoteste.json.pending
+
+
+*.mutation.vcxproj

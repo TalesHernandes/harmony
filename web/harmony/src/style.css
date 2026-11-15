@@ -1,0 +1,1163 @@
+/* source(none) plus an explicit @source keeps Tailwind from also scanning the
+   1:1 call app that shares this node_modules: two apps, two bundles. */
+@import "tailwindcss" source(none);
+@source "./";
+
+/* Inter, carried in the binary rather than fetched from Google.
+ *
+ * Three reasons it is not a <link> to fonts.googleapis.com. The CSP is
+ * default-src 'self' with no font-src of its own, so a stylesheet from another
+ * origin would simply be refused. A font pulled from a CDN tells that CDN who
+ * opened the app and when, and this project does not hand a third party the
+ * guest list (CLAUDE.md: invite-only, no e-mail, no OAuth). And a font that
+ * ships with the binary cannot be down while the binary is up.
+ *
+ * One file and not five: Inter is a variable font, so a single 48 KB latin
+ * subset carries every weight from 100 to 900 and the browser cuts the real
+ * 400, 500 and 600 out of it - no synthetic bolding, and one request instead of
+ * three. Vite puts a content hash in the name, so /static/assets/ serves it
+ * immutable and a returning visitor never asks for it again.
+ *
+ * unicode-range is the Latin block alone. Portuguese lives entirely inside it
+ * (a-tilde, o-tilde, c-cedilla and the rest are all under U+00FF); a name with
+ * a Polish or Turkish letter falls back to the system stack for that one
+ * character instead of charging every visitor the 85 KB of latin-ext. Adding it
+ * back later is one more @font-face with the other range and the other file. */
+@font-face {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url("./fonts/inter-latin.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+		U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+		U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* The design system, in one place.
+ *
+ * These are the tokens of the HeroUI 3 kit as the harmony design settled them
+ * ("harmony - Fundacoes", section 12; the working document is
+ * docs/PLANO-DESIGN.md). They are the vocabulary every screen is being redrawn
+ * against, and they land before the screens do on purpose: a token block
+ * changes what the app is painted with without moving anything, so it can ship
+ * on its own and be judged on its own.
+ *
+ * The client uses these names and no others - there is not one bg-zinc-800 or
+ * text-red-500 anywhere in web/harmony/src, which is why the whole app changes
+ * colour from this block and from nowhere else. */
+@theme {
+	/* --- the surfaces, darkest first ------------------------------------- */
+	/* The page, and the conversation that fills the middle of it. */
+	--color-background: #060607;
+	/* A well sunk into a surface: an empty channel, a quoted line. */
+	--color-background-2: #0c0c0e;
+	/* The columns either side. The design puts no rule between them and the
+	   conversation - the step from #060607 up to #18181b is the separation. */
+	--color-surface: #18181b;
+	/* Raised on a surface: a field, the row under the pointer, a chip. */
+	--color-surface-2: #232325;
+	/* Raised again: a seat tile in a call, something being dragged. */
+	--color-surface-3: #323235;
+	--color-border: #28282c;
+	/* 0.6, not the kit's 0.3 (the owner, 24/09/2026): a panel is the same grey
+	   as the island behind it, and at 30% the two read as one piece — the
+	   search panel ran into the composer, "Sair desta conta?" into the
+	   settings. Darker behind is what lifts the panel, with no border and no
+	   shadow. */
+	--color-veil: rgba(0, 0, 0, 0.6);
+	/* The scroll bar's thumb: a light grey pill, like Discord's. */
+	--color-scroll-thumb: #4e4e56;
+	--color-scroll-thumb-hover: #63636b;
+
+	/* --- ink -------------------------------------------------------------- */
+	--color-foreground: #fcfcfc;
+	--color-foreground-muted: #a1a1aa;
+
+	/* --- a control that is not saying anything ---------------------------- */
+	--color-default: #27272a;
+	--color-default-hover: #2e2e31;
+	--color-default-soft: rgba(39, 39, 42, 0.5);
+	--color-disabled: #2a2a2e;
+	/* 5.1:1 against --color-disabled: switched off still has to be readable. */
+	--color-disabled-fg: #9a9aa3;
+	--color-outline-muted: #52525b;
+
+	/* --- the four voices, each with a hover, a wash, and ink for the wash -- */
+	/* accent: "this is the one you chose". */
+	--color-accent: #0485f7;
+	--color-accent-hover: #3592f9;
+	--color-accent-soft: rgba(4, 133, 247, 0.12);
+	--color-accent-soft-fg: #61a8fc;
+	/* success, and in this app also "somebody is talking right now". */
+	--color-success: #17c964;
+	--color-success-hover: #21b55d;
+	--color-success-soft: rgba(23, 201, 100, 0.12);
+	--color-success-soft-fg: #5dda8e;
+	/* warning: "this still works, and is about to stop being pleasant". It
+	   exists so that red and green alone do not make every warning an
+	   emergency, and most of them are not. */
+	--color-warning: #f7b750;
+	--color-warning-hover: #dea54c;
+	--color-warning-soft: rgba(247, 183, 80, 0.12);
+	--color-warning-soft-fg: #ffc055;
+	--color-danger: #db3b3e;
+	--color-danger-hover: #e15451;
+	--color-danger-soft: rgba(219, 59, 62, 0.15);
+	--color-danger-soft-fg: #f5645b;
+
+	/* The ten old names (ink, ink-2, ink-3, line, text, dim, warn, live, mid)
+	   were aliases of the tokens above while the screens were redrawn one by
+	   one. The last screens stopped using them on 24/09/2026 and the aliases
+	   went with them, so a class with an old name now draws nothing - which is
+	   the point: it cannot come back unnoticed. */
+
+	/* --- type -------------------------------------------------------------- */
+	--font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+	/* The kit's five sizes, each with the line height, the weight and the
+	   letter-spacing it is meant to be set in - so text-item is one class and
+	   not four. They landed empty in the D4j and the two columns of the D4t are
+	   the first screens written in them; the rest of the app is still on
+	   Tailwind's own scale, and each screen moves over as it is redrawn.
+
+	   The spacing is part of the size and not a decision taken per screen: the
+	   kit tightens as the text gets bigger and opens the small uppercase label
+	   right out, and that one curve is most of why the design reads as
+	   deliberate rather than as default.
+
+	   Every one of them is a step larger than the kit drew it, and the reason is
+	   the two lines further down. The kit is a design system and sets its own
+	   body at 15px; this app sets the conversation at 16, because the owner read
+	   the real thing on a real monitor and asked for it. That made the middle of
+	   the screen one scale and the two columns beside it another, and the
+	   difference is exactly what he saw the day the columns shipped: "achei que
+	   tá tudo pequeno" (20/09/2026). So the ladder is rebuilt downwards from the
+	   size he chose instead of upwards from the kit's:
+
+	       title 20  the channel you have open, over the conversation
+	       message 16  what was written, and the name over it
+	       item  15  a row in either column: a channel, a person, a file
+	       meta  13  a time, a size, a count, a second line under a first
+	       label 12  the uppercase heading of a group
+
+	   Nothing here is a taste: each is one rung of the kit's own scale, and the
+	   line heights move with them so the rows keep their air. What it costs is
+	   that a list of twenty channels is 160 pixels taller than it was, which on
+	   the smallest screen this app is used on is four rows of scrolling - and
+	   a row you can read without leaning in is worth four rows of scrolling. */
+	--text-label: 12px;
+	--text-label--line-height: 16px;
+	--text-label--font-weight: 600;
+	--text-label--letter-spacing: 0.06em;
+	--text-meta: 13px;
+	--text-meta--line-height: 18px;
+	--text-meta--font-weight: 500;
+	--text-meta--letter-spacing: -0.02em;
+	--text-item: 15px;
+	--text-item--line-height: 22px;
+	--text-item--font-weight: 500;
+	--text-item--letter-spacing: -0.015em;
+	--text-body: 16px;
+	--text-body--line-height: 24px;
+	--text-body--font-weight: 500;
+	--text-body--letter-spacing: -0.01em;
+	/* The conversation, one step above the kit's body, and the name over it.
+	   The owner asked for this after a day reading the real thing on a real
+	   monitor ("a conversa tá bem pequena"), and a chat window is the one
+	   screen in the app that is nothing but text being read for an hour. The
+	   rest of the app stays on --text-body. */
+	--text-message: 16px;
+	--text-message--line-height: 24px;
+	--text-message--font-weight: 500;
+	/* The name is the same size as what was written, and heavier — not smaller.
+	   A name set below the body reads as a caption over the message instead of
+	   as the person who wrote it, which is what the owner saw on 18/09/2026 ("o
+	   nome poderia estar em uma fonte maiorzinha"). Same size and 600 is also
+	   what makes the block line up: the name line and every line of the message
+	   are then the same 24px, so the face beside them has one rhythm to be
+	   centred on instead of two. */
+	--text-name: 16px;
+	--text-name--line-height: 24px;
+	--text-name--font-weight: 600;
+	--text-title: 20px;
+	--text-title--line-height: 28px;
+	--text-title--font-weight: 600;
+	--text-title--letter-spacing: -0.015em;
+
+	/* --- the four radii, and there are only four --------------------------- */
+	/* rounded-control: a field, a list row, an image in a grid.
+	   rounded-tile:    a video tile (240x136, in a call and in a room).
+	   rounded-panel:   a modal, a panel, a seat tile.
+	   rounded-full:    an avatar, a state dot, a counter, a reaction chip -
+	                    that one is Tailwind's own and needs nothing here. */
+	/* One corner, since 24/09/2026. On 23/09 it was two — 16 for the big
+	   pieces and 8 for what sits inside them, so every nested curve followed
+	   the one around it — and the owner looked at it and said the bigger a
+	   piece, the rounder it got, and the big ones stopped matching the small
+	   ones in them and beside them. He was right about what the eye does: a
+	   16 island beside an 8 button reads as two families. So everything is 8.
+	   The inner curve no longer follows the outer one exactly, and at 8
+	   pixels nobody can see that; everybody could see two radii.
+	   Nothing is round but faces, presence dots, counters and signal bars.
+	   The three names stay so the code still says which kind of piece it
+	   is. */
+	--radius-control: 8px;
+	--radius-tile: 8px;
+	--radius-panel: 8px;
+
+	/* --- the smallest thing a finger can hit ------------------------------- */
+	/* h-hit where there is a mouse, h-hit-touch where the pointer is coarse. */
+	--spacing-hit: 44px;
+	--spacing-hit-touch: 48px;
+
+	/* --- movement ---------------------------------------------------------- */
+	/* One curve for everything that moves, and only transform and opacity ever
+	   move (CLAUDE.md). */
+	--ease-h: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* The three durations. They are here rather than in @theme because Tailwind has
+   no named-duration namespace: a class writes duration-[var(--dur-base)], and
+   the rules further down this file read them directly. */
+:root {
+	--dur-fast: 120ms;
+	--dur-base: 180ms;
+	--dur-slow: 260ms;
+}
+
+html, body, #app {
+	height: 100%;
+}
+
+/* The screen the system keeps for itself.
+ *
+ * In a browser tab the address bar and the toolbar sat in these strips, so
+ * nothing of ours was ever under them. Installed on a home screen there is no
+ * browser bar: the app owns the whole glass, including the notch at the top and
+ * the home indicator at the bottom — and the box you type in, which is the last
+ * thing on the page, ended up underneath the bottom one. That is the bug the
+ * owner hit the first time he opened the installed app ("no celular (PWA) não
+ * tá aparecendo o lugar para digitar"), and it could only ever happen there.
+ *
+ * Kept as variables rather than written inline so that a test can move them and
+ * see what a telephone with a notch would see; env() is 0 wherever there is no
+ * inset, so on a computer and in a tab this changes nothing at all. */
+:root {
+	--safe-top: env(safe-area-inset-top, 0px);
+	--safe-right: env(safe-area-inset-right, 0px);
+	/* The bottom one is nought in a browser tab, deliberately, and it is the
+	 * only one of the four that is decided this way.
+	 *
+	 * The reason is the same one the whole strip business rests on: in a tab the
+	 * browser's own bars already sit in those strips, so the space is not ours
+	 * to pay for. Chrome reports 0 there and everything agreed. Firefox on
+	 * Android reports the gesture bar even in a tab — it draws edge-to-edge
+	 * under it because this page asks for viewport-fit=cover — and we then
+	 * padded around a strip the browser had already kept, which is a dead band
+	 * under the box you type in and under the call controls. That is exactly
+	 * what the owner saw, and exactly where: "no firefox do celular em
+	 * específico ta ficando um espaço a mais embaixo do chat e das opções de
+	 * mutar, sair da chamada".
+	 *
+	 * Installed, the app owns the whole glass and the strip is ours again, so
+	 * the real value comes back below. The top, left and right stay as they are
+	 * in both: a notch in landscape overlaps a tab as readily as an app. */
+	--safe-bottom: 0px;
+	--safe-left: env(safe-area-inset-left, 0px);
+}
+
+@media (display-mode: standalone), (display-mode: fullscreen), (display-mode: minimal-ui) {
+	:root {
+		--safe-bottom: env(safe-area-inset-bottom, 0px);
+	}
+}
+
+#app {
+	box-sizing: border-box;
+	padding: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);
+}
+
+/* Anything positioned against the viewport instead of against #app sits outside
+   that padding and has to avoid the same strips on its own. The numbers are the
+   padding each one already had (p-3 and p-4), plus the strip. */
+.safe-fixed-top {
+	padding-top: calc(0.75rem + var(--safe-top));
+}
+
+.safe-fixed {
+	padding-top: calc(1rem + var(--safe-top));
+	padding-right: calc(1rem + var(--safe-right));
+	padding-bottom: calc(1rem + var(--safe-bottom));
+	padding-left: calc(1rem + var(--safe-left));
+}
+
+/* How tall the app is, and why it is the smaller of two answers.
+ *
+ * Neither unit is right on its own, and each is wrong on a different screen —
+ * measured on the owner's telephone, in the same minute, by the diag log:
+ *
+ *   aba do Chrome       janela 683   100%  ~740   100dvh 683
+ *   app instalado       janela 739   100%   739   100dvh 796
+ *
+ * In a browser tab the address bar slides in and out and "100%" is measured as
+ * if it were not there, so the app ends up taller than the glass — that is the
+ * bug 100dvh was brought in for, a sprint ago. Installed on a home screen it is
+ * the other way round: 100dvh came back 57px *more* than the window, which is
+ * the height of the Android navigation bar, so everything in the footer — the
+ * box you type in, your own name, the gear — was drawn underneath it. And
+ * env(safe-area-inset-bottom) reported 0px there, so no amount of padding could
+ * have found those 57px.
+ *
+ * min() takes whichever answer is smaller, which is the one that fits on the
+ * glass, and it needs to know nothing about why they differ. */
+@supports (height: 100dvh) {
+	html, body, #app {
+		height: min(100%, 100dvh);
+	}
+}
+
+/* And the page itself never scrolls sideways. Everything that can be wider
+   than the screen — a row of faces, a table, a pasted address — scrolls inside
+   its own box. */
+body {
+	overflow-x: hidden;
+}
+
+body {
+	margin: 0;
+	background: var(--color-background);
+	color: var(--color-foreground);
+	font-family: var(--font-sans);
+	-webkit-text-size-adjust: 100%;
+}
+
+/* The CSP has no unsafe-inline, so nothing in this app may carry a style
+   attribute. Anything that would have been one lives here as a class. */
+
+/* The pointer says what can be pressed.
+ *
+ * A <button> is cursor: default in every browser, and neither Tailwind's
+ * preflight nor this stylesheet was saying otherwise - so in an app that is
+ * almost entirely buttons, the pointer never changed anywhere. The owner
+ * noticed on 20/09/2026: "to sentindo falta do mouse mudar quando eu passo o
+ * mouse em cima de algo clicavel".
+ *
+ * Here and not as a utility class on four hundred elements, because it is not
+ * a decision taken per button: anything that can be pressed says so, and the
+ * only way to keep that true is to make it the default.
+ *
+ * :disabled is excluded and gets the barred pointer instead - a control that
+ * cannot be pressed lying about it is worse than one that says nothing. */
+button:not(:disabled),
+summary,
+a[href],
+[role="button"]:not([aria-disabled="true"]) {
+	cursor: pointer;
+}
+
+button:disabled,
+[role="button"][aria-disabled="true"] {
+	cursor: not-allowed;
+}
+
+/* Something that only appears under the pointer.
+ *
+ * Written here rather than as `hidden group-hover:grid` because of the last
+ * line: a telephone has no pointer, and a control that waits for a hover that
+ * can never happen is a control that does not exist. `hover: none` is the
+ * question "is this a device that can hover", and it is the only honest way
+ * to ask it - a width is not a pointer.
+ *
+ * The owner asked for the invite button to work this way on 20/09/2026 ("o
+ * botao de chamar alguem deve aparecer somente quando eu passo o mouse em cima
+ * da chamada"), and the button that closes a conversation already did it the
+ * Tailwind way, without the telephone half. Both use this now. */
+.revela {
+	display: none;
+}
+
+/* Keyboard focus, not any focus: a click leaves focus on the button it hit, so
+   :focus-within kept the voice room's invite button up for as long as you sat
+   in the room after clicking in (the owner, 24/09/2026: "so deve aparecer
+   quando o mouse estiver em cima da chamada"). */
+.group:hover .revela,
+.group:has(:focus-visible) .revela {
+	display: grid;
+}
+
+@media (hover: none) {
+	.revela {
+		display: grid;
+	}
+}
+
+/* The watch button over a camera: there, but see-through, until the pointer
+   is on the tile or the keyboard is on the button. */
+@media (hover: hover) {
+	.group .revela-camera {
+		opacity: 0;
+	}
+	.group:hover .revela-camera,
+	.revela-camera:focus-visible {
+		opacity: 1;
+	}
+}
+
+/* Nothing here any more, and that is the point.
+ *
+ * Three rounds went into a correction that lifted the name off its line, by
+ * 0.09em and then by 0.068em, because the name looked low beside the mark. It
+ * was not low. The mark was **bigger**: the hash was drawn at 18px next to a
+ * 15px word, which is 13.2px of ink against 11.0. Their tops met and their
+ * baselines were 2.1px apart, and sliding the word can only ever trade one
+ * end of that gap for the other - which is exactly what the owner saw each
+ * time, one word looking right and the next looking wrong.
+ *
+ * The hash is now the row's own size (App.tsx), so the two are one line of
+ * text in one line box and the browser puts them on the same baseline with no
+ * help. A drawn icon stays centred in its box, which for Inter lands on the
+ * same place - the band from the baseline to the ascender is what a centred
+ * line box centres, and that band is exactly what the hash's ink fills.
+ *
+ * If a name ever needs lifting again, check the two sizes first. */
+
+/* The scroll bar. 8B first (24/09/2026: always drawn, wider, on a dark
+   groove), then Discord's the same day: a rounded 8px thumb and nothing under
+   it. Firefox cannot be asked for that - it offers a colour and "thin", and
+   on Windows 11 its bar is a hair that swells and grows arrows under the
+   pointer - so since 24/09/2026 the browser's bar is hidden everywhere and
+   the app draws its own (src/scrollbar.ts): an SVG layer beside each
+   .scroller with one rounded rect in it. */
+.scroller {
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	scrollbar-width: none;
+}
+.scroller::-webkit-scrollbar { display: none; }
+.scroll-layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+	pointer-events: none;
+}
+/* A scroller that is itself lifted (a list that opens over the page) takes
+   its layer up with it, or the thumb would be drawn under the list. */
+.scroll-layer[data-z="10"] { z-index: 10; }
+.scroll-layer[data-z="20"] { z-index: 20; }
+.scroll-layer[data-z="30"] { z-index: 30; }
+.scroll-layer[data-z="40"] { z-index: 40; }
+.scroll-layer[data-z="50"] { z-index: 50; }
+.scroll-thumb { fill: var(--color-scroll-thumb); pointer-events: auto; }
+.scroll-thumb:hover, .scroll-thumb-held { fill: var(--color-scroll-thumb-hover); }
+
+/* The same, sideways: a row that is wider than the screen slides on its own
+   instead of taking the page with it. */
+.scroller-x {
+	overflow-x: auto;
+	overflow-y: hidden;
+	overscroll-behavior-x: contain;
+	scrollbar-width: none;
+}
+
+/* A message that names you. The tint and the bar are the whole of "a mention
+   notifies" inside the app.
+
+   The bar is 3px and the tint reaches both edges of the conversation, which is
+   the design's own arrangement (Etapa 2, 02): the row itself bleeds past the
+   list's padding, so the mark is on the conversation and not on a card floating
+   inside it. */
+/* A message naming you: accent at 12%, and the 3px accent bar of the channel
+   you are in, with a rounded end, against the edge of the pane. The bar was an
+   inset shadow, and once the rows were rounded it bent round the corner - the
+   owner, 23/09/2026: "a parte azul mais claro ficou muito feio, faz igual
+   quando um canal está selecionado". That was the bar, not the tint: for one
+   round the tint went grey too, and he asked for the blue back the same
+   night. The row is -mx-2, so -8px is the pane's own edge, as -left-2 is the
+   column's edge for a channel. */
+.mentioned {
+	background: var(--color-accent-soft);
+}
+.mentioned::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: -8px;
+	width: 3px;
+	border-radius: 0 9999px 9999px 0;
+	background: var(--color-accent);
+}
+
+/* Keep the hover inside its message so consecutive rows never paint over
+   each other. The action toolbar can still extend beyond the row. */
+.msg-hover {
+	isolation: isolate;
+}
+.msg-hover:hover::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: -2;
+	border-radius: 8px;
+	background: var(--color-surface);
+}
+
+/* A search target fades on its own layer; the text stays fully opaque. */
+[data-message] {
+	isolation: isolate;
+}
+/* A child z-index cannot escape the isolation of its message row. */
+.message-actions-open { z-index: 40; }
+.message-highlight-layer {
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	border-radius: 8px;
+	background: var(--color-accent-soft);
+	opacity: 0;
+	transition: opacity 300ms;
+	pointer-events: none;
+}
+.message-highlight > .message-highlight-layer {
+	opacity: 1;
+}
+@media (pointer: coarse) {
+	[data-message] {
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		user-select: none;
+	}
+	[data-message] [data-actions]:not([data-actions-open]) {
+		display: none;
+	}
+}
+
+/* Only transform and opacity animate (CLAUDE.md). */
+@keyframes rise {
+	from { opacity: 0; transform: translateY(4px); }
+	to   { opacity: 1; transform: none; }
+}
+
+.rise {
+	animation: rise var(--dur-fast) var(--ease-h);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.rise { animation: none; }
+}
+
+/* The bar on a file that is still going up.
+ *
+ * It is a <progress> and not a coloured box, because a box that grows has to
+ * carry its own width and this page has no inline style anywhere - the CSP
+ * forbids it and security_test.go checks for it. Here the number is an
+ * attribute, the browser draws the bar, and a screen reader reads it out.
+ *
+ * Three rules for one bar: the element itself, and then the two pseudo-elements
+ * the engines disagree about. WebKit and Blink split it into a track and a
+ * filled part; Gecko gives only the filled part and takes the track from the
+ * element's own background. Leaving any of the three out leaves somebody with
+ * the operating system's own bar, which is the one thing this sprint is
+ * against. */
+.upload-bar {
+	appearance: none;
+	-webkit-appearance: none;
+	display: block;
+	width: 100%;
+	height: 4px;
+	border: 0;
+	border-radius: 999px;
+	background: var(--color-surface-2);
+	overflow: hidden;
+}
+
+.upload-bar::-webkit-progress-bar {
+	background: var(--color-surface-2);
+	border-radius: 999px;
+}
+
+.upload-bar::-webkit-progress-value {
+	background: var(--color-accent);
+	border-radius: 999px;
+}
+
+.upload-bar::-moz-progress-bar {
+	background: var(--color-accent);
+	border-radius: 999px;
+}
+
+/* Wrapping that keeps a pasted URL from widening the whole column. */
+.body-text {
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+}
+
+/* The face, and the hole the presence dot sits in (src/Avatar.tsx).
+ *
+ * 85.4% is not a taste: it is where the edge of a circle passes at 45 degrees,
+ * 0.5 + 0.5/sqrt(2). Putting the centre of the dot exactly there puts half of
+ * it inside the face and half outside, on the diagonal, which is the position
+ * every service like this one uses and the one the design drew.
+ *
+ * The mask is what makes it work on any background. The alternative — a dot
+ * with a two-pixel ring of "the colour behind it" — has to name that colour,
+ * and the colour behind a row in this app is four different things (the
+ * column, the row under the pointer, the selected row, the drawer over the
+ * conversation). A hole is none of them and right in all four.
+ *
+ * The two stops at 100% are deliberate: a radial gradient with both ends at
+ * the same place is a hard edge, so this is a circle cut out and not a fade.
+ * -webkit- first because Safari and every iPhone browser still want it.
+ *
+ * There are two because there are two faces, and the hole is drawn in absolute
+ * pixels: it has to be the dot's radius plus the two pixels of gap that make
+ * the dot read as sitting in front. The 28px face carries an 8px dot, so 6; the
+ * 32px face carries a 10px dot, so 7. Getting this wrong is not subtle - too
+ * small and the face touches the dot, too large and there is a crescent of the
+ * row showing through beside it. */
+.avatar-hole {
+	-webkit-mask-image: radial-gradient(circle 6px at 85.4% 85.4%, transparent 100%, #000 100%);
+	mask-image: radial-gradient(circle 6px at 85.4% 85.4%, transparent 100%, #000 100%);
+}
+
+.avatar-hole-lg {
+	-webkit-mask-image: radial-gradient(circle 7px at 85.4% 85.4%, transparent 100%, #000 100%);
+	mask-image: radial-gradient(circle 7px at 85.4% 85.4%, transparent 100%, #000 100%);
+}
+
+.avatar-dot {
+	position: absolute;
+	left: 85.4%;
+	top: 85.4%;
+	transform: translate(-50%, -50%);
+}
+
+/* The channel column's width is one of eight Tailwind classes, chosen by
+   dragging (App.tsx). This is only the telephone half of it: the drawer uses
+   the same column, and a width chosen on a monitor would cover the whole screen
+   there. */
+.channel-column {
+	max-width: 78vw;
+}
+
+/* The error page, and why its rules are here rather than on the page.
+ *
+ * internal/harmony/api/assets/404.html is the one page written by hand: it has
+ * to answer before any of the client exists, so it loads no JavaScript and
+ * carries no markup Preact ever sees. It cannot use Tailwind utilities either —
+ * Tailwind emits only the classes it finds while scanning this folder, and that
+ * file is over in the Go server's assets — and the CSP has no unsafe-inline, so
+ * it cannot carry a <style> block of its own. What is left is named classes, in
+ * this stylesheet, which is the same answer the rest of the file gives.
+ *
+ * What they draw is the sign-in screen's Frame (src/Auth.tsx) written out, so
+ * that somebody who clicks an invite that was already used lands on a page that
+ * looks like the service and not like a server error. */
+.notice {
+	box-sizing: border-box;
+	min-height: 100%;
+	display: grid;
+	place-content: center;
+	justify-items: center;
+	gap: 1.5rem;
+	padding:
+		calc(1.5rem + var(--safe-top)) calc(1.5rem + var(--safe-right))
+		calc(1.5rem + var(--safe-bottom)) calc(1.5rem + var(--safe-left));
+}
+
+.card {
+	width: 100%;
+	max-width: 24rem;
+	box-sizing: border-box;
+	border-radius: 8px;
+	background: var(--color-surface);
+	padding: 1.5rem;
+}
+
+.card h1 {
+	margin: 0 0 0.25rem;
+	font-size: 20px;
+	line-height: 28px;
+	font-weight: 600;
+	letter-spacing: -0.015em;
+}
+
+.sub {
+	margin: 0 0 1.5rem;
+	font-size: 13px;
+	line-height: 18px;
+	color: var(--color-foreground-muted);
+}
+
+/* The last paragraph in a card has nothing under it to be spaced from. */
+.flush-bottom {
+	margin-bottom: 0;
+}
+
+.notice footer a {
+	font-size: 13px;
+	color: var(--color-accent);
+	text-decoration: none;
+}
+
+.notice footer a:hover {
+	text-decoration: underline;
+}
+
+/* The name on your account's line, next to the microphone, the hearing and
+   the gear while you are in a room (option C, 23/09/2026). In the two
+   narrowest widths of the column it had some twenty pixels left and read
+   "D..", which says less than the face beside it with the same initial. So
+   there, and only in a room, it steps aside: hidden but still taking its
+   place, so the buttons stay on the right edge. The @name stays in its
+   tooltip. */
+[data-island='voce'] {
+	container: voce / inline-size;
+}
+@container voce (max-width: 220px) {
+	[data-account]:has([data-toggle]) .account-name {
+		visibility: hidden;
+	}
+}
+
+/* The room's bar gives way by its own width (Call.tsx, Controls). Measured on
+   23/09/2026 after the Codex's audit: at 320, 360 and 375px of telephone the
+   last button, "Sair", was past the edge of the screen, and at a 768px window
+   with both columns open half the bar was. The numbers are the bar's content
+   box: under 520 the "Boa · 38 ms" chip goes (the column has the same bars)
+   and "Sair" loses its word; under 330 the invite button goes (it is on the
+   room's row in the column too); under 250 the buttons come down to 38. */
+[data-call-controls] {
+	container: controles / inline-size;
+}
+@container controles (max-width: 520px) {
+	[data-call-controls] .bar-linha,
+	[data-call-controls] .bar-palavra {
+		display: none;
+	}
+	[data-call-controls] .bar-sair {
+		aspect-ratio: 1;
+		width: auto;
+		padding: 0;
+	}
+}
+@container controles (max-width: 330px) {
+	[data-call-controls] .bar-convite {
+		display: none;
+	}
+}
+@container controles (max-width: 250px) {
+	[data-call-controls] > button {
+		width: 38px;
+		height: 38px;
+	}
+}
+
+/* Fields in the panels (Modal.tsx, Choice): no border, a raised ground, and
+   the focus drawn as an outline — a ring is a box-shadow, and the panels open
+   over the call's pictures. The native checkbox and slider take the accent. */
+.field {
+	outline: none;
+}
+.field:focus-visible {
+	outline: 2px solid var(--color-accent);
+	outline-offset: 0;
+}
+/* The checkbox is a switch and the slider fills up to its knob (the owner,
+   24/09/2026: "checkbox e os sliders estão muito feios"). Both drawn here,
+   with no glyph: a tick would be icon geometry, and icon geometry only comes
+   from the kit. The one corner (8) on both, and on their knobs a smaller one
+   that stays inside it. Only transform moves (CLAUDE.md); the colour changes
+   without a transition. */
+input[type='checkbox'] {
+	appearance: none;
+	position: relative;
+	flex-shrink: 0;
+	width: 36px;
+	height: 20px;
+	margin: 0;
+	border-radius: 8px;
+	background: var(--color-surface-3);
+	cursor: pointer;
+}
+input[type='checkbox']::before {
+	content: '';
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 16px;
+	height: 16px;
+	border-radius: 6px;
+	background: var(--color-foreground-muted);
+	transition: transform 0.15s ease;
+}
+input[type='checkbox']:checked {
+	background: var(--color-accent);
+}
+input[type='checkbox']:checked::before {
+	background: var(--color-foreground);
+	transform: translateX(16px);
+}
+input[type='checkbox']:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+input[type='checkbox']:focus-visible,
+input[type='range']:focus-visible {
+	outline: 2px solid var(--color-accent);
+	outline-offset: 2px;
+}
+
+/* The slider, redrawn (24/09/2026: "o slider ta bugado e achei feio"). The
+   fill used to be the knob's own shadow thrown to the left and cut by the
+   track: it spilled past the knob at the low end, and a 20px bar with a boxed
+   knob read heavy. Now it is two elements: a <progress> drawn as a thin groove
+   with its fill - "how much", painted by the browser from the value attribute,
+   so no number goes into an inline style the page's policy forbids - and the
+   real range input on top of it, transparent, carrying only the knob, the
+   keyboard and the pointer. The fill ends inside the knob at every value: the
+   knob's centre runs from 8px to width-8 while the fill runs from 0 to width. */
+.range {
+	position: relative;
+	display: block;
+	flex: 1;
+	min-width: 0;
+	height: 20px;
+}
+.range-fill {
+	appearance: none;
+	position: absolute;
+	left: 0;
+	top: 7px;
+	width: 100%;
+	height: 6px;
+	border: 0;
+	border-radius: 3px;
+	background: var(--color-surface-3);
+	overflow: hidden;
+}
+.range-fill::-webkit-progress-bar { background: var(--color-surface-3); border-radius: 3px; }
+.range-fill::-webkit-progress-value { background: var(--color-accent); border-radius: 3px; }
+.range-fill::-moz-progress-bar { background: var(--color-accent); border-radius: 3px; }
+.range > input[type='range'] {
+	appearance: none;
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 20px;
+	margin: 0;
+	background: transparent;
+	cursor: pointer;
+}
+.range > input[type='range']::-webkit-slider-runnable-track { height: 20px; background: transparent; }
+.range > input[type='range']::-webkit-slider-thumb {
+	appearance: none;
+	width: 16px;
+	height: 16px;
+	margin-top: 2px;
+	border-radius: 6px;
+	background: var(--color-foreground);
+	transition: transform 0.15s ease;
+}
+.range > input[type='range']:hover::-webkit-slider-thumb { transform: scale(1.125); }
+.range > input[type='range']::-moz-range-track { height: 20px; background: transparent; }
+.range > input[type='range']::-moz-range-thumb {
+	box-sizing: border-box;
+	width: 16px;
+	height: 16px;
+	border: 0;
+	border-radius: 6px;
+	background: var(--color-foreground);
+	transition: transform 0.15s ease;
+}
+.range > input[type='range']:hover::-moz-range-thumb { transform: scale(1.125); }
+
+/* The column's edge (10A): a grey line that fades in when the pointer has
+   stayed on the edge for a moment, and stays while it is being dragged or has
+   keyboard focus. The delay is what stops the flash of a pointer merely
+   crossing it on its way somewhere else. Opacity only (CLAUDE.md). */
+.resizer-line {
+	opacity: 0;
+	transition: opacity 0.2s ease;
+}
+[data-resizer]:hover > .resizer-line {
+	opacity: 1;
+	transition-delay: 0.15s;
+}
+[data-resizer][data-dragging] > .resizer-line,
+[data-resizer]:focus-visible > .resizer-line {
+	opacity: 1;
+	transition-delay: 0s;
+}
+
+/* D4v — Codex: painéis da conversa */
+/* The typing box has no rule above it any more, so the panels over it sit
+   the same 8px off it as every other panel off its opener. */
+[data-composer] > .emoji-up { bottom: calc(100% + 8px); }
+[data-composer] > .mention-panel { margin-bottom: 8px; }
+/* The island says it has the cursor with a ring inside its own edge: a line
+   of 1px that is there only while you are typing. */
+.composer-island:focus-within { box-shadow: inset 0 0 0 1px var(--color-outline-muted); }
+/* 8 + 32 rail + 8 + eight 36px cells with 4 between + 12 of scroll bar + 8. */
+.emoji-panel { width: 384px; max-width: calc(100vw - 32px); height: 420px; max-height: calc(100dvh - 96px); }
+.emoji-up { bottom: calc(100% + 8px); }
+.emoji-down { top: calc(100% + 8px); }
+/* Hide the initial upward box until its visible room has been measured.
+   The panel itself scrolls too when even the search row cannot fit. */
+.emoji-pending { visibility: hidden; width: 0; height: 0; overflow: hidden; }
+.emoji-sized {
+	height: calc(var(--emoji-height-1, 0px) + var(--emoji-height-2, 0px) + var(--emoji-height-4, 0px) + var(--emoji-height-8, 0px) + var(--emoji-height-16, 0px) + var(--emoji-height-32, 0px) + var(--emoji-height-64, 0px) + var(--emoji-height-128, 0px) + var(--emoji-height-256, 0px));
+	width: calc(var(--emoji-width-1, 0px) + var(--emoji-width-2, 0px) + var(--emoji-width-4, 0px) + var(--emoji-width-8, 0px) + var(--emoji-width-16, 0px) + var(--emoji-width-32, 0px) + var(--emoji-width-64, 0px) + var(--emoji-width-128, 0px) + var(--emoji-width-256, 0px));
+	min-height: 0;
+	overflow: auto;
+	overscroll-behavior: contain;
+}
+.emoji-height-1 { --emoji-height-1: 1px; }
+.emoji-height-2 { --emoji-height-2: 2px; }
+.emoji-height-4 { --emoji-height-4: 4px; }
+.emoji-height-8 { --emoji-height-8: 8px; }
+.emoji-height-16 { --emoji-height-16: 16px; }
+.emoji-height-32 { --emoji-height-32: 32px; }
+.emoji-height-64 { --emoji-height-64: 64px; }
+.emoji-height-128 { --emoji-height-128: 128px; }
+.emoji-height-256 { --emoji-height-256: 256px; }
+.emoji-width-1 { --emoji-width-1: 1px; }
+.emoji-width-2 { --emoji-width-2: 2px; }
+.emoji-width-4 { --emoji-width-4: 4px; }
+.emoji-width-8 { --emoji-width-8: 8px; }
+.emoji-width-16 { --emoji-width-16: 16px; }
+.emoji-width-32 { --emoji-width-32: 32px; }
+.emoji-width-64 { --emoji-width-64: 64px; }
+.emoji-width-128 { --emoji-width-128: 128px; }
+.emoji-width-256 { --emoji-width-256: 256px; }
+/* Eight across at 36px, and narrower cells rather than a sideways scroll
+   when the panel is narrower than that (a telephone). */
+.emoji-grid { display: grid; grid-template-columns: repeat(8, minmax(0, 36px)); gap: 4px; }
+.emoji-cell { display: grid; place-items: center; width: 100%; aspect-ratio: 1; font-size: 22px; line-height: 1; }
+.emoji-list { padding-right: 12px; }
+/* The rail scrolls on a short panel, without a bar of its own. */
+.emoji-rail { overflow-y: auto; scrollbar-width: none; }
+.emoji-rail::-webkit-scrollbar { display: none; }
+
+/* Twemoji (Twemoji.tsx). In a line of text a picture is 22px against the 16px
+   type - the size Discord gives it - sitting on the bottom of the 24px line so
+   a line with an emoji is exactly as tall as one without. In the panel and on a
+   reaction it is the size of the cell it is in. */
+img.emoji {
+	display: inline-block;
+	width: 1.375em;
+	height: 1.375em;
+	vertical-align: bottom;
+	object-fit: contain;
+}
+.emoji-cell > img.emoji,
+.emoji-cell > .emoji-hold { width: 78%; height: auto; max-width: 28px; aspect-ratio: 1; }
+img.emoji.emoji-tab { width: 18px; height: 18px; vertical-align: middle; }
+img.emoji.emoji-chip { width: 16px; height: 16px; vertical-align: middle; }
+.mention-panel { width: 348px; max-width: calc(100% - 16px); }
+.mention-option.is-selected::before { content: ''; position: absolute; left: -8px; top: 0; bottom: 0; width: 3px; border-radius: 0 2px 2px 0; background: #0485f7; }
+.conversation-confirm { max-height: calc(100dvh - 32px); }
+.conversation-lightbox > img { max-height: calc(100dvh - 160px); width: auto; height: auto; }
+.search-panel { max-height: calc(100dvh - 32px); }
+.search-handle { display: none; touch-action: none; }
+@media (max-width: 639px) {
+	.search-veil { align-items: end; padding: 8px 0; padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 8px); }
+	.search-panel { max-height: calc(100dvh - env(safe-area-inset-bottom, 0px) - 24px); border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+	.search-handle { display: grid; }
+	.lightbox-hint { top: 68px; }
+	.conversation-lightbox > img { max-height: calc(100dvh - 240px); }
+}
+/* Eight columns keep their rhythm; exceptionally narrow screens scroll the grid. */
+@media (max-width: 363px) {
+}
+
+/* The channel column reads one step larger than the rest (the owner,
+   24/09/2026: "aumente a fonte de tudo que tem na esquerda"). The same four
+   names, redefined here, so every row, heading and the voice strip in it grow
+   together and nothing in the column keeps the old size by accident.
+   The people column on the right reads at the same step (24/09/2026: "aumente
+   também as letras do menu direito para ficar igual ao esquerdo"). */
+.channel-column,
+[data-island='pessoas'] {
+	--text-label: 13px;
+	--text-label--line-height: 18px;
+	--text-meta: 14px;
+	--text-meta--line-height: 20px;
+	--text-item: 16px;
+	--text-item--line-height: 24px;
+}
+
+/* The results reach 12px into the panel's right padding and keep that strip
+   for the bar (padding now: the app's own bar takes no room of its own), so each card is exactly as wide as the search box above it and
+   the bar sits in the margin instead of over the text (24/09/2026: "a caixa de
+   escrever maior que as mensagens"). */
+.search-results {
+	padding-right: 12px;
+}
+
+/* Text channel marks sit halfway as far from their names. Other row gaps stay unchanged. */
+.channel-entry > [aria-hidden] { margin-right: -3px; }
+.channel-header > [aria-hidden] { margin-right: -7.5px; }
+.search-status { padding-left: 44px; padding-right: 12px; }
+[data-settings] label:has(input[type='checkbox']),
+[data-settings] [role='switch'] { font-size: var(--text-item); line-height: var(--text-item--line-height); }
+
+/* Preserve the type hierarchy, with Medium as the minimum readable weight. */
+body { font-weight: 500; }
+.font-normal, .font-light, .font-thin, .font-extralight { font-weight: 500; }
+button.danger-action, button[data-danger], button:has(> svg[data-icon="xmark"]),
+button[class~="bg-danger"], button[class~="bg-danger-soft"] {
+  background-color: #db3b3e; color: #fcfcfc;
+}
+button.danger-action:hover, button[data-danger]:hover, button:has(> svg[data-icon="xmark"]):hover,
+button[class~="bg-danger"]:hover, button[class~="bg-danger-soft"]:hover {
+  background-color: #e15451; color: #fcfcfc;
+}
+.composer-island:focus-within { box-shadow: inset 0 0 0 2px #0485f7; }
+.profile-photo-edit { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 50%; background: #0009; color: white; opacity: 0; }
+button:hover > .profile-photo-edit, button:focus-visible > .profile-photo-edit { opacity: 1; }
+
+.image-viewport { position: absolute; inset: 80px 32px; display: flex; align-items: center; justify-content: center; overflow: hidden; touch-action: none; }
+.image-viewport img { flex: none; max-width: 100%; max-height: 100%; width: auto; height: auto; border-radius: 8px; user-select: none; }
+.image-zoom-controls { position: absolute; bottom: 44px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
+.image-zoom-controls button { height: 36px; min-width: 36px; padding: 0 12px; border-radius: 8px; background: var(--color-surface); color: var(--color-foreground); }
+.image-zoom-controls button:hover { background: var(--color-surface-2); }
+@media (max-width: 767px) {
+	.image-viewport { inset: 112px 16px 96px; }
+	.image-zoom-controls { bottom: 52px; }
+}
+
+/* Where a dragged row of the channel column would land (D12a, App.tsx). A
+   2px bar above or below the row, or the heading of a folder lit up when the
+   room would go inside it. Drawn by class: the column writes no style. */
+.drop-before::before,
+.drop-after::after {
+	content: '';
+	position: absolute;
+	left: 8px;
+	right: 8px;
+	height: 2px;
+	border-radius: 1px;
+	background: var(--color-accent);
+	pointer-events: none;
+	z-index: 1;
+}
+.drop-before::before {
+	top: -1px;
+}
+.drop-after::after {
+	bottom: -1px;
+}
+.drop-into {
+	border-radius: var(--radius-control, 8px);
+	background: var(--color-accent-soft);
+}
+
+/* Role colours (D12c, ranks.ts). The palette is fixed because nothing in
+   this client may set a style at run time: each colour is a class, one for
+   a name and one for a swatch square. */
+.role-48e5c2 { color: #48e5c2; }
+.role-7bed9f { color: #7bed9f; }
+.role-74b9ff { color: #74b9ff; }
+.role-c39bd3 { color: #c39bd3; }
+.role-f78fb3 { color: #f78fb3; }
+.role-ffeaa7 { color: #ffeaa7; }
+.role-f8c291 { color: #f8c291; }
+.role-ff7675 { color: #ff7675; }
+.role-dfe6e9 { color: #dfe6e9; }
+.role-ffffff { color: #ffffff; }
+.role-1abc9c { color: #1abc9c; }
+.role-2ecc71 { color: #2ecc71; }
+.role-3498db { color: #3498db; }
+.role-9b59b6 { color: #9b59b6; }
+.role-e91e63 { color: #e91e63; }
+.role-f1c40f { color: #f1c40f; }
+.role-e67e22 { color: #e67e22; }
+.role-e74c3c { color: #e74c3c; }
+.role-95a5a6 { color: #95a5a6; }
+.role-607d8b { color: #607d8b; }
+.role-11806a { color: #11806a; }
+.role-1f8b4c { color: #1f8b4c; }
+.role-206694 { color: #206694; }
+.role-71368a { color: #71368a; }
+.role-ad1457 { color: #ad1457; }
+.role-c27c0e { color: #c27c0e; }
+.role-a84300 { color: #a84300; }
+.role-992d22 { color: #992d22; }
+.role-979c9f { color: #979c9f; }
+.role-546e7a { color: #546e7a; }
+.role-00bcd4 { color: #00bcd4; }
+.role-a3e635 { color: #a3e635; }
+.role-5865f2 { color: #5865f2; }
+.role-7c4dff { color: #7c4dff; }
+.role-e040fb { color: #e040fb; }
+.role-ffd700 { color: #ffd700; }
+.role-ff7f50 { color: #ff7f50; }
+.role-dc143c { color: #dc143c; }
+.role-8d6e63 { color: #8d6e63; }
+.role-b0bec5 { color: #b0bec5; }
+.role-004d40 { color: #004d40; }
+.role-1b5e20 { color: #1b5e20; }
+.role-1a3a8a { color: #1a3a8a; }
+.role-4a148c { color: #4a148c; }
+.role-880e4f { color: #880e4f; }
+.role-8a6d00 { color: #8a6d00; }
+.role-6d3410 { color: #6d3410; }
+.role-7f1d1d { color: #7f1d1d; }
+.role-4e342e { color: #4e342e; }
+.role-37474f { color: #37474f; }
+.swatch-48e5c2 { background-color: #48e5c2; }
+.swatch-7bed9f { background-color: #7bed9f; }
+.swatch-74b9ff { background-color: #74b9ff; }
+.swatch-c39bd3 { background-color: #c39bd3; }
+.swatch-f78fb3 { background-color: #f78fb3; }
+.swatch-ffeaa7 { background-color: #ffeaa7; }
+.swatch-f8c291 { background-color: #f8c291; }
+.swatch-ff7675 { background-color: #ff7675; }
+.swatch-dfe6e9 { background-color: #dfe6e9; }
+.swatch-ffffff { background-color: #ffffff; }
+.swatch-1abc9c { background-color: #1abc9c; }
+.swatch-2ecc71 { background-color: #2ecc71; }
+.swatch-3498db { background-color: #3498db; }
+.swatch-9b59b6 { background-color: #9b59b6; }
+.swatch-e91e63 { background-color: #e91e63; }
+.swatch-f1c40f { background-color: #f1c40f; }
+.swatch-e67e22 { background-color: #e67e22; }
+.swatch-e74c3c { background-color: #e74c3c; }
+.swatch-95a5a6 { background-color: #95a5a6; }
+.swatch-607d8b { background-color: #607d8b; }
+.swatch-11806a { background-color: #11806a; }
+.swatch-1f8b4c { background-color: #1f8b4c; }
+.swatch-206694 { background-color: #206694; }
+.swatch-71368a { background-color: #71368a; }
+.swatch-ad1457 { background-color: #ad1457; }
+.swatch-c27c0e { background-color: #c27c0e; }
+.swatch-a84300 { background-color: #a84300; }
+.swatch-992d22 { background-color: #992d22; }
+.swatch-979c9f { background-color: #979c9f; }
+.swatch-546e7a { background-color: #546e7a; }
+.swatch-00bcd4 { background-color: #00bcd4; }
+.swatch-a3e635 { background-color: #a3e635; }
+.swatch-5865f2 { background-color: #5865f2; }
+.swatch-7c4dff { background-color: #7c4dff; }
+.swatch-e040fb { background-color: #e040fb; }
+.swatch-ffd700 { background-color: #ffd700; }
+.swatch-ff7f50 { background-color: #ff7f50; }
+.swatch-dc143c { background-color: #dc143c; }
+.swatch-8d6e63 { background-color: #8d6e63; }
+.swatch-b0bec5 { background-color: #b0bec5; }
+.swatch-004d40 { background-color: #004d40; }
+.swatch-1b5e20 { background-color: #1b5e20; }
+.swatch-1a3a8a { background-color: #1a3a8a; }
+.swatch-4a148c { background-color: #4a148c; }
+.swatch-880e4f { background-color: #880e4f; }
+.swatch-8a6d00 { background-color: #8a6d00; }
+.swatch-6d3410 { background-color: #6d3410; }
+.swatch-7f1d1d { background-color: #7f1d1d; }
+.swatch-4e342e { background-color: #4e342e; }
+.swatch-37474f { background-color: #37474f; }
+.swatch-none { background-color: var(--color-default); }

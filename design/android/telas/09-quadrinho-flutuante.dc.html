@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/tokens/fonts.css">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/styles.css">
+<script src="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/_ds_bundle.js"></script>
+<style>body{margin:0;background:#0C0C0E;color:#FCFCFC;font-family:Inter,sans-serif}a{color:#0485F7}a:hover{color:#FCFCFC}</style>
+</helmet>
+<div style="padding:48px;display:flex;flex-direction:column;gap:40px;font-family:Inter,sans-serif;letter-spacing:-0.02em">
+  <div style="display:flex;flex-direction:column;gap:6px;max-width:72ch">
+    <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">harmony · Android · 2</span>
+    <h1 style="margin:0;font-size:24px;line-height:32px;font-weight:600">Quadrinho flutuante (picture-in-picture)</h1>
+    <p style="margin:0;font-size:14px;line-height:20px;color:#A1A1AA;text-wrap:pretty">A moldura, os cantos, a sombra e o véu dos botões são do Android. O app desenha só o conteúdo, sem texto por cima do vídeo ao vivo. Texto aparece só quando a live para ou acaba, e sempre numa peça opaca. Aqui o quadrinho está em 320×180 e 180×320; o sistema escala.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <span style="font-size:13px;line-height:20px;font-weight:600">Conteúdo, ao vivo</span>
+    <div style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-end">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div data-screen-label="2A PiP 16:9 ao vivo" style="width:320px;height:180px;border-radius:12px;overflow:hidden;background:#18181B">
+          <x-import component-from-global-scope="image-slot" from="../../image-slot.js" id="pip-169" placeholder="Quadro da live 16:9" hint-size="100%,100%"></x-import>
+        </div>
+        <span style="font-size:12px;line-height:16px;color:#A1A1AA">16:9 · jogo ou filme</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div data-screen-label="2B PiP 9:16 ao vivo" style="width:180px;height:320px;border-radius:12px;overflow:hidden;background:#18181B">
+          <x-import component-from-global-scope="image-slot" from="../../image-slot.js" id="pip-916" placeholder="Quadro da live 9:16" hint-size="100%,100%"></x-import>
+        </div>
+        <span style="font-size:12px;line-height:16px;color:#A1A1AA">9:16 · tela de celular</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div data-screen-label="2C PiP com botões do sistema" style="position:relative;width:320px;height:180px;border-radius:12px;overflow:hidden;background:#18181B">
+          <x-import component-from-global-scope="image-slot" from="../../image-slot.js" id="pip-169-b" placeholder="Quadro da live 16:9" hint-size="100%,100%"></x-import>
+          <div style="position:absolute;inset:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;gap:24px;pointer-events:none">
+            <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;color:#FFFFFF"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="volume" size="{{ s24 }}" hint-size="24px,24px"></x-import></span>
+            <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;color:#FFFFFF"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="microphone" size="{{ s24 }}" hint-size="24px,24px"></x-import></span>
+            <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;color:#FFFFFF"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="handset-arrow-out" size="{{ s24 }}" hint-size="24px,24px"></x-import></span>
+          </div>
+        </div>
+        <span style="font-size:12px;line-height:16px;color:#A1A1AA;max-width:320px">Depois de um toque: o véu e o arranjo são do sistema (aproximação). O app entrega só os três ícones.</span>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <span style="font-size:13px;line-height:20px;font-weight:600">Conteúdo, quando algo dá errado</span>
+    <div style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-end">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div data-screen-label="2D PiP imagem parada" style="position:relative;width:320px;height:180px;border-radius:12px;overflow:hidden;background:#18181B">
+          <x-import component-from-global-scope="image-slot" from="../../image-slot.js" id="pip-congelado" placeholder="Último quadro recebido" hint-size="100%,100%"></x-import>
+          <div style="position:absolute;left:8px;bottom:8px;height:28px;display:flex;align-items:center;gap:6px;padding:0 10px;background:#18181B;border-radius:8px;color:#F7B750;font-size:12px;line-height:16px;font-weight:500">
+            <x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="antenna-signal" size="{{ s12 }}" hint-size="12px,12px"></x-import>
+            <span>Imagem parada · reconectando</span>
+          </div>
+        </div>
+        <span style="font-size:12px;line-height:16px;color:#A1A1AA;max-width:320px">Nenhum quadro novo por 2 s. O último quadro continua, e o aviso é warning: ainda funciona, mas está piorando.</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div data-screen-label="2E PiP live acabou 16:9" style="width:320px;height:180px;border-radius:12px;background:#18181B;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px">
+          <span style="width:40px;height:40px;border-radius:9999px;background:#323235;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600">L</span>
+          <span style="font-size:14px;line-height:20px;font-weight:600">A live da Lia acabou</span>
+          <span style="font-size:12px;line-height:16px;color:#A1A1AA">Você continua na sala</span>
+        </div>
+        <span style="font-size:12px;line-height:16px;color:#A1A1AA">16:9 · acabou</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div data-screen-label="2F PiP live acabou 9:16" style="width:180px;height:320px;border-radius:12px;background:#18181B;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:0 16px;box-sizing:border-box;text-align:center">
+          <span style="width:40px;height:40px;border-radius:9999px;background:#323235;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600">L</span>
+          <span style="font-size:14px;line-height:20px;font-weight:600;text-wrap:balance">A live da Lia acabou</span>
+          <span style="font-size:12px;line-height:16px;color:#A1A1AA">Você continua na sala</span>
+        </div>
+        <span style="font-size:12px;line-height:16px;color:#A1A1AA">9:16 · acabou</span>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px;max-width:760px">
+    <span style="font-size:13px;line-height:20px;font-weight:600">Os três botões (RemoteAction)</span>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px">
+      <div style="display:flex;flex-direction:column;gap:8px;padding:16px;background:#18181B;border-radius:8px">
+        <div style="display:flex;gap:12px;color:#FCFCFC"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="volume" size="{{ s24 }}" hint-size="24px,24px"></x-import><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="volume-xmark" size="{{ s24 }}" hint-size="24px,24px"></x-import></div>
+        <span style="font-size:14px;line-height:20px;font-weight:600">Som da live</span>
+        <span style="font-size:12px;line-height:16px;color:#A1A1AA">pip-volume.svg / pip-volume-mudo.svg. Mostra o estado atual e troca ao tocar.</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;padding:16px;background:#18181B;border-radius:8px">
+        <div style="display:flex;gap:12px;color:#FCFCFC"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="microphone" size="{{ s24 }}" hint-size="24px,24px"></x-import><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="microphone-slash" size="{{ s24 }}" hint-size="24px,24px"></x-import></div>
+        <span style="font-size:14px;line-height:20px;font-weight:600">Meu microfone</span>
+        <span style="font-size:12px;line-height:16px;color:#A1A1AA">pip-microfone.svg / pip-microfone-mudo.svg.</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;padding:16px;background:#18181B;border-radius:8px">
+        <div style="display:flex;gap:12px;color:#FCFCFC"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="handset-arrow-out" size="{{ s24 }}" hint-size="24px,24px"></x-import></div>
+        <span style="font-size:14px;line-height:20px;font-weight:600">Sair da sala</span>
+        <span style="font-size:12px;line-height:16px;color:#A1A1AA">pip-sair-da-sala.svg. Fecha o quadrinho e sai da voz.</span>
+      </div>
+    </div>
+    <p style="margin:0;font-size:12px;line-height:16px;color:#A1A1AA;max-width:72ch">Não entrou "voltar ao app": o Android já volta ao app quando você toca no quadrinho, pelo botão de expandir que ele mesmo desenha. Os ícones vão brancos porque o sistema pinta o tint; o arquivo usa currentColor.</p>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() { return { s12: 12, s24: 24 }; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/tokens/fonts.css">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/styles.css">
+<script src="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/_ds_bundle.js"></script>
+<style>body{margin:0;background:#0C0C0E;color:#FCFCFC;font-family:Inter,sans-serif}a{color:#0485F7}a:hover{color:#FCFCFC}</style>
+</helmet>
+<div style="padding:48px;display:flex;flex-direction:column;gap:40px;font-family:Inter,sans-serif;letter-spacing:-0.02em">
+  <div style="display:flex;flex-direction:column;gap:6px;max-width:72ch">
+    <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">harmony · Android · 3</span>
+    <h1 style="margin:0;font-size:24px;line-height:32px;font-weight:600">Pedidos de permissão</h1>
+    <p style="margin:0;font-size:14px;line-height:20px;color:#A1A1AA;text-wrap:pretty">A folha de explicação sobe antes da caixa do sistema, e a caixa só abre depois de "Continuar". A folha solta fica 8 acima da borda, com raio 8 nos quatro cantos, sobre a tela escurecida a 30% e sem borrão. Cada pedido tem dois estados: antes de pedir, e depois de negado.</p>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+    <sc-for list="{{ perms }}" as="p" hint-placeholder-count="8">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:13px;line-height:20px;font-weight:600">{{ p.label }}</span>
+        <div data-screen-label="{{ p.label }}" style="position:relative;width:390px;height:844px;background:#060607;border-radius:36px;overflow:hidden;box-shadow:0 0 0 8px #232325">
+          <div style="position:absolute;left:0;right:0;top:0;height:36px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;box-sizing:border-box;font-size:13px;font-weight:500;color:#FCFCFC">
+            <span>21:14</span><span style="display:flex;gap:6px;color:#FCFCFC"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="antenna-signal" size="{{ s12 }}" hint-size="12px,12px"></x-import></span>
+          </div>
+          <span style="position:absolute;left:189px;top:12px;width:12px;height:12px;border-radius:9999px;background:#000"></span>
+          <div style="position:absolute;inset:0;background:rgba(0,0,0,0.3)"></div>
+          <div style="position:absolute;left:8px;right:8px;bottom:32px;background:#18181B;border-radius:8px;padding:24px 20px 20px;display:flex;flex-direction:column;gap:16px">
+            <span style="width:48px;height:48px;border-radius:8px;background:#232325;display:flex;align-items:center;justify-content:center;color:#FCFCFC"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="{{ p.icon }}" size="{{ s24 }}" hint-size="24px,24px"></x-import></span>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <h2 style="margin:0;font-size:20px;line-height:28px;font-weight:600;letter-spacing:-0.01em;text-wrap:balance">{{ p.title }}</h2>
+              <p style="margin:0;font-size:15px;line-height:22px;color:#A1A1AA;text-wrap:pretty">{{ p.body }}</p>
+            </div>
+            <sc-if value="{{ p.path }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:4px;padding:12px 14px;background:#232325;border-radius:8px">
+                <span style="font-size:12px;line-height:16px;color:#A1A1AA">No Android</span>
+                <span style="font-size:14px;line-height:20px;font-weight:500">{{ p.path }}</span>
+              </div>
+            </sc-if>
+            <div style="display:flex;flex-direction:column;gap:8px;padding-top:4px">
+              <span style="height:48px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#0485F7;font-size:15px;font-weight:600">{{ p.primary }}</span>
+              <span style="height:48px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#232325;font-size:15px;font-weight:500">{{ p.secondary }}</span>
+            </div>
+          </div>
+          <span style="position:absolute;left:141px;bottom:10px;width:108px;height:4px;border-radius:9999px;background:#A1A1AA"></span>
+        </div>
+        <span style="font-size:12px;line-height:16px;color:#A1A1AA;max-width:390px;text-wrap:pretty">{{ p.note }}</span>
+      </div>
+    </sc-for>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <span style="font-size:13px;line-height:20px;font-weight:600">e · Guia Xiaomi (rolagem completa)</span>
+    <div data-screen-label="3E Guia Xiaomi" style="position:relative;width:390px;background:#060607;border-radius:36px;overflow:hidden;box-shadow:0 0 0 8px #232325;padding:52px 16px 40px;box-sizing:border-box;display:flex;flex-direction:column;gap:24px">
+      <div style="position:absolute;left:0;right:0;top:0;height:36px;display:flex;align-items:center;padding:0 24px;font-size:13px;font-weight:500">21:14</div>
+      <span style="position:absolute;left:189px;top:12px;width:12px;height:12px;border-radius:9999px;background:#000"></span>
+      <div style="display:flex;flex-direction:column;gap:8px;padding:0 4px">
+        <h2 style="margin:0;font-size:22px;line-height:28px;font-weight:600;letter-spacing:-0.01em;text-wrap:balance">Pra chamada tocar com o celular bloqueado</h2>
+        <p style="margin:0;font-size:15px;line-height:22px;color:#A1A1AA;text-wrap:pretty">A Xiaomi segura os apps em segundo plano pra poupar bateria. São três chaves, coisa de um minuto, e você só faz uma vez.</p>
+      </div>
+      <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:12px;padding:16px;background:#18181B;border-radius:8px">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <span style="width:28px;height:28px;flex:none;border-radius:8px;background:#232325;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600">{{ st.n }}</span>
+            <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+              <span style="font-size:15px;line-height:22px;font-weight:600">{{ st.title }}</span>
+              <span style="font-size:13px;line-height:20px;color:#A1A1AA">{{ st.path }}</span>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="height:48px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#0485F7;font-size:15px;font-weight:600">Abrir Ajustes do harmony</span>
+        <span style="height:48px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#232325;font-size:15px;font-weight:500">Já fiz</span>
+      </div>
+    </div>
+    <span style="font-size:12px;line-height:16px;color:#A1A1AA;max-width:390px;text-wrap:pretty">Aparece só em aparelho Xiaomi, Redmi ou POCO, depois que você libera as notificações. Depois fica em Ajustes › Avisos › Chamada com o celular bloqueado.</span>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const perms = [
+      { label: '3a · Microfone — antes', icon: 'microphone', title: 'Pra falar na sala, o harmony precisa do microfone', body: 'Ele só fica ligado enquanto você está numa sala ou numa chamada. No mudo, nada sai.', primary: 'Continuar', secondary: 'Agora não', note: 'Ao entrar numa sala de voz ou atender pela primeira vez. "Continuar" abre a caixa do Android.' },
+      { label: '3a · Microfone — negado', icon: 'microphone-slash', title: 'Sem microfone, você só escuta', body: 'Tudo bem entrar assim. Quando quiser falar, é só liberar nos Ajustes.', path: 'Apps › harmony › Permissões › Microfone › Permitir só durante o uso', primary: 'Abrir Ajustes', secondary: 'Entrar só ouvindo', note: 'Depois de duas negativas o Android para de mostrar a caixa, então o único caminho é pelos Ajustes.' },
+      { label: '3b · Câmera — antes', icon: 'camera', title: 'Pra ligar a câmera, o Android pergunta antes', body: 'Ela só liga quando você toca nela e desliga quando você sai.', primary: 'Continuar', secondary: 'Agora não', note: 'Ao tocar em câmera pela primeira vez, dentro da sala ou da chamada.' },
+      { label: '3b · Câmera — negado', icon: 'camera', title: 'A câmera ficou bloqueada', body: 'Você continua na chamada com voz. Pra aparecer, libere a câmera nos Ajustes.', path: 'Apps › harmony › Permissões › Câmera › Permitir só durante o uso', primary: 'Abrir Ajustes', secondary: 'Seguir sem câmera', note: 'O botão de câmera fica no estado desligado; tocar nele mostra esta folha de novo.' },
+      { label: '3c · Notificações — antes', icon: 'bell', title: 'Quer saber quando alguém te chamar?', body: 'Mensagem direta, menção e chamada chegam mesmo com o app fechado. Canal que você silenciou continua quieto.', primary: 'Continuar', secondary: 'Agora não', note: 'No primeiro uso, depois de entrar. Android 13 ou mais novo; nos anteriores a permissão já vem ligada.' },
+      { label: '3c · Notificações — negado', icon: 'bell-slash', title: 'Sem aviso, você só vê quando abrir o app', body: 'Chamada também não toca. Dá pra ligar depois, quando quiser.', path: 'Apps › harmony › Notificações › Permitir notificações', primary: 'Abrir Ajustes', secondary: 'Deixar assim', note: '"Deixar assim" não pergunta de novo. O caminho continua em Ajustes › Avisos › Notificações, dentro do app.' },
+      { label: '3d · Instalar apps — antes', icon: 'arrow-rotate-right', title: 'Pra se atualizar, o harmony precisa de uma licença', body: 'É uma vez só. O Android vai abrir "Instalar apps desconhecidos": ligue "Permitir desta fonte" e volte pra cá.', primary: 'Continuar', secondary: 'Depois', note: 'Na primeira vez que você toca em Atualizar. Não é caixa: o Android abre uma tela de Ajustes.' },
+      { label: '3d · Instalar apps — negado', icon: 'arrow-rotate-right', title: 'A atualização ficou esperando', body: 'Sem essa licença o harmony não consegue instalar a versão nova. A que você tem continua funcionando.', path: 'Apps › Acesso especial › Instalar apps desconhecidos › harmony › Permitir desta fonte', primary: 'Abrir Ajustes', secondary: 'Depois', note: 'Aparece quando você volta da tela de Ajustes sem ter ligado a chave.' }
+    ];
+    const steps = [
+      { n: '1', title: 'Mostrar na tela de bloqueio', path: 'Ajustes › Apps › harmony › Outras permissões' },
+      { n: '2', title: 'Abrir novas janelas em segundo plano', path: 'Na mesma tela, Outras permissões' },
+      { n: '3', title: 'Bateria: Sem restrições', path: 'Ajustes › Apps › harmony › Energia › Economia de bateria' }
+    ];
+    return { perms, steps, s12: 12, s24: 24 };
+  }
+}
+</script>
+</body>
+</html>

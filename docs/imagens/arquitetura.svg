@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="420" viewBox="0 0 880 420" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="seta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#71717a"/>
+    </marker>
+    <marker id="seta-azul" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0485f7"/>
+    </marker>
+    <marker id="seta-verde" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#17c964"/>
+    </marker>
+  </defs>
+
+  <rect width="880" height="420" rx="16" fill="#060607"/>
+
+  <!-- clients -->
+  <text x="40" y="44" font-size="12" font-weight="600" letter-spacing="1.2" fill="#a1a1aa">CLIENTES</text>
+  <g>
+    <rect x="40" y="60" width="230" height="78" rx="12" fill="#18181b"/>
+    <text x="60" y="92" font-size="17" font-weight="600" fill="#fcfcfc">Navegador</text>
+    <text x="60" y="116" font-size="13" fill="#a1a1aa">Preact + Tailwind</text>
+  </g>
+  <g>
+    <rect x="40" y="154" width="230" height="78" rx="12" fill="#18181b"/>
+    <text x="60" y="186" font-size="17" font-weight="600" fill="#fcfcfc">Android</text>
+    <text x="60" y="210" font-size="13" fill="#a1a1aa">Kotlin + Compose + libwebrtc</text>
+  </g>
+  <g>
+    <rect x="40" y="248" width="230" height="78" rx="12" fill="#18181b"/>
+    <text x="60" y="280" font-size="17" font-weight="600" fill="#fcfcfc">Windows</text>
+    <text x="60" y="304" font-size="13" fill="#a1a1aa">C++ + WinUI 3 + libwebrtc</text>
+  </g>
+
+  <!-- server -->
+  <text x="400" y="44" font-size="12" font-weight="600" letter-spacing="1.2" fill="#a1a1aa">SERVIDOR · UM BINÁRIO GO</text>
+  <rect x="400" y="60" width="440" height="266" rx="16" fill="#18181b"/>
+  <g>
+    <rect x="420" y="80" width="400" height="66" rx="10" fill="#232325"/>
+    <text x="440" y="108" font-size="16" font-weight="600" fill="#fcfcfc">API + WebSocket</text>
+    <text x="440" y="130" font-size="13" fill="#a1a1aa">contas, canais, mensagens, presença, sinalização</text>
+  </g>
+  <g>
+    <rect x="420" y="160" width="400" height="66" rx="10" fill="#232325"/>
+    <text x="440" y="188" font-size="16" font-weight="600" fill="#fcfcfc">SFU próprio (Pion)</text>
+    <text x="440" y="210" font-size="13" fill="#a1a1aa">repassa voz, câmera e tela, sem decodificar</text>
+  </g>
+  <g>
+    <rect x="420" y="240" width="190" height="66" rx="10" fill="#232325"/>
+    <text x="440" y="268" font-size="16" font-weight="600" fill="#fcfcfc">SQLite</text>
+    <text x="440" y="290" font-size="13" fill="#a1a1aa">um arquivo só</text>
+  </g>
+  <g>
+    <rect x="630" y="240" width="190" height="66" rx="10" fill="#232325"/>
+    <text x="650" y="268" font-size="16" font-weight="600" fill="#fcfcfc">Anexos</text>
+    <text x="650" y="290" font-size="13" fill="#a1a1aa">no disco, com backup</text>
+  </g>
+
+  <!-- the three clients join one line; from it, data to the API, media to the SFU -->
+  <g fill="none" stroke="#3f3f46" stroke-width="2" stroke-linecap="round">
+    <path d="M270,99 H320"/><path d="M270,193 H320"/><path d="M270,287 H320"/>
+    <path d="M320,99 V287"/>
+  </g>
+  <path d="M320,113 H416" fill="none" stroke="#0485f7" stroke-width="2.5" marker-end="url(#seta-azul)"/>
+  <path d="M326,193 H416" fill="none" stroke="#17c964" stroke-width="2.5" marker-start="url(#seta-verde)" marker-end="url(#seta-verde)"/>
+
+  <!-- the 1:1 call goes peer to peer -->
+  <path d="M40,350 L40,368 Q40,376 48,376 L262,376 Q270,376 270,368 L270,350" fill="none" stroke="#a1a1aa" stroke-width="2" stroke-dasharray="6 6" marker-start="url(#seta)" marker-end="url(#seta)"/>
+
+  <!-- legend -->
+  <g font-size="13" fill="#a1a1aa">
+    <line x1="400" y1="362" x2="430" y2="362" stroke="#0485f7" stroke-width="2"/>
+    <text x="440" y="367">texto e eventos (HTTPS + WebSocket)</text>
+    <line x1="400" y1="388" x2="430" y2="388" stroke="#17c964" stroke-width="2"/>
+    <text x="440" y="393">voz, câmera e tela em grupo (WebRTC)</text>
+    <text x="60" y="400">chamada 1:1 vai direto, de um para o outro</text>
+  </g>
+</svg>

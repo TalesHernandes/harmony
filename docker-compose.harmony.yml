@@ -1,0 +1,45 @@
+# The harmony deploy. The TURN relay runs on a separate Oracle machine;
+# its standalone configuration lives in deploy/coturn/docker-compose.yml.
+#
+#   docker compose -f docker-compose.harmony.yml up -d --build
+services:
+  caddy:
+    image: caddy:2.11.7
+    restart: unless-stopped
+    depends_on:
+      - harmony
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile.harmony:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+  harmony:
+    build:
+      context: .
+      dockerfile: harmony.Dockerfile
+    restart: unless-stopped
+    env_file: .env.harmony
+    # One published port, and it is UDP. The API is still reachable only through
+    # Caddy on the compose network; this is the media server's own socket, which
+    # a browser has to reach directly — audio that went through a proxy would be
+    # audio with a proxy's delay on it. The database is not on a port at all.
+    ports:
+      - "40000:40000/udp"
+    volumes:
+      # A bind mount, not a named volume, so the backup timer on the host can
+      # read the file it just asked the server to write without going through
+      # Docker for it.
+      - ./data:/data
+    healthcheck:
+      test: ["CMD", "/harmony", "-healthcheck"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  caddy_data:
+  caddy_config:

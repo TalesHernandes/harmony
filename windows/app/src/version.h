@@ -1,0 +1,3 @@
+#pragma once
+#define HARMONY_NATIVE_VERSION 26
+#define HARMONY_NATIVE_VERSION_TEXT "26\0"

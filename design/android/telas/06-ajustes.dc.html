@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/tokens/fonts.css">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/styles.css">
+<script src="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/_ds_bundle.js"></script>
+<style>body{margin:0;background:#0C0C0E;color:#FCFCFC;font-family:Inter,sans-serif;-webkit-font-smoothing:antialiased}a{color:#FCFCFC;text-decoration:underline;text-underline-offset:2px}a:hover{color:#61A8FC}</style>
+</helmet>
+<div style="padding:48px;display:flex;flex-direction:column;gap:32px;font-family:Inter,sans-serif;letter-spacing:-0.02em;color:#FCFCFC">
+  <div style="display:flex;flex-direction:column;gap:8px;max-width:76ch">
+    <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">harmony · app Android · 6 de 7</span>
+    <h1 style="margin:0;font-size:24px;line-height:32px;font-weight:600;letter-spacing:-0.01em">Ajustes</h1>
+    <p style="margin:0;font-size:14px;line-height:20px;color:#A1A1AA;text-wrap:pretty">Abre pela engrenagem no rodapé da lista. É uma tela só, que rola, com uma ilha por grupo: as quatro abas do monitor viram quatro ilhas empilhadas. O Android aparece aqui com a rolagem inteira.</p>
+    <p style="margin:0;font-size:13px;line-height:20px;color:#A1A1AA"><a href="Entrar.dc.html">1 Entrar</a> · <a href="Lista.dc.html">2 Lista</a> · <a href="Conversa.dc.html">3 Conversa</a> · <a href="Sala%20de%20voz.dc.html">4 Sala de voz</a> · <a href="Painel%20da%20pessoa.dc.html">5 Painel da pessoa</a> · <a href="Ajustes.dc.html">6 Ajustes</a> · <a href="Atualiza%C3%A7%C3%A3o.dc.html">7 Atualização</a> · <a href="Especifica%C3%A7%C3%A3o.dc.html">Especificação</a></p>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+    <sc-for list="{{ frames }}" as="f" hint-placeholder-count="2">
+      <div style="display:flex;flex-direction:column;gap:12px;width:390px">
+        <span style="font-size:13px;line-height:20px;font-weight:600">{{ f.label }}</span>
+        <div data-screen-label="{{ f.id }}" style="position:relative;width:390px;height:{{ f.altura }};flex:none;background:#060607;border-radius:36px;overflow:hidden;box-shadow:0 0 0 8px #232325;display:flex;flex-direction:column">
+          <div style="height:36px;flex:none;position:relative;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font-size:13px;line-height:16px;font-weight:500">
+            <span>23:58</span>
+            <span style="display:flex;align-items:center;gap:6px"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="antenna-signal" size="{{ s12 }}" hint-size="12px,12px"></x-import><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="bar-high" size="{{ s12 }}" hint-size="12px,12px"></x-import></span>
+            <span style="position:absolute;left:189px;top:12px;width:12px;height:12px;border-radius:9999px;background:#000"></span>
+          </div>
+          <sc-if value="{{ f.web }}" hint-placeholder-val="{{ false }}">
+            <div style="height:56px;flex:none;display:flex;align-items:center;gap:4px;padding:0 4px 0 12px;background:#18181B">
+              <span style="flex:1;min-width:0;height:40px;display:flex;align-items:center;gap:8px;padding:0 14px;border-radius:9999px;background:#232325;font-size:14px;line-height:20px"><span style="color:#A1A1AA;display:flex"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="lock" size="{{ s12 }}" hint-size="12px,12px"></x-import></span>harmony.taleshernandes.com</span>
+              <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;color:#A1A1AA"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="ellipsis-vertical" size="{{ s16 }}" hint-size="16px,16px"></x-import></span>
+            </div>
+          </sc-if>
+          <div style="flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;padding:8px;gap:8px">
+            <div style="height:56px;flex:none;background:#18181B;border-radius:8px;display:flex;align-items:center;gap:4px;padding:0 4px">
+              <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="chevron-left" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+              <span style="font-size:20px;line-height:28px;font-weight:600;letter-spacing:-0.01em">Ajustes</span>
+            </div>
+            <sc-for list="{{ f.secoes }}" as="s" hint-placeholder-count="4">
+              <div style="display:flex;flex-direction:column;gap:4px;flex:none">
+                <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA;padding:8px 12px 4px">{{ s.titulo }}</span>
+                <div style="background:#18181B;border-radius:8px;padding:4px;display:flex;flex-direction:column">
+                  <sc-for list="{{ s.linhas }}" as="l" hint-placeholder-count="3">
+                    <sc-if value="{{ l.linha }}" hint-placeholder-val="{{ true }}">
+                      <div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 8px 6px 12px;box-sizing:border-box;border-radius:8px">
+                        <span style="color:{{ l.iconeCor }};display:flex;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="{{ l.icone }}" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+                        <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+                          <span style="font-size:16px;line-height:20px;font-weight:500;color:{{ l.cor }}">{{ l.nome }}</span>
+                          <sc-if value="{{ l.valor }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px;line-height:16px;color:#A1A1AA;text-wrap:pretty">{{ l.valor }}</span></sc-if>
+                        </span>
+                        <sc-if value="{{ l.nav }}" hint-placeholder-val="{{ true }}"><span style="color:#A1A1AA;display:flex;flex:none;padding-right:4px"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="chevron-right" size="{{ s20 }}" hint-size="20px,20px"></x-import></span></sc-if>
+                        <sc-if value="{{ l.liga }}" hint-placeholder-val="{{ false }}"><span style="width:52px;height:32px;flex:none;border-radius:9999px;background:#0485F7;position:relative"><span style="position:absolute;right:4px;top:4px;width:24px;height:24px;border-radius:9999px;background:#FCFCFC"></span></span></sc-if>
+                        <sc-if value="{{ l.desliga }}" hint-placeholder-val="{{ false }}"><span style="width:52px;height:32px;flex:none;border-radius:9999px;background:#323235;position:relative"><span style="position:absolute;left:4px;top:4px;width:24px;height:24px;border-radius:9999px;background:#A1A1AA"></span></span></sc-if>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ l.botao }}" hint-placeholder-val="{{ false }}">
+                      <div style="padding:4px 8px 8px">
+                        <span style="display:flex;align-items:center;justify-content:center;gap:8px;height:48px;border-radius:8px;background:#232325;font-size:16px;line-height:24px;font-weight:500"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="{{ l.icone }}" size="{{ s20 }}" hint-size="20px,20px"></x-import>{{ l.nome }}</span>
+                      </div>
+                    </sc-if>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="height:24px;flex:none;position:relative"><span style="position:absolute;left:141px;bottom:10px;width:108px;height:4px;border-radius:9999px;background:#A1A1AA"></span></div>
+        </div>
+        <span style="font-size:12px;line-height:16px;color:#A1A1AA;text-wrap:pretty">{{ f.note }}</span>
+      </div>
+    </sc-for>
+    <div style="display:flex;flex-direction:column;gap:8px;width:340px">
+      <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">O que mudou, e por quê</span>
+      <sc-for list="{{ mudancas }}" as="m" hint-placeholder-count="6">
+        <div style="display:flex;flex-direction:column;gap:4px;padding:12px 14px;background:#18181B;border-radius:8px">
+          <span style="font-size:14px;line-height:20px;font-weight:600">{{ m.t }}</span>
+          <span style="font-size:13px;line-height:20px;color:#A1A1AA;text-wrap:pretty">{{ m.c }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const mu = '#A1A1AA', fg = '#FCFCFC';
+    const L = (icone, nome, valor, extra) => Object.assign({ linha: true, icone, nome, valor, iconeCor: mu, cor: fg }, extra || {});
+    const nav = { nav: true };
+    const conta = { titulo: 'Conta', linhas: [
+      L('persons', 'Aparelhos conectados', 'Este celular, o notebook e o monitor da sala', nav),
+      L('person-plus', 'Convites', '2 abertos, valem até sábado', nav),
+      L('arrow-right-from-square', 'Sair desta conta', '', { iconeCor: '#F5645B', cor: '#F5645B' })
+    ] };
+    const web = [
+      { titulo: 'Voz e vídeo', linhas: [
+        L('microphone', 'Microfone', 'Padrão do navegador', nav),
+        L('camera', 'Câmera', 'Frontal', nav),
+        L('ear', 'Reduzir ruído', 'Tira teclado, ventilador e rua', { liga: true }),
+        L('volume', 'Cancelar eco', 'Para quem usa alto-falante', { liga: true })
+      ] },
+      { titulo: 'Avisos', linhas: [
+        L('bell', 'Notificações do navegador', 'Permitidas', nav),
+        L('at', 'Só menções e diretas', 'Os canais não avisam', { liga: true })
+      ] },
+      conta,
+      { titulo: 'Diagnóstico', linhas: [
+        L('circle-info', 'Versão do site', '2026.09.24 · a mais nova carrega ao abrir'),
+        L('file-text', 'Registro', 'Copiar ou compartilhar', nav)
+      ] }
+    ];
+    const android = [
+      { titulo: 'Voz e vídeo', linhas: [
+        L('microphone', 'Microfone', 'Do fone Bluetooth', nav),
+        L('camera', 'Câmera', 'Frontal', nav),
+        L('headphones', 'Saída do som', 'Fone Bluetooth', nav),
+        L('ear', 'Reduzir ruído', 'Tira teclado, ventilador e rua', { liga: true }),
+        L('volume', 'Cancelar eco', 'Para quem usa alto-falante', { liga: true })
+      ] },
+      { titulo: 'Avisos', linhas: [
+        L('bell', 'Notificações', 'Ligadas · som e vibração nos Ajustes do Android', nav),
+        L('at', 'Só menções e diretas', 'Os canais não avisam', { liga: true }),
+        L('smartphone', 'Chamada com o celular bloqueado', 'Faltam 2 de 3 chaves da Xiaomi', nav)
+      ] },
+      conta,
+      { titulo: 'Diagnóstico', linhas: [
+        L('circle-info', 'Versão do app', '1.8.2 (182) · procurado hoje às 21:10'),
+        { botao: true, icone: 'arrow-rotate-right', nome: 'Procurar atualização' },
+        L('file-text', 'Registro', 'Copiar ou compartilhar', nav)
+      ] }
+    ];
+    return {
+      s12: 12, s16: 16, s20: 20,
+      frames: [
+        { id: '6 Web', label: 'Web · Chrome no celular', web: true, altura: '844px', secoes: web, note: 'Até a dobra. O resto aparece ao rolar.' },
+        { id: '6 Android', label: 'Android · rolagem inteira', altura: '1180px', secoes: android, note: 'A tela tem 844 de altura. Aqui ela aparece esticada até o fim para mostrar tudo.' }
+      ],
+      mudancas: [
+        { t: 'Saída do som', c: 'É a mesma escolha da barra da chamada, aqui como padrão. Só existe no app, porque o Chrome no celular não deixa o site escolher.' },
+        { t: 'Microfone', c: 'O web só sabe "padrão do navegador". O Android sabe qual microfone está ligado: o do aparelho, o do fone com fio ou o do Bluetooth.' },
+        { t: 'Notificações', c: 'No Android, som e vibração de cada tipo de aviso ficam nos Ajustes do sistema. O app não copia esses controles: a linha abre a tela do Android já no harmony.' },
+        { t: 'Chamada com o celular bloqueado', c: 'Só aparece em Xiaomi, Redmi e POCO. Abre o guia de três passos da página Permissões e mostra quantas chaves ainda faltam.' },
+        { t: 'Diagnóstico', c: 'O site sempre carrega a versão mais nova, então só mostra a data. O app tem número de versão e o botão Procurar atualização, que leva à faixa da tela 7.' },
+        { t: 'O resto é igual', c: 'Cabeçalho com voltar, ilhas por grupo, linhas de 56, chaves, Conta inteira e Sair em danger.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

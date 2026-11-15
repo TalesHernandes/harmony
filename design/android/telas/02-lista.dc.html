@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/tokens/fonts.css">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/styles.css">
+<script src="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/_ds_bundle.js"></script>
+<style>body{margin:0;background:#0C0C0E;color:#FCFCFC;font-family:Inter,sans-serif;-webkit-font-smoothing:antialiased}a{color:#FCFCFC;text-decoration:underline;text-underline-offset:2px}a:hover{color:#61A8FC}</style>
+</helmet>
+<div style="padding:48px;display:flex;flex-direction:column;gap:32px;font-family:Inter,sans-serif;letter-spacing:-0.02em;color:#FCFCFC">
+  <div style="display:flex;flex-direction:column;gap:8px;max-width:76ch">
+    <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">harmony · app Android · 2 de 7</span>
+    <h1 style="margin:0;font-size:24px;line-height:32px;font-weight:600;letter-spacing:-0.01em">A lista</h1>
+    <p style="margin:0;font-size:14px;line-height:20px;color:#A1A1AA;text-wrap:pretty">O painel da esquerda, que entra por cima da conversa. Tem duas ilhas: a lista e, embaixo, a peça da pessoa. A conversa fica atrás, sob o véu de 30% sem borrão, com 78dp à mostra para tocar e fechar.</p>
+    <p style="margin:0;font-size:13px;line-height:20px;color:#A1A1AA"><a href="Entrar.dc.html">1 Entrar</a> · <a href="Lista.dc.html">2 Lista</a> · <a href="Conversa.dc.html">3 Conversa</a> · <a href="Sala%20de%20voz.dc.html">4 Sala de voz</a> · <a href="Painel%20da%20pessoa.dc.html">5 Painel da pessoa</a> · <a href="Ajustes.dc.html">6 Ajustes</a> · <a href="Atualiza%C3%A7%C3%A3o.dc.html">7 Atualização</a> · <a href="Especifica%C3%A7%C3%A3o.dc.html">Especificação</a></p>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+    <sc-for list="{{ frames }}" as="f" hint-placeholder-count="3">
+      <div style="display:flex;flex-direction:column;gap:12px;width:390px">
+        <span style="font-size:13px;line-height:20px;font-weight:600">{{ f.label }}</span>
+        <div data-screen-label="{{ f.id }}" style="position:relative;width:390px;height:844px;flex:none;background:#060607;border-radius:36px;overflow:hidden;box-shadow:0 0 0 8px #232325;display:flex;flex-direction:column">
+          <div style="height:36px;flex:none;position:relative;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font-size:13px;line-height:16px;font-weight:500">
+            <span>23:52</span>
+            <span style="display:flex;align-items:center;gap:6px"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="antenna-signal" size="{{ s12 }}" hint-size="12px,12px"></x-import><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="bar-high" size="{{ s12 }}" hint-size="12px,12px"></x-import></span>
+            <span style="position:absolute;left:189px;top:12px;width:12px;height:12px;border-radius:9999px;background:#000"></span>
+          </div>
+          <sc-if value="{{ f.web }}" hint-placeholder-val="{{ false }}">
+            <div style="height:56px;flex:none;display:flex;align-items:center;gap:4px;padding:0 4px 0 12px;background:#18181B">
+              <span style="flex:1;min-width:0;height:40px;display:flex;align-items:center;gap:8px;padding:0 14px;border-radius:9999px;background:#232325;font-size:14px;line-height:20px"><span style="color:#A1A1AA;display:flex"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="lock" size="{{ s12 }}" hint-size="12px,12px"></x-import></span>harmony.taleshernandes.com</span>
+              <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;color:#A1A1AA"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="ellipsis-vertical" size="{{ s16 }}" hint-size="16px,16px"></x-import></span>
+            </div>
+          </sc-if>
+          <div style="flex:1;min-height:0;position:relative">
+            <div style="position:absolute;inset:0;padding:8px;display:flex;flex-direction:column;gap:8px">
+              <div style="height:56px;flex:none;background:#18181B;border-radius:8px;display:flex;align-items:center;justify-content:flex-end;padding:0 4px;color:#FCFCFC">
+                <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="persons" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+              </div>
+              <div style="flex:1"></div>
+              <div style="height:64px;flex:none;background:#18181B;border-radius:8px;display:flex;align-items:center;justify-content:flex-end;padding:0 8px;color:#A1A1AA">
+                <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="face-smile" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+              </div>
+            </div>
+            <span style="position:absolute;inset:0;background:rgba(0,0,0,0.3)"></span>
+            <div style="position:absolute;left:8px;top:8px;bottom:8px;width:296px;display:flex;flex-direction:column;gap:8px">
+              <div style="flex:1;min-height:0;background:#18181B;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;padding:0 8px 8px">
+                <div style="height:56px;flex:none;display:flex;align-items:center;padding:0 8px"><span style="font-size:20px;line-height:28px;font-weight:600;letter-spacing:-0.01em">harmony</span></div>
+                <div style="display:flex;gap:4px;flex:none;padding-bottom:8px">
+                  <sc-if value="{{ f.servidor }}" hint-placeholder-val="{{ true }}">
+                    <span style="flex:1;display:flex;align-items:center;justify-content:center;height:48px;border-radius:8px;background:#27272A;font-size:15px;line-height:20px;font-weight:600">Servidor</span>
+                    <span style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;height:48px;border-radius:8px;color:#A1A1AA;font-size:15px;line-height:20px;font-weight:500">Mensagens<span style="min-width:20px;height:20px;padding:0 6px;box-sizing:border-box;border-radius:9999px;background:#FCFCFC;color:#18181B;font-size:12px;line-height:20px;font-weight:600;text-align:center">4</span></span>
+                  </sc-if>
+                  <sc-if value="{{ f.mensagens }}" hint-placeholder-val="{{ false }}">
+                    <span style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;height:48px;border-radius:8px;color:#A1A1AA;font-size:15px;line-height:20px;font-weight:500">Servidor<span style="display:flex;align-items:center;gap:2px;height:20px;padding:0 6px;border-radius:9999px;background:rgba(4,133,247,0.12);color:#61A8FC;font-size:12px;line-height:20px;font-weight:600"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="at" size="{{ s12 }}" hint-size="12px,12px"></x-import>2</span></span>
+                    <span style="flex:1;display:flex;align-items:center;justify-content:center;height:48px;border-radius:8px;background:#27272A;font-size:15px;line-height:20px;font-weight:600">Mensagens</span>
+                  </sc-if>
+                </div>
+                <sc-if value="{{ f.servidor }}" hint-placeholder-val="{{ true }}">
+                  <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA;padding:8px 8px 4px">Canais</span>
+                  <sc-for list="{{ canais }}" as="c" hint-placeholder-count="4">
+                    <div style="position:relative;display:flex;align-items:center;gap:12px;height:48px;flex:none;padding:0 12px;border-radius:8px;background:{{ c.fundo }}">
+                      <sc-if value="{{ c.sel }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:-8px;top:0;bottom:0;width:3px;border-radius:0 9999px 9999px 0;background:#0485F7"></span></sc-if>
+                      <span style="color:{{ c.cor }};display:flex;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="hashtag" size="{{ s16 }}" hint-size="16px,16px"></x-import></span>
+                      <span style="flex:1;min-width:0;font-size:16px;line-height:20px;font-weight:{{ c.peso }};color:{{ c.cor }};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.nome }}</span>
+                      <sc-if value="{{ c.mencao }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:2px;height:20px;padding:0 6px;border-radius:9999px;background:rgba(4,133,247,0.12);color:#61A8FC;font-size:12px;line-height:20px;font-weight:600;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="at" size="{{ s12 }}" hint-size="12px,12px"></x-import>{{ c.mencao }}</span></sc-if>
+                      <sc-if value="{{ c.mudo }}" hint-placeholder-val="{{ false }}"><span style="color:#A1A1AA;display:flex;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="bell-slash" size="{{ s16 }}" hint-size="16px,16px"></x-import></span></sc-if>
+                    </div>
+                  </sc-for>
+                  <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA;padding:16px 8px 4px">Voz</span>
+                  <div style="display:flex;align-items:center;gap:12px;height:48px;flex:none;padding:0 12px;border-radius:8px">
+                    <span style="color:#FCFCFC;display:flex;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="volume" size="{{ s16 }}" hint-size="16px,16px"></x-import></span>
+                    <span style="flex:1;min-width:0;font-size:16px;line-height:20px;font-weight:600">Mesa grande</span>
+                    <span style="font-size:13px;line-height:16px;color:#A1A1AA">4/8</span>
+                  </div>
+                  <sc-for list="{{ naSala }}" as="p" hint-placeholder-count="4">
+                    <div style="display:flex;align-items:center;gap:10px;height:44px;flex:none;padding:0 12px 0 40px;border-radius:8px">
+                      <span style="width:24px;height:24px;border-radius:9999px;background:#323235;font-size:11px;line-height:24px;font-weight:600;text-align:center;flex:none;box-shadow:{{ p.anel }}">{{ p.ini }}</span>
+                      <span style="flex:1;min-width:0;font-size:15px;line-height:20px;color:{{ p.cor }};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ p.nome }}</span>
+                      <sc-if value="{{ p.icone }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:4px;color:#A1A1AA;font-size:13px;line-height:16px;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="{{ p.icone }}" size="{{ s16 }}" hint-size="16px,16px"></x-import>{{ p.rotulo }}</span></sc-if>
+                    </div>
+                  </sc-for>
+                  <div style="display:flex;align-items:center;gap:12px;height:48px;flex:none;padding:0 12px;border-radius:8px">
+                    <span style="color:#A1A1AA;display:flex;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="volume" size="{{ s16 }}" hint-size="16px,16px"></x-import></span>
+                    <span style="flex:1;min-width:0;font-size:16px;line-height:20px;font-weight:500;color:#A1A1AA">Sala do porão</span>
+                    <span style="font-size:13px;line-height:16px;color:#A1A1AA">0/4</span>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ f.mensagens }}" hint-placeholder-val="{{ false }}">
+                  <sc-for list="{{ diretas }}" as="d" hint-placeholder-count="5">
+                    <div style="position:relative;display:flex;align-items:center;gap:12px;height:56px;flex:none;padding:0 12px;border-radius:8px">
+                      <span style="position:relative;width:32px;height:32px;flex:none">
+                        <span style="display:block;width:32px;height:32px;border-radius:9999px;background:{{ d.avatar }};color:{{ d.cor }};font-size:13px;line-height:32px;font-weight:600;text-align:center;-webkit-mask-image:radial-gradient(circle 7px at 85.4% 85.4%,transparent 100%,#000 100%);mask-image:radial-gradient(circle 7px at 85.4% 85.4%,transparent 100%,#000 100%)">{{ d.ini }}</span>
+                        <span style="position:absolute;left:85.4%;top:85.4%;transform:translate(-50%,-50%);width:9px;height:9px;border-radius:9999px;background:{{ d.ponto }}"></span>
+                      </span>
+                      <span style="flex:1;min-width:0;font-size:16px;line-height:20px;font-weight:{{ d.peso }};color:{{ d.cor }};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ d.nome }}</span>
+                      <sc-if value="{{ d.n }}" hint-placeholder-val="{{ false }}"><span style="min-width:20px;height:20px;padding:0 6px;box-sizing:border-box;border-radius:9999px;background:#FCFCFC;color:#18181B;font-size:12px;line-height:20px;font-weight:600;text-align:center;flex:none">{{ d.n }}</span></sc-if>
+                      <sc-if value="{{ d.mudo }}" hint-placeholder-val="{{ false }}"><span style="color:#A1A1AA;display:flex;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="bell-slash" size="{{ s16 }}" hint-size="16px,16px"></x-import></span></sc-if>
+                    </div>
+                  </sc-for>
+                </sc-if>
+              </div>
+              <div style="height:64px;flex:none;background:#18181B;border-radius:8px;display:flex;align-items:center;gap:12px;padding:0 8px 0 12px">
+                <span style="position:relative;width:32px;height:32px;flex:none">
+                  <span style="display:block;width:32px;height:32px;border-radius:9999px;background:#323235;font-size:13px;line-height:32px;font-weight:600;text-align:center;-webkit-mask-image:radial-gradient(circle 7px at 85.4% 85.4%,transparent 100%,#000 100%);mask-image:radial-gradient(circle 7px at 85.4% 85.4%,transparent 100%,#000 100%)">MS</span>
+                  <span style="position:absolute;left:85.4%;top:85.4%;transform:translate(-50%,-50%);width:9px;height:9px;border-radius:9999px;background:#17C964"></span>
+                </span>
+                <span style="flex:1;min-width:0;display:flex;flex-direction:column">
+                  <span style="font-size:15px;line-height:20px;font-weight:600">Mel Sarmento</span>
+                  <span style="font-size:13px;line-height:16px;color:#A1A1AA">@mel</span>
+                </span>
+                <span style="width:48px;height:48px;border-radius:8px;color:#A1A1AA;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="gear" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+              </div>
+            </div>
+          </div>
+          <div style="height:24px;flex:none;position:relative"><span style="position:absolute;left:141px;bottom:10px;width:108px;height:4px;border-radius:9999px;background:#A1A1AA"></span></div>
+        </div>
+        <span style="font-size:12px;line-height:16px;color:#A1A1AA;text-wrap:pretty">{{ f.note }}</span>
+      </div>
+    </sc-for>
+    <div style="display:flex;flex-direction:column;gap:8px;width:340px">
+      <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">O que mudou, e por quê</span>
+      <sc-for list="{{ mudancas }}" as="m" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:4px;padding:12px 14px;background:#18181B;border-radius:8px">
+          <span style="font-size:14px;line-height:20px;font-weight:600">{{ m.t }}</span>
+          <span style="font-size:13px;line-height:20px;color:#A1A1AA;text-wrap:pretty">{{ m.c }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const fg = '#FCFCFC', mu = '#A1A1AA';
+    const anel = 'inset 0 0 0 2px #17C964';
+    return {
+      s12: 12, s16: 16, s20: 20,
+      frames: [
+        { id: '2 Web', label: 'Web · Chrome no celular', web: true, servidor: true, note: 'No web a lista rola: a Sala do porão fica logo abaixo da dobra.' },
+        { id: '2 Android Servidor', label: 'Android · aba Servidor', servidor: true, note: 'Com os 56dp a mais, a lista inteira cabe sem rolar.' },
+        { id: '2 Android Mensagens', label: 'Android · aba Mensagens', mensagens: true, note: 'O contador passa para a aba que está fechada. No web é igual.' }
+      ],
+      canais: [
+        { nome: 'geral', sel: true, fundo: '#27272A', cor: fg, peso: 600 },
+        { nome: 'jogos', mencao: '2', fundo: 'transparent', cor: fg, peso: 600 },
+        { nome: 'música', fundo: 'transparent', cor: mu, peso: 500 },
+        { nome: 'fora-de-hora', mudo: true, fundo: 'transparent', cor: mu, peso: 500 }
+      ],
+      naSala: [
+        { ini: 'TB', nome: 'Tainá', anel, cor: fg },
+        { ini: 'IL', nome: 'Iuri', anel: 'none', cor: mu, icone: 'microphone-slash', rotulo: '' },
+        { ini: 'RQ', nome: 'Rafa', anel: 'none', cor: mu, icone: 'volume-xmark', rotulo: '' },
+        { ini: 'GA', nome: 'Gabi', anel: 'none', cor: mu, icone: 'display-pulse', rotulo: '' }
+      ],
+      diretas: [
+        { ini: 'IL', nome: 'Iuri Lacerda', n: '3', avatar: '#323235', cor: fg, peso: 600, ponto: '#17C964' },
+        { ini: 'TB', nome: 'Tainá Bezerra', n: '1', avatar: '#323235', cor: fg, peso: 600, ponto: '#17C964' },
+        { ini: 'BO', nome: 'Bruna Ohana Wanderley', avatar: '#323235', cor: mu, peso: 500, ponto: '#F7B750' },
+        { ini: 'ZM', nome: 'Zé Marinho', avatar: '#232325', cor: mu, peso: 500, ponto: 'rgba(161,161,170,0.4)' },
+        { ini: 'NP', nome: 'Nina Prado', mudo: true, avatar: '#232325', cor: mu, peso: 500, ponto: 'rgba(161,161,170,0.4)' }
+      ],
+      mudancas: [
+        { t: 'Sem a barra do navegador', c: 'O painel começa logo abaixo da barra de status. Com 56dp a mais, as duas salas e as quatro pessoas cabem sem rolar.' },
+        { t: 'Voltar fecha o painel', c: 'No Android, o gesto de voltar fecha o painel antes de sair do app. No web, o voltar do navegador sairia do site. Por isso o web guarda o painel aberto no histórico. Na tela, nada muda.' },
+        { t: 'A borda esquerda é do sistema', c: 'Nos dois, o gesto que sai da borda esquerda é o voltar do Android. O painel abre pelo botão de menu ou arrastando a partir do meio da conversa, nunca da borda.' },
+        { t: 'O resto é igual', c: 'As duas ilhas, as abas de 48, o contador na aba fechada, o arroba das menções, o anel de jade em quem fala, mudo, sem som, transmitindo e a engrenagem têm a mesma medida no web e no app.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

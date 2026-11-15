@@ -1,0 +1,11 @@
+[Unit]
+Description=Run the harmony restore test monthly
+
+[Timer]
+# Monthly, a few hours after a backup, so the file it restores is fresh.
+OnCalendar=*-*-01 07:00:00 UTC
+RandomizedDelaySec=30m
+Persistent=true
+
+[Install]
+WantedBy=timers.target

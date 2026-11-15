@@ -1,0 +1,23 @@
+﻿{
+    "build_succeeded":  true,
+    "toolset":  "v145",
+    "runtime_measured":  true,
+    "ui_autotest_passed":  false,
+    "enter_5001_verified":  false,
+    "approved_nupkg_sha256_verified":  9,
+    "twemoji_svg_files":  30,
+    "twemoji_svg_bytes":  31095,
+    "output_folder_mb":  92.503143310546875,
+    "output_file_count":  269,
+    "installed_full_payload_mb":  109.59857082366943,
+    "installed_file_count":  276,
+    "installation_proof_passed":  true,
+    "installation_destination":  "worktree (LOCALAPPDATA access denied)",
+    "startup_ms":  442.887,
+    "rendering_notifications_per_second":  28.412,
+    "clipboard_partial_unicode_verified":  true,
+    "clipboard_emoji_only_verified":  true,
+    "emoji_mode":  "Segoe UI Emoji text Runs",
+    "dead_keys_tested":  false,
+    "screen_reader_tested":  false
+}

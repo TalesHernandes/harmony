@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+	<meta charset="utf-8" />
+	<!-- viewport-fit=cover is what lets a call fill the whole glass, and it is
+	     also what puts the page under the system's bars once the app is
+	     installed — src/style.css pads around them.
+	     interactive-widget=resizes-content is the on-screen keyboard: without it
+	     the keyboard is drawn *over* the page, and the box you are typing in is
+	     the thing it covers. With it, the page shrinks and the box rides above
+	     the keyboard, which is what every chat does. -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
+	<meta name="theme-color" content="#060607" />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta name="referrer" content="no-referrer" />
+	<link rel="manifest" href="/manifest.webmanifest" />
+	<link rel="icon" href="/icon-192.png" />
+	<!-- The iPhone reads this one, and only this one, when somebody adds the
+	     app to the home screen — which is also the only way it will ever show a
+	     notification (see src/notify.ts). -->
+	<link rel="apple-touch-icon" href="/icon-192.png" />
+	<title>harmony</title>
+</head>
+<body>
+	<div id="app"></div>
+	<script type="module" src="/src/main.tsx"></script>
+</body>
+</html>

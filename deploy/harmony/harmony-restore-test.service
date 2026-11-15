@@ -1,0 +1,8 @@
+[Unit]
+Description=harmony restore test: fetch the newest backup and prove it opens
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/srv/harmony/deploy/harmony/restore-test.sh

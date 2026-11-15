@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The only files the app ever hands to another app: the echo recordings
+     (EchoProbe), so the person can send one by WhatsApp or e-mail, and a
+     downloaded update for Android's own installer (Updater.openFile). -->
+<paths>
+    <external-files-path name="aecdump" path="aecdump/" />
+    <files-path name="aecdump-internal" path="aecdump/" />
+    <cache-path name="update" path="update/" />
+</paths>

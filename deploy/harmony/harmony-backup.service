@@ -1,0 +1,8 @@
+[Unit]
+Description=harmony daily encrypted backup, sent offsite
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/srv/harmony/deploy/harmony/backup.sh

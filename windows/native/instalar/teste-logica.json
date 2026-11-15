@@ -1,0 +1,13 @@
+﻿{
+    "passed":  true,
+    "fixture_only":  true,
+    "real_telas_exe_tested":  false,
+    "manifest_verified":  true,
+    "locked_version_retained":  true,
+    "pointer_updated":  true,
+    "stale_copy_ignored_and_cleaned":  true,
+    "corrupted_payload_rejected":  true,
+    "uninstall_verified":  true,
+    "interrupted_before_pointer_recovered":  true,
+    "explicit_cleanup_verified":  true
+}

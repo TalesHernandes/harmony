@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/tokens/fonts.css">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/styles.css">
+<script src="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/_ds_bundle.js"></script>
+<style>body{margin:0;background:#0C0C0E;color:#FCFCFC;font-family:Inter,sans-serif;-webkit-font-smoothing:antialiased}a{color:#FCFCFC;text-decoration:underline;text-underline-offset:2px}a:hover{color:#61A8FC}</style>
+</helmet>
+<div style="padding:48px;display:flex;flex-direction:column;gap:32px;font-family:Inter,sans-serif;letter-spacing:-0.02em;color:#FCFCFC">
+  <div style="display:flex;flex-direction:column;gap:8px;max-width:76ch">
+    <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">harmony · app Android · 5 de 7</span>
+    <h1 style="margin:0;font-size:24px;line-height:32px;font-weight:600;letter-spacing:-0.01em">O painel da pessoa</h1>
+    <p style="margin:0;font-size:14px;line-height:20px;color:#A1A1AA;text-wrap:pretty">Abre ao tocar num nome, num avatar ou num assento. É uma folha solta, 8 acima da barra de gestos, com raio 8 nos quatro cantos, sobre véu de 30% sem borrão. É a mesma folha dos pedidos de permissão.</p>
+    <p style="margin:0;font-size:13px;line-height:20px;color:#A1A1AA"><a href="Entrar.dc.html">1 Entrar</a> · <a href="Lista.dc.html">2 Lista</a> · <a href="Conversa.dc.html">3 Conversa</a> · <a href="Sala%20de%20voz.dc.html">4 Sala de voz</a> · <a href="Painel%20da%20pessoa.dc.html">5 Painel da pessoa</a> · <a href="Ajustes.dc.html">6 Ajustes</a> · <a href="Atualiza%C3%A7%C3%A3o.dc.html">7 Atualização</a> · <a href="Especifica%C3%A7%C3%A3o.dc.html">Especificação</a></p>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+    <sc-for list="{{ frames }}" as="f" hint-placeholder-count="2">
+      <div style="display:flex;flex-direction:column;gap:12px;width:390px">
+        <span style="font-size:13px;line-height:20px;font-weight:600">{{ f.label }}</span>
+        <div data-screen-label="{{ f.id }}" style="position:relative;width:390px;height:844px;flex:none;background:#060607;border-radius:36px;overflow:hidden;box-shadow:0 0 0 8px #232325;display:flex;flex-direction:column">
+          <div style="height:36px;flex:none;position:relative;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font-size:13px;line-height:16px;font-weight:500">
+            <span>23:55</span>
+            <span style="display:flex;align-items:center;gap:6px"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="antenna-signal" size="{{ s12 }}" hint-size="12px,12px"></x-import><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="bar-high" size="{{ s12 }}" hint-size="12px,12px"></x-import></span>
+            <span style="position:absolute;left:189px;top:12px;width:12px;height:12px;border-radius:9999px;background:#000"></span>
+          </div>
+          <sc-if value="{{ f.web }}" hint-placeholder-val="{{ false }}">
+            <div style="height:56px;flex:none;display:flex;align-items:center;gap:4px;padding:0 4px 0 12px;background:#18181B">
+              <span style="flex:1;min-width:0;height:40px;display:flex;align-items:center;gap:8px;padding:0 14px;border-radius:9999px;background:#232325;font-size:14px;line-height:20px"><span style="color:#A1A1AA;display:flex"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="lock" size="{{ s12 }}" hint-size="12px,12px"></x-import></span>harmony.taleshernandes.com</span>
+              <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;color:#A1A1AA"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="ellipsis-vertical" size="{{ s16 }}" hint-size="16px,16px"></x-import></span>
+            </div>
+          </sc-if>
+          <div style="flex:1;min-height:0;position:relative">
+            <div style="position:absolute;inset:0;padding:8px;display:flex;flex-direction:column;gap:8px">
+              <div style="height:56px;flex:none;background:#18181B;border-radius:8px;display:flex;align-items:center;gap:4px;padding:0 4px">
+                <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="bars" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+                <span style="color:#A1A1AA;display:flex"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="hashtag" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+                <span style="font-size:20px;line-height:28px;font-weight:600;padding-left:4px">geral</span>
+              </div>
+              <div style="display:grid;grid-template-columns:48px minmax(0,1fr);padding:12px 8px 0">
+                <span style="width:36px;height:36px;border-radius:9999px;background:#323235;font-size:14px;line-height:36px;font-weight:600;text-align:center;margin-top:4px">GA</span>
+                <div style="display:flex;flex-direction:column;min-width:0">
+                  <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:15px;line-height:22px;font-weight:600">Gabi Antunes</span><span style="font-size:13px;line-height:16px;color:#A1A1AA">23:52</span></div>
+                  <span style="font-size:16px;line-height:24px;letter-spacing:-0.005em">você ainda tem o cabo que eu te dei?</span>
+                </div>
+              </div>
+            </div>
+            <span style="position:absolute;inset:0;background:rgba(0,0,0,0.3)"></span>
+            <div style="position:absolute;left:8px;right:8px;bottom:8px;background:#18181B;border-radius:8px;padding:0 12px 12px;display:flex;flex-direction:column;gap:16px">
+              <div style="height:24px;display:flex;align-items:center;justify-content:center"><span style="width:36px;height:4px;border-radius:9999px;background:#323235"></span></div>
+              <div style="display:flex;align-items:center;gap:16px;margin-top:-8px">
+                <span style="position:relative;width:64px;height:64px;flex:none">
+                  <span style="display:block;width:64px;height:64px;border-radius:9999px;background:#323235;font-size:24px;line-height:64px;font-weight:600;text-align:center;-webkit-mask-image:radial-gradient(circle 11px at 85.4% 85.4%,transparent 100%,#000 100%);mask-image:radial-gradient(circle 11px at 85.4% 85.4%,transparent 100%,#000 100%)">GA</span>
+                  <span style="position:absolute;left:85.4%;top:85.4%;transform:translate(-50%,-50%);width:16px;height:16px;border-radius:9999px;background:#17C964"></span>
+                </span>
+                <div style="display:flex;flex-direction:column;gap:2px;min-width:0">
+                  <span style="font-size:20px;line-height:28px;font-weight:600;letter-spacing:-0.01em">Gabi Antunes</span>
+                  <span style="font-size:13px;line-height:16px;color:#A1A1AA">@gabi · na Mesa grande</span>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">apelido · só você vê</span>
+                <span style="display:flex;align-items:center;height:48px;padding:0 12px;border-radius:8px;background:#232325;font-size:16px;line-height:24px">gabi do estúdio</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA;padding-bottom:4px">volume para você</span>
+                <sc-for list="{{ volumes }}" as="v" hint-placeholder-count="2">
+                  <div style="display:flex;align-items:center;gap:12px;height:48px">
+                    <span style="color:#A1A1AA;display:flex;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="{{ v.icone }}" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+                    <span style="width:92px;flex:none;font-size:15px;line-height:20px;font-weight:500">{{ v.nome }}</span>
+                    <span style="flex:1;min-width:0;height:48px;position:relative;display:flex;align-items:center">
+                      <span style="position:absolute;left:0;right:0;height:4px;border-radius:9999px;background:#323235"></span>
+                      <span style="position:absolute;left:0;width:{{ v.pct }};height:4px;border-radius:9999px;background:#0485F7"></span>
+                      <span style="position:absolute;left:{{ v.pct }};width:20px;height:20px;margin-left:-10px;border-radius:9999px;background:#FCFCFC"></span>
+                    </span>
+                    <span style="width:32px;flex:none;text-align:right;font-size:13px;line-height:16px;color:#A1A1AA">{{ v.valor }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <span style="display:flex;align-items:center;justify-content:center;gap:8px;height:48px;border-radius:8px;background:#0485F7;font-size:16px;line-height:24px;font-weight:600"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="paper-plane" size="{{ s20 }}" hint-size="20px,20px"></x-import>Mensagem</span>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+                  <sc-for list="{{ acoes }}" as="a" hint-placeholder-count="3">
+                    <span style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;height:72px;border-radius:8px;background:#232325;font-size:13px;line-height:16px;font-weight:500;text-align:center"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="{{ a.icone }}" size="{{ s20 }}" hint-size="20px,20px"></x-import>{{ a.nome }}</span>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="height:24px;flex:none;position:relative"><span style="position:absolute;left:141px;bottom:10px;width:108px;height:4px;border-radius:9999px;background:#A1A1AA"></span></div>
+        </div>
+        <span style="font-size:12px;line-height:16px;color:#A1A1AA;text-wrap:pretty">{{ f.note }}</span>
+      </div>
+    </sc-for>
+    <div style="display:flex;flex-direction:column;gap:8px;width:340px">
+      <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">O que mudou, e por quê</span>
+      <sc-for list="{{ mudancas }}" as="m" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:4px;padding:12px 14px;background:#18181B;border-radius:8px">
+          <span style="font-size:14px;line-height:20px;font-weight:600">{{ m.t }}</span>
+          <span style="font-size:13px;line-height:20px;color:#A1A1AA;text-wrap:pretty">{{ m.c }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      s12: 12, s16: 16, s20: 20,
+      frames: [
+        { id: '5 Web', label: 'Web · Chrome no celular', web: true, note: 'A folha é presa ao fundo da página, então fica acima da barra de gestos.' },
+        { id: '5 Android', label: 'Android', note: 'Idêntica. Quando a Gabi não está numa sala, "Entrar na sala" e "Assistir" somem e "Ligar" ocupa a linha inteira.' }
+      ],
+      volumes: [
+        { nome: 'Voz', icone: 'volume', pct: '72%', valor: '72' },
+        { nome: 'Transmissão', icone: 'display', pct: '100%', valor: '100' }
+      ],
+      acoes: [
+        { nome: 'Ligar', icone: 'handset' },
+        { nome: 'Entrar na sala', icone: 'handset-arrow-in' },
+        { nome: 'Assistir', icone: 'display-pulse' }
+      ],
+      mudancas: [
+        { t: 'Na tela, nada', c: 'Apelido, os dois volumes, Mensagem, Ligar, Entrar na sala e Assistir estão na mesma ordem e na mesma medida. O celular não obriga nenhuma mudança aqui.' },
+        { t: 'A folha do Android', c: 'ModalBottomSheet com a forma trocada: raio 8 nos quatro cantos e 8 de folga nas laterais e na base, em vez da folha colada à borda que vem no Material.' },
+        { t: 'Fechar', c: 'Arrastar para baixo, tocar no véu ou usar o voltar do sistema. No web, o voltar também fecha, porque a folha entra no histórico.' },
+        { t: 'Volume', c: 'O controle anda de 5 em 5, com um toque leve de vibração a cada 10. O alvo é a linha inteira de 48, não o polegar de 20.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

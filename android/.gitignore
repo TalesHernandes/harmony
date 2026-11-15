@@ -1,0 +1,18 @@
+.gradle/
+.gradle-user/
+.android-user/
+.kotlin/
+build/
+local.properties
+.idea/
+*.iml
+# Fetched by scripts/fetch-webrtc.sh, pinned by checksum; 14 MB is not for git.
+app/libs/*.aar
+# The Firebase client config (docs/PLANO-NATIVO.md §8). Not a secret, but it
+# carries an API key, and keys stay out of git; build.gradle.kts reads it.
+app/google-services.json
+
+# Local direct-call harness artifacts.
+/direct-evidence/
+/direct-gradle.log
+/direct-matrix.log

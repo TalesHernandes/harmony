@@ -1,0 +1,165 @@
+{
+  "passed": true,
+  "family": "Twemoji Mozilla",
+  "version": "Version 0.7.0",
+  "bytes": 1474284,
+  "mib": 1.4059867858886719,
+  "sha256": "6D90152EE0D29E82FE2A87793AF5AA4B7AD13E6538360889E141E81ED299EE8E",
+  "colr_version": 0,
+  "cpal_present": true,
+  "source": "C:/Program Files/Mozilla Firefox/fonts/TwemojiMozilla.ttf",
+  "code_license": "Apache-2.0",
+  "artwork_license": "CC-BY-4.0",
+  "coverage": [
+    {
+      "emoji": "🔥",
+      "glyph": 785,
+      "color_layers": 2
+    },
+    {
+      "emoji": "😀",
+      "glyph": 884,
+      "color_layers": 3
+    },
+    {
+      "emoji": "😃",
+      "glyph": 887,
+      "color_layers": 3
+    },
+    {
+      "emoji": "😄",
+      "glyph": 888,
+      "color_layers": 3
+    },
+    {
+      "emoji": "😁",
+      "glyph": 885,
+      "color_layers": 4
+    },
+    {
+      "emoji": "😆",
+      "glyph": 890,
+      "color_layers": 3
+    },
+    {
+      "emoji": "😅",
+      "glyph": 889,
+      "color_layers": 4
+    },
+    {
+      "emoji": "😂",
+      "glyph": 886,
+      "color_layers": 4
+    },
+    {
+      "emoji": "🙂",
+      "glyph": 950,
+      "color_layers": 2
+    },
+    {
+      "emoji": "🙃",
+      "glyph": 951,
+      "color_layers": 2
+    },
+    {
+      "emoji": "😉",
+      "glyph": 893,
+      "color_layers": 3
+    },
+    {
+      "emoji": "😊",
+      "glyph": 894,
+      "color_layers": 3
+    },
+    {
+      "emoji": "😍",
+      "glyph": 897,
+      "color_layers": 3
+    },
+    {
+      "emoji": "😘",
+      "glyph": 908,
+      "color_layers": 5
+    },
+    {
+      "emoji": "😎",
+      "glyph": 898,
+      "color_layers": 3
+    },
+    {
+      "emoji": "🤔",
+      "glyph": 1089,
+      "color_layers": 4
+    },
+    {
+      "emoji": "😭",
+      "glyph": 929,
+      "color_layers": 6
+    },
+    {
+      "emoji": "😡",
+      "glyph": 917,
+      "color_layers": 2
+    },
+    {
+      "emoji": "👍",
+      "glyph": 570,
+      "color_layers": 2
+    },
+    {
+      "emoji": "👎",
+      "glyph": 571,
+      "color_layers": 2
+    },
+    {
+      "emoji": "👏",
+      "glyph": 572,
+      "color_layers": 3
+    },
+    {
+      "emoji": "🙌",
+      "glyph": 960,
+      "color_layers": 5
+    },
+    {
+      "emoji": "🙏",
+      "glyph": 963,
+      "color_layers": 9
+    },
+    {
+      "emoji": "🎉",
+      "glyph": 382,
+      "color_layers": 8
+    },
+    {
+      "emoji": "🚀",
+      "glyph": 964,
+      "color_layers": 6
+    },
+    {
+      "emoji": "⭐",
+      "glyph": 181,
+      "color_layers": 1
+    },
+    {
+      "emoji": "✨",
+      "glyph": 155,
+      "color_layers": 2
+    },
+    {
+      "emoji": "💙",
+      "glyph": 646,
+      "color_layers": 1
+    },
+    {
+      "emoji": "💚",
+      "glyph": 647,
+      "color_layers": 1
+    },
+    {
+      "emoji": "💜",
+      "glyph": 649,
+      "color_layers": 1
+    }
+  ]
+}

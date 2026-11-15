@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/tokens/fonts.css">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/styles.css">
+<script src="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/_ds_bundle.js"></script>
+<style>body{margin:0;background:#0C0C0E;color:#FCFCFC;font-family:Inter,sans-serif;-webkit-font-smoothing:antialiased}a{color:#FCFCFC;text-decoration:underline;text-underline-offset:2px}a:hover{color:#61A8FC}</style>
+</helmet>
+<div style="padding:48px;display:flex;flex-direction:column;gap:32px;font-family:Inter,sans-serif;letter-spacing:-0.02em;color:#FCFCFC">
+  <div style="display:flex;flex-direction:column;gap:8px;max-width:76ch">
+    <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">harmony · app Android · 3 de 7</span>
+    <h1 style="margin:0;font-size:24px;line-height:32px;font-weight:600;letter-spacing:-0.01em">A conversa</h1>
+    <p style="margin:0;font-size:14px;line-height:20px;color:#A1A1AA;text-wrap:pretty">Cabeçalho e caixa de escrever são ilhas. As mensagens ficam direto no fundo. O dia e o "não lidas" viram etiquetas, sem linha atravessando a tela.</p>
+    <p style="margin:0;font-size:13px;line-height:20px;color:#A1A1AA"><a href="Entrar.dc.html">1 Entrar</a> · <a href="Lista.dc.html">2 Lista</a> · <a href="Conversa.dc.html">3 Conversa</a> · <a href="Sala%20de%20voz.dc.html">4 Sala de voz</a> · <a href="Painel%20da%20pessoa.dc.html">5 Painel da pessoa</a> · <a href="Ajustes.dc.html">6 Ajustes</a> · <a href="Atualiza%C3%A7%C3%A3o.dc.html">7 Atualização</a> · <a href="Especifica%C3%A7%C3%A3o.dc.html">Especificação</a></p>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+    <sc-for list="{{ frames }}" as="f" hint-placeholder-count="3">
+      <div style="display:flex;flex-direction:column;gap:12px;width:390px">
+        <span style="font-size:13px;line-height:20px;font-weight:600">{{ f.label }}</span>
+        <div data-screen-label="{{ f.id }}" style="position:relative;width:390px;height:844px;flex:none;background:#060607;border-radius:36px;overflow:hidden;box-shadow:0 0 0 8px #232325;display:flex;flex-direction:column">
+          <div style="height:36px;flex:none;position:relative;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font-size:13px;line-height:16px;font-weight:500">
+            <span>23:53</span>
+            <span style="display:flex;align-items:center;gap:6px"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="antenna-signal" size="{{ s12 }}" hint-size="12px,12px"></x-import><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="bar-high" size="{{ s12 }}" hint-size="12px,12px"></x-import></span>
+            <span style="position:absolute;left:189px;top:12px;width:12px;height:12px;border-radius:9999px;background:#000"></span>
+          </div>
+          <sc-if value="{{ f.web }}" hint-placeholder-val="{{ false }}">
+            <div style="height:56px;flex:none;display:flex;align-items:center;gap:4px;padding:0 4px 0 12px;background:#18181B">
+              <span style="flex:1;min-width:0;height:40px;display:flex;align-items:center;gap:8px;padding:0 14px;border-radius:9999px;background:#232325;font-size:14px;line-height:20px"><span style="color:#A1A1AA;display:flex"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="lock" size="{{ s12 }}" hint-size="12px,12px"></x-import></span>harmony.taleshernandes.com</span>
+              <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;color:#A1A1AA"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="ellipsis-vertical" size="{{ s16 }}" hint-size="16px,16px"></x-import></span>
+            </div>
+          </sc-if>
+          <div style="flex:1;min-height:0;display:flex;flex-direction:column;padding:8px 8px 0;gap:8px">
+            <div style="height:56px;flex:none;background:#18181B;border-radius:8px;display:flex;align-items:center;gap:4px;padding:0 4px">
+              <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="bars" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+              <span style="color:#A1A1AA;display:flex;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="hashtag" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+              <span style="flex:1;min-width:0;font-size:20px;line-height:28px;font-weight:600;letter-spacing:-0.01em;padding-left:4px">geral</span>
+              <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="magnifier" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+              <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="persons" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+            </div>
+            <div style="flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0 8px">
+              <div style="display:flex;justify-content:center;padding:8px 0 4px"><span style="height:24px;padding:0 10px;border-radius:9999px;background:#18181B;font-size:12px;line-height:24px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">quinta, 11 de setembro</span></div>
+              <div style="display:grid;grid-template-columns:48px minmax(0,1fr);padding-top:12px">
+                <span style="width:36px;height:36px;border-radius:9999px;background:#323235;font-size:14px;line-height:36px;font-weight:600;text-align:center;margin-top:4px">TB</span>
+                <div style="display:flex;flex-direction:column;min-width:0">
+                  <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:15px;line-height:22px;font-weight:600">Tainá Bezerra</span><span style="font-size:13px;line-height:16px;color:#A1A1AA">23:41</span></div>
+                  <span style="font-size:16px;line-height:24px;letter-spacing:-0.005em;text-wrap:pretty">achei o disco que a gente tentou lembrar sábado</span>
+                  <span style="font-size:16px;line-height:24px;letter-spacing:-0.005em;padding-top:2px">e o encarte tá inteiro <span style="font-size:13px;color:#A1A1AA;letter-spacing:-0.02em">23:42</span></span>
+                  <div style="display:flex;gap:4px;max-width:280px;padding-top:6px">
+                    <div style="flex:1;aspect-ratio:1 / 1;border-radius:8px;background:#232325;display:flex;align-items:center;justify-content:center;color:#A1A1AA"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="picture" size="{{ s20 }}" hint-size="20px,20px"></x-import></div>
+                    <div style="flex:1;aspect-ratio:1 / 1;border-radius:8px;background:#232325;display:flex;align-items:center;justify-content:center;color:#A1A1AA"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="picture" size="{{ s20 }}" hint-size="20px,20px"></x-import></div>
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex;padding:16px 0 4px"><span style="height:20px;padding:0 8px;border-radius:9999px;background:rgba(219,59,62,0.15);color:#F5645B;font-size:12px;line-height:20px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase">não lidas</span></div>
+              <div style="display:grid;grid-template-columns:48px minmax(0,1fr);padding-top:8px">
+                <span></span>
+                <div style="display:flex;align-items:center;gap:6px;color:#A1A1AA;min-width:0;padding-bottom:2px">
+                  <span style="display:flex;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="arrow-shape-turn-up-left" size="{{ s12 }}" hint-size="12px,12px"></x-import></span>
+                  <span style="font-size:13px;line-height:16px;font-weight:600;flex:none">Tainá</span>
+                  <span style="font-size:13px;line-height:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0">achei o disco que a gente tentou lembrar…</span>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:48px minmax(0,1fr)">
+                <span style="width:36px;height:36px;border-radius:9999px;background:#323235;font-size:14px;line-height:36px;font-weight:600;text-align:center;margin-top:4px">IL</span>
+                <div style="display:flex;flex-direction:column;min-width:0">
+                  <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:15px;line-height:22px;font-weight:600">Iuri Lacerda</span><span style="font-size:13px;line-height:16px;color:#A1A1AA">23:44</span></div>
+                  <span style="font-size:16px;line-height:24px;letter-spacing:-0.005em;text-wrap:pretty">era esse mesmo, eu jurava que tinha emprestado pro meu irmão</span>
+                  <div style="display:flex;gap:4px;padding-top:6px">
+                    <span style="display:flex;align-items:center;gap:4px;height:32px;padding:0 10px;border-radius:9999px;background:rgba(4,133,247,0.12);color:#61A8FC;font-size:14px;line-height:20px">🙂<span style="font-size:13px;font-weight:600">3</span></span>
+                    <span style="display:flex;align-items:center;gap:4px;height:32px;padding:0 10px;border-radius:9999px;background:#18181B;color:#A1A1AA;font-size:14px;line-height:20px">🎧<span style="font-size:13px;font-weight:600">1</span></span>
+                  </div>
+                </div>
+              </div>
+              <div style="flex:none;display:flex;align-items:stretch;gap:5px;margin:12px 0 0 -8px">
+                <span style="width:3px;flex:none;border-radius:0 9999px 9999px 0;background:#0485F7"></span>
+                <div style="flex:1;min-width:0;display:grid;grid-template-columns:48px minmax(0,1fr);padding:10px 8px 12px;border-radius:8px;background:rgba(4,133,247,0.10)">
+                <span style="width:36px;height:36px;border-radius:9999px;background:#323235;font-size:14px;line-height:36px;font-weight:600;text-align:center;margin-top:4px">GA</span>
+                <div style="display:flex;flex-direction:column;min-width:0">
+                  <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:15px;line-height:22px;font-weight:600">Gabi Antunes</span><span style="font-size:13px;line-height:16px;color:#A1A1AA">23:52</span></div>
+                  <span style="font-size:16px;line-height:24px;letter-spacing:-0.005em;text-wrap:pretty"><span style="background:rgba(4,133,247,0.12);color:#61A8FC;font-weight:500;border-radius:4px;padding:1px 4px">@mel</span> você ainda tem o cabo que eu te dei? preciso amanhã de manhã</span>
+                </div>
+                </div>
+              </div>
+              <span style="font-size:13px;line-height:20px;color:#A1A1AA;padding:8px 0 4px 48px">Tainá está digitando…</span>
+            </div>
+            <sc-if value="{{ f.parado }}" hint-placeholder-val="{{ true }}">
+              <div style="flex:none;background:#18181B;border-radius:8px;padding:4px;display:flex;align-items:flex-end;gap:4px;margin-bottom:8px">
+                <span style="width:48px;height:48px;color:#A1A1AA;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="paperclip" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+                <span style="flex:1;min-width:0;font-size:16px;line-height:24px;letter-spacing:-0.005em;color:#A1A1AA;padding:12px 0">Mensagem em #geral</span>
+                <span style="width:48px;height:48px;color:#A1A1AA;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="face-smile" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ f.teclado }}" hint-placeholder-val="{{ false }}">
+              <div style="flex:none;background:#18181B;border-radius:8px;padding:4px;display:flex;flex-direction:column;margin-bottom:8px">
+                <div style="display:flex;align-items:center;gap:8px;height:44px;padding-left:12px">
+                  <span style="color:#A1A1AA;display:flex;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="arrow-shape-turn-up-left" size="{{ s16 }}" hint-size="16px,16px"></x-import></span>
+                  <span style="flex:1;min-width:0;font-size:13px;line-height:16px;color:#A1A1AA;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Respondendo a <span style="color:#FCFCFC;font-weight:600">Gabi Antunes</span></span>
+                  <span style="width:44px;height:44px;color:#A1A1AA;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="xmark" size="{{ s16 }}" hint-size="16px,16px"></x-import></span>
+                </div>
+                <div style="display:flex;align-items:flex-end;gap:4px">
+                  <span style="width:48px;height:48px;color:#A1A1AA;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="paperclip" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+                  <span style="flex:1;min-width:0;font-size:16px;line-height:24px;letter-spacing:-0.005em;padding:12px 0">tenho sim, levo amanhã cedo<span style="display:inline-block;width:1px;height:18px;background:#FCFCFC;vertical-align:-3px;margin-left:1px"></span></span>
+                  <span style="width:48px;height:48px;border-radius:8px;background:#0485F7;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="paper-plane" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+          <sc-if value="{{ f.teclado }}" hint-placeholder-val="{{ false }}">
+            <div style="height:292px;flex:none;background:#232325;position:relative;display:flex;align-items:center;justify-content:center">
+              <span style="font-size:13px;line-height:20px;color:#A1A1AA;text-align:center">Teclado do Android<br>desenhado pelo sistema</span>
+              <span style="position:absolute;left:141px;bottom:10px;width:108px;height:4px;border-radius:9999px;background:#A1A1AA"></span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ f.parado }}" hint-placeholder-val="{{ true }}">
+            <div style="height:24px;flex:none;position:relative"><span style="position:absolute;left:141px;bottom:10px;width:108px;height:4px;border-radius:9999px;background:#A1A1AA"></span></div>
+          </sc-if>
+        </div>
+        <span style="font-size:12px;line-height:16px;color:#A1A1AA;text-wrap:pretty">{{ f.note }}</span>
+      </div>
+    </sc-for>
+    <div style="display:flex;flex-direction:column;gap:8px;width:340px">
+      <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">O que mudou, e por quê</span>
+      <sc-for list="{{ mudancas }}" as="m" hint-placeholder-count="5">
+        <div style="display:flex;flex-direction:column;gap:4px;padding:12px 14px;background:#18181B;border-radius:8px">
+          <span style="font-size:14px;line-height:20px;font-weight:600">{{ m.t }}</span>
+          <span style="font-size:13px;line-height:20px;color:#A1A1AA;text-wrap:pretty">{{ m.c }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      s12: 12, s16: 16, s20: 20,
+      frames: [
+        { id: '3 Web', label: 'Web · Chrome no celular', web: true, parado: true, note: 'A barra do Chrome come o separador de dia e metade das imagens.' },
+        { id: '3 Android', label: 'Android', parado: true, note: 'A mesma lista, com uma mensagem a mais na tela.' },
+        { id: '3 Android respondendo', label: 'Android · respondendo, teclado aberto', teclado: true, note: 'Toque longo › Responder. A resposta fica presa em cima do campo e a tela encolhe até o teclado.' }
+      ],
+      mudancas: [
+        { t: 'Sem a barra do navegador', c: 'São 56dp a mais para a lista, mais ou menos uma mensagem de uma linha.' },
+        { t: 'Teclado', c: 'O Android encolhe a tela até o teclado (imePadding) e a caixa sobe junto. A barra de gestos fica por baixo do teclado. No Chrome acontece o mesmo pelo visualViewport. O resultado é igual.' },
+        { t: 'Anexo', c: 'O clipe abre o seletor de fotos do Android e, para arquivo, o seletor de documentos. No web abre o do navegador. Nenhum dos dois é desenhado pelo app.' },
+        { t: 'Toque longo', c: 'Abre a mesma folha de reagir e responder, igual ao web. No Android vem com uma vibração curta.' },
+        { t: 'Reação', c: 'O chip aparece com 32 de altura, mas o toque vale 48 (minimumInteractiveComponentSize). No web, 44.' },
+        { t: 'O resto é igual', c: 'Agrupamento, hora ao fim da linha seguinte, resposta citada, reações, grade de imagens, menção com barra, "digitando…" e a caixa com clipe e emoji.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

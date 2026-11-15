@@ -1,0 +1,24 @@
+harmony.taleshernandes.com {
+	encode zstd gzip
+
+	# HSTS is set by the Go server too. Here it also covers anything Caddy
+	# answers by itself — a TLS error page, a redirect — which never reaches
+	# the application.
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		-Server
+	}
+
+	reverse_proxy harmony:8080 {
+		# Overwrite, never append. Caddy's default is to add the real address
+		# after whatever the client sent, and the server reads the first entry —
+		# so with the default a visitor could put any address they liked in
+		# front of their own and walk straight around the per-address login
+		# limit. This line is what makes TRUST_PROXY=1 safe.
+		header_up X-Forwarded-For {remote_host}
+	}
+}
+
+# There is deliberately no :80 site block. Caddy already answers port 80 with a
+# 308 to https for the host above, and a catch-all here would replace that
+# redirect and swallow the ACME challenge that renews the certificate.

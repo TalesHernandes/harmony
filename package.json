@@ -1,0 +1,13 @@
+{
+  "name": "call",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Harmony: private text channels, voice, video and screen sharing for friends.",
+  "scripts": {
+    "test:harmony": "playwright test --config playwright.harmony.config.ts",
+    "icons:harmony": "node tools/harmony-icons.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0"
+  }
+}

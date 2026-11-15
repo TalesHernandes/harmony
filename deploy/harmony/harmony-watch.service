@@ -1,0 +1,36 @@
+# The watchman, and the one thing worth saying about it is where it runs: on
+# the **Oracle** machine, not on the harmony machine. A server that has fallen
+# over cannot notice that it has fallen over, so the question has to be asked
+# from somewhere else — and that somewhere already exists, is free, and is
+# already trusted with the nightly backup.
+#
+# Install (as usuario@maquina-do-backup):
+#   sudo cp harmony-watch.service /etc/systemd/system/
+#   sudo systemctl enable --now harmony-watch
+#
+# It reads its keys from watch.env, which is made by piping the harmony
+# machine's VAPID lines and `harmony -export-watch tales` into it. That file is
+# chmod 600 and is the only copy of those values on this machine.
+[Unit]
+Description=harmony watchman - asks from outside whether harmony is answering
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+EnvironmentFile=/home/ubuntu/harmony-watch/watch.env
+ExecStart=/home/ubuntu/harmony-watch/harmony -watch https://harmony.taleshernandes.com/healthz
+Restart=always
+RestartSec=30
+# It needs nothing on this machine and is given nothing.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/tokens/fonts.css">
+<style>body{margin:0;background:#060607;color:#FCFCFC;font-family:Inter,sans-serif;-webkit-font-smoothing:antialiased}a{color:#FCFCFC;text-decoration:underline;text-underline-offset:2px}a:hover{color:#61A8FC}</style>
+</helmet>
+<div style="max-width:960px;margin:0 auto;padding:48px 24px 80px;display:flex;flex-direction:column;gap:40px;font-family:Inter,sans-serif;letter-spacing:-0.02em">
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">harmony · Android · especificação</span>
+    <h1 style="margin:0;font-size:28px;line-height:36px;font-weight:600;letter-spacing:-0.01em">Medidas para Jetpack Compose</h1>
+    <p style="margin:0;font-size:14px;line-height:20px;color:#A1A1AA;max-width:72ch;text-wrap:pretty">Medida em dp, letra em sp. Onde está escrito 8, use RoundedCornerShape(8.dp). Nenhuma tela tem borda, linha divisória, sombra, borrão ou gradiente. O que separa as peças é o degrau de cor entre as ilhas.</p>
+    <p style="margin:0;font-size:13px;line-height:20px;color:#A1A1AA">App: <a href="Entrar.dc.html">1 Entrar</a> · <a href="Lista.dc.html">2 Lista</a> · <a href="Conversa.dc.html">3 Conversa</a> · <a href="Sala%20de%20voz.dc.html">4 Sala de voz</a> · <a href="Painel%20da%20pessoa.dc.html">5 Painel da pessoa</a> · <a href="Ajustes.dc.html">6 Ajustes</a> · <a href="Atualiza%C3%A7%C3%A3o.dc.html">7 Atualização</a><br>Só do Android: <a href="Tela%20cheia.dc.html">Tela cheia</a> · <a href="Quadrinho%20flutuante.dc.html">Quadrinho flutuante</a> · <a href="Permiss%C3%B5es.dc.html">Permissões</a> · <a href="%C3%8Dcone%20do%20app.dc.html">Ícone do app</a></p>
+  </div>
+  <sc-for list="{{ sections }}" as="sec" hint-placeholder-count="8">
+    <section style="display:flex;flex-direction:column;gap:12px">
+      <h2 style="margin:0;font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">{{ sec.title }}</h2>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <sc-for list="{{ sec.rows }}" as="r" hint-placeholder-count="6">
+          <div style="display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:16px;padding:10px 16px;background:#18181B;border-radius:8px">
+            <span style="font-size:13px;line-height:20px;font-weight:500">{{ r.k }}</span>
+            <span style="font-size:13px;line-height:20px;color:#A1A1AA;overflow-wrap:anywhere">{{ r.v }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const S = (title, rows) => ({ title, rows: rows.map(([k, v]) => ({ k, v })) });
+    return { sections: [
+      S('Tokens', [
+        ['background', '#060607 · fundo de tudo, atrás das ilhas; a lista de mensagens fica direto nele'],
+        ['surface', '#18181B · ilhas: cabeçalho, caixa de escrever, painel, folha, barra da chamada, faixas'],
+        ['surface secondary', '#232325 · campo, botão secundário, tile de vídeo, chip de reação dos outros'],
+        ['surface tertiary', '#323235 · avatar, trilho do volume e do progresso, alça da folha'],
+        ['selecionado', '#27272A · canal aberto, aba ativa, botão da barra da chamada, saída escolhida'],
+        ['foreground / muted', '#FCFCFC / #A1A1AA'],
+        ['accent', '#0485F7 · o que você escolheu: Entrar, enviar, Mensagem, Atualizar, chave ligada, parte cheia do volume · suave rgba(4,133,247,0.12) com texto #61A8FC'],
+        ['success', '#17C964 · ponto online e anel de quem fala (2 inset) · só isso'],
+        ['warning', '#F7B750 · ponto ausente; "imagem parada"'],
+        ['danger', '#DB3B3E · sair da sala · suave rgba(219,59,62,0.15) com texto #F5645B: "não lidas", Sair desta conta, download parado'],
+        ['menção', 'caixa rgba(4,133,247,0.10) raio 8; à esquerda, separada por 5, a mesma barra do canal aberto (3, altura toda, raio 0 9999 9999 0); o @nome em accent suave, raio 4'],
+        ['véu', 'rgba(0,0,0,0.30) atrás de painel e folha; sem borrão'],
+        ['raio', '8 em toda peça; 4 no @nome; 9999 em avatar, ponto, chip, chave, trilho e alças'],
+        ['foco', 'anel 2 da cor do fundo + 2 accent (só teclado físico e campo ativo)'],
+        ['alvo de toque', 'mínimo 48; chip de reação aparece com 32 e toca com 48 (minimumInteractiveComponentSize)'],
+        ['movimento', 'só alpha e translação; 180 ms, FastOutSlowInEasing; cor troca sem animar'],
+        ['tema', 'só escuro; dynamicColor = false']
+      ]),
+      S('Letra (Inter, sp)', [
+        ['título de tela e folha', '20/28 · 600 · -0.01em'],
+        ['nome no cabeçalho da sala', '16/20 · 600'],
+        ['corpo da mensagem, campo, linha de ajuste', '16/24 · 400 · -0.005em (linha de ajuste 16/20 500)'],
+        ['item de lista', '16/20 · 600 não lido ou aberto, 500 muted lido'],
+        ['nome do autor', '15/22 · 600'],
+        ['pessoa na sala, botão da faixa', '15/20 · 400 / 600'],
+        ['meta (hora, contagem, linha de apoio)', '13/16 · 400 · muted'],
+        ['rótulo de seção e etiqueta', '12/16 · 600 · +0.06em · maiúsculas · muted'],
+        ['tracking de UI', '-0.02em em todo o resto']
+      ]),
+      S('Moldura e ilhas (todas as telas)', [
+        ['modo', 'enableEdgeToEdge(); barras transparentes, ícones claros'],
+        ['barra de status', 'WindowInsets.statusBars (36 no desenho); nada interativo dentro dela'],
+        ['barra de gestos', 'WindowInsets.navigationBars (24 no desenho); a última ilha termina 8 acima dela'],
+        ['teclado', 'imePadding() na coluna; a barra de gestos fica por baixo do teclado'],
+        ['margem da tela', '8 nos quatro lados, dentro dos insets'],
+        ['gap entre ilhas', '8'],
+        ['cabeçalho', 'ilha de 56 · padding horizontal 4 · botões de ícone 48×48 com ícone 20'],
+        ['voltar', 'BackHandler fecha, nessa ordem: folha, painel, teclado, subtela']
+      ]),
+      S('1 · Entrar', [
+        ['cartão', 'ilha · padding 20 · gap 16 · centrado na vertical'],
+        ['rótulo + campo', 'gap 6 · campo 48 · padding 0 12 · surface secondary · 16sp'],
+        ['entre os campos', 'gap 12'],
+        ['botão', '48 · largura toda · accent · 16/24 600'],
+        ['linha do servidor', '48 · padding esq 12 · ícone server 16 muted · endereço 13 muted · "Trocar" 13 600 com alvo 48'],
+        ['servidor aberto', 'ilha própria abaixo do cartão · padding 16 20 20 · campo em foco · apoio 13 muted'],
+        ['campos', 'ContentType.Username / Password para o Autofill; ImeAction.Next, Done no último']
+      ]),
+      S('2 · Lista (painel)', [
+        ['painel', 'esquerda 8 · topo e base 8 · largura 296 · sobra 78 da conversa sob o véu'],
+        ['ilha da lista', 'padding 0 8 8 · título "harmony" em linha de 56'],
+        ['abas', 'duas de 48 · gap 4 · ativa #27272A 15/20 600 · outra muted 500 · contador 20 de altura, #FCFCFC com texto #18181B'],
+        ['canal', '48 · padding 0 12 · gap 12 · hashtag 16 · aberto: #27272A + barra 3 accent na borda da ilha (8 à esquerda da linha), altura toda da linha, raio 0 9999 9999 0'],
+        ['menção', 'chip 20 · padding 0 6 · accent suave · at 12 + número 12/20 600'],
+        ['silenciado', 'bell-slash 16 muted no fim da linha'],
+        ['sala', '48 · volume 16 · nome 16/20 · ocupação 13 muted'],
+        ['quem está na sala', '44 · padding esq 40 · avatar 24 · nome 15/20 · estado 16 muted: microphone-slash (mudo), volume-xmark (sem som), display-pulse (transmitindo), sem texto'],
+        ['falando', 'avatar com anel inset 2 success'],
+        ['conversa direta', '56 · avatar 32 com ponto 9 recortado (mask 7) · contador ou bell-slash'],
+        ['peça da pessoa', 'ilha de 64 · padding 0 8 0 12 · avatar 32 · nome 15/20 600 + @ 13 muted · gear 20 em alvo 48'],
+        ['abrir', 'botão bars ou arrastar a partir do meio da conversa; nunca da borda (é o voltar do sistema)']
+      ]),
+      S('3 · Conversa', [
+        ['lista', 'direto no background · padding horizontal 8 · ancorada embaixo (reverseLayout)'],
+        ['dia', 'etiqueta 24 · padding 0 10 · surface · centrada · sem linha'],
+        ['não lidas', 'etiqueta 20 · padding 0 8 · danger suave · à esquerda · sem linha'],
+        ['mensagem', 'grade 48 + resto · avatar 36 · topo do grupo 12 · nome 15/22 600 + hora 13 muted'],
+        ['seguinte do grupo', 'sem avatar · padding topo 2 · hora ao fim da linha, só a última de cada minuto'],
+        ['resposta citada', 'linha 16 acima · arrow-shape-turn-up-left 12 · nome 13 600 · trecho 13 muted em uma linha'],
+        ['imagens', 'até 280 de largura · gap 4 · quadradas · raio 8'],
+        ['reações', 'chip 32 · padding 0 10 · gap 4 · sua: accent suave · dos outros: surface'],
+        ['menção a você', 'como no monitor: barra 3 accent solta na borda da ilha (8 à esquerda), 5 de folga, e a mensagem numa caixa rgba(4,133,247,0.10) com raio 8 e padding 10 8 12'],
+        ['digitando', '13/20 muted · recuo 48'],
+        ['caixa de escrever', 'ilha · padding 4 · clipe 48 · texto 16/24 com padding 12 0 · emoji 48; com texto, enviar 48 accent'],
+        ['respondendo', 'linha de 44 no topo da caixa · ícone 16 · "Respondendo a" 13 muted + nome 600 · xmark 16 em alvo 44'],
+        ['toque longo', 'abre a folha de mensagem · HapticFeedbackType.LongPress'],
+        ['anexo', 'PickVisualMedia para foto e vídeo; OpenDocument para o resto']
+      ]),
+      S('4 · Sala de voz', [
+        ['cabeçalho', 'chevron-left 48 · nome 16/20 600 · "5 pessoas · 1:12:04" 13 muted · persons 48'],
+        ['palco com tela', '16:9 na largura (374×210) · surface secondary · raio 8'],
+        ['palco com câmera', 'ocupa a altura que sobra · assentos numa fileira de 4 × 96'],
+        ['sobre o vídeo', 'só peças opacas: nome em pílula 28 background, padding 0 10, 13/16 500; tela cheia 48×48 surface a 8 do canto'],
+        ['assentos', 'grade 2×2 · gap 8 · surface · avatar 56 (40 na fileira) · nome em pílula no canto inferior esquerdo'],
+        ['barra da chamada', 'ilha · padding 8 · botões 48×48 · gap 8 · ordem: microfone, sem som, câmera, saída do som, [espaço], sair'],
+        ['botão', 'ligado #27272A com ícone foreground · desligado com ícone muted · sair em danger'],
+        ['saída do som', 'ícone da saída atual: headphones, megaphone ou smartphone · só com 2 ou mais saídas (AudioManager.getAvailableCommunicationDevices)'],
+        ['folha de saída', 'título 20/28 · linhas 56 · ícone 20 · escolhida #27272A + check 20 accent'],
+        ['fora do app', 'chamada em andamento via ForegroundService + notificação de chamada; palco vira PiP']
+      ]),
+      S('5 · Painel da pessoa', [
+        ['folha', 'ModalBottomSheet · shape 8 nos quatro cantos · 8 das laterais e 8 acima da barra de gestos · padding 0 12 12 · gap 16'],
+        ['alça', 'zona 24 · barra 36×4 tertiary'],
+        ['cabeça', 'avatar 64 com ponto 16 (mask 11) · gap 16 · nome 20/28 · "@gabi · na Mesa grande" 13 muted'],
+        ['apelido', 'rótulo + campo de 48'],
+        ['volume', 'linhas de 48 · ícone 20 · rótulo 15/20 500 com 92 de largura · trilho 4 · polegar 20 · valor 13 muted com 32 · passo 5, vibração a cada 10'],
+        ['Mensagem', '48 · largura toda · accent · paper-plane 20'],
+        ['ações', 'três de 72 · gap 8 · surface secondary · ícone 20 + 13/16 500: Ligar, Entrar na sala, Assistir'],
+        ['sem sala', 'Entrar na sala e Assistir somem; Ligar fica com a largura toda']
+      ]),
+      S('6 · Ajustes', [
+        ['tela', 'uma coluna que rola · cabeçalho chevron-left + "Ajustes" 20/28'],
+        ['grupo', 'rótulo 12/16 com padding 8 12 4 · ilha com padding 4'],
+        ['linha', 'mínimo 56 · padding 6 8 6 12 · ícone 20 muted · nome 16/20 500 + apoio 13/16 muted · chevron-right 20'],
+        ['chave', '52×32 · ligada accent com polegar 24 foreground · desligada tertiary com polegar muted'],
+        ['botão no grupo', '48 · largura toda · surface secondary · padding 4 8 8 em volta'],
+        ['Notificações', 'abre Settings.ACTION_APP_NOTIFICATION_SETTINGS'],
+        ['Chamada com o celular bloqueado', 'só com Build.MANUFACTURER Xiaomi; abre o guia de Permissões'],
+        ['Sair desta conta', 'ícone e texto #F5645B']
+      ]),
+      S('7 · Faixa de atualização', [
+        ['lugar', 'ilha logo abaixo do cabeçalho, no layout; empurra a lista'],
+        ['faixa', 'padding 8 8 8 12 · gap 12 · caixa do ícone 32 raio 8 accent suave com arrow-down-to-line 16'],
+        ['texto', 'título 15/20 500 · linha 13/16 muted'],
+        ['botão', '48 · padding 0 16 · 15/20 600 · Atualizar e Instalar em accent, Cancelar e Tentar de novo em surface secondary'],
+        ['progresso', 'trilho 4 tertiary, cheio accent, abaixo da linha · a faixa passa de 64 para 76'],
+        ['parou', 'caixa do ícone em danger suave com circle-exclamation'],
+        ['adiar', 'arrastar para o lado; volta no dia seguinte'],
+        ['baixar', 'DownloadManager ou WorkManager com notificação de progresso; instalar com PackageInstaller']
+      ]),
+      S('Tela cheia deitada (844×390)', [
+        ['modo', 'WindowInsetsControllerCompat.hide(systemBars()), BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE'],
+        ['vídeo', '16:9 encaixado na altura: 693×390, centrado; faixas de 75,5 em background'],
+        ['recorte da câmera', 'layoutInDisplayCutoutMode SHORT_EDGES; nada interativo a menos de 48 da borda do recorte'],
+        ['margem das peças', 'esquerda 48 · direita 16 · topo 16 · base 24'],
+        ['peça "quem transmite"', 'altura 48 · padding 8 esq / 14 dir · avatar 32 · gap 10 · nome 14/20 600 · linha 12/16 muted com display-pulse 12'],
+        ['sair da tela cheia', '48×48 · surface · chevrons-collapse-up-right 20'],
+        ['volume da live', '248×48 · volume 20 em alvo 48 · trilho 4 tertiary · cheio accent · polegar 16'],
+        ['mudo / sair', '48×48 · mudo: foreground com microphone-slash em background · sair: danger'],
+        ['aparecer / sumir', 'toque mostra; somem 3 s após o último toque; alpha em 180 ms']
+      ]),
+      S('Quadrinho flutuante', [
+        ['proporção', 'setAspectRatio(Rational(16,9)) ou (9,16); setSeamlessResizeEnabled(true)'],
+        ['ao vivo', 'só o vídeo, sem texto nem peças'],
+        ['imagem parada', 'após 2 s sem quadro · peça 28, 8 da borda, padding 0 10 · antenna-signal 12 + 12/16 500 warning'],
+        ['live acabou', 'surface cheio · avatar 40 · título 14/20 600 · linha 12/16 muted'],
+        ['ações', 'volume ⇄ volume-mudo · microfone ⇄ microfone-mudo · sair-da-sala (icones/pip-*.svg)']
+      ]),
+      S('Folhas de permissão', [
+        ['folha', 'a mesma do Painel da pessoa · padding 24 20 20 · gap 16'],
+        ['caixa do ícone', '48×48 · surface secondary · ícone 24'],
+        ['caminho nos Ajustes', 'só no estado negado · padding 12 14 · surface secondary · 12/16 muted + 14/20 500'],
+        ['botões', '48 · largura toda · gap 8 · principal accent · secundário surface secondary'],
+        ['guia Xiaomi', 'três passos em ilhas · número 28×28 · título 15/22 600 · caminho 13/20 muted · sem imagem']
+      ]),
+      S('Ícones', [
+        ['adaptativo', 'tela 108 · visível 72 · segura 66 · fundo surface #18181B'],
+        ['monocromático', '<monochrome> no adaptive-icon'],
+        ['notificação', 'glifo do kit sem mudança · viewport 16 · tamanho 24 · só alfa (icones/notif-*.svg)']
+      ])
+    ] };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+--- baseline/WebRtcAudioTrack.java
++++ src/org/webrtc/audio/WebRtcAudioTrack.java
+@@ -48,3 +48,2 @@
+-// By default, WebRTC creates audio tracks with a usage attribute
+-// corresponding to voice communications, such as telephony or VoIP.
+-private static final int DEFAULT_USAGE = AudioAttributes.USAGE_VOICE_COMMUNICATION;
++// Media by default; call mode (PlaybackRoute.voice) overrides per AudioTrack.
++private static final int DEFAULT_USAGE = AudioAttributes.USAGE_MEDIA;
+@@ -66,0 +66 @@
++private PlaybackRoute.Request appliedRoute;
+@@ -88,0 +89 @@
++private final PlaybackRoute.Meter outputMeter = new PlaybackRoute.Meter();
+@@ -108,0 +110 @@
++applyPreferredDevice();
+@@ -122,0 +125 @@
++outputMeter.written(audioTrack, bytesWritten);
+@@ -140,4 +143,2 @@
+-// TODO(henrika): it is possible to create a delay estimate here by
+-// counting number of written frames and subtracting the result from
+-// audioTrack.getPlaybackHeadPosition().
+-}
++}
++outputMeter.clear();
+@@ -278,0 +280,2 @@
++appliedRoute = null;
++applyPreferredDevice();
+@@ -356,4 +359,4 @@
+-return audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
+-}
+-
+-// Set current volume level for a phone call audio stream.
++return audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
++}
++
++// Set current media volume.
+@@ -368 +371 @@
+-audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL, volume, 0);
++audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
+@@ -377 +380 @@
+-return audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
++return audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+@@ -406 +409 @@
+-AudioTrack.getNativeOutputSampleRate(AudioManager.STREAM_VOICE_CALL);
++AudioTrack.getNativeOutputSampleRate(AudioManager.STREAM_MUSIC);
+@@ -417 +420 @@
+-.setContentType(AudioAttributes.CONTENT_TYPE_SPEECH);
++.setContentType(AudioAttributes.CONTENT_TYPE_MOVIE);
+@@ -431,0 +435,4 @@
++}
++if (PlaybackRoute.voice) {
++attributesBuilder.setUsage(AudioAttributes.USAGE_VOICE_COMMUNICATION)
++.setContentType(AudioAttributes.CONTENT_TYPE_SPEECH);
+@@ -444 +451 @@
+-// Create an audio track where the audio usage is for VoIP and the content type is speech.
++// Create media playback with attributes supplied at module creation.
+@@ -465 +472 @@
+-// Create an audio track where the audio usage is for VoIP and the content type is speech.
++// Create media playback with attributes supplied at module creation.
+@@ -558,0 +566,11 @@
++// Called at initialization and on the playout thread between writes.
++// Never replace the AudioTrack: mute/unmute cannot interrupt playback.
++private void applyPreferredDevice() {
++PlaybackRoute.Request next = PlaybackRoute.request;
++if (next == null || next == appliedRoute) return;
++if (!audioTrack.setPreferredDevice(next.device)) {
++reportWebRtcAudioTrackError("Preferred output device rejected");
++}
++appliedRoute = next;
++}
++

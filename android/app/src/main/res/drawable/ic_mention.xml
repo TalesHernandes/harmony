@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- An @, for a mention, on the notification. The HeroUI kit's
+     "at" glyph, copied from web/harmony/src/Icon.tsx. White on
+     transparent: the system tints it. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="16"
+    android:viewportHeight="16">
+    <group android:translateX="1" android:translateY="1">
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:fillType="evenOdd"
+            android:pathData="M 7 1.5 C 3.962 1.5 1.5 3.962 1.5 7 C 1.5 10.038 3.962 12.5 7 12.5 C 8.34 12.5 9.566 12.022 10.52 11.227 C 10.838 10.961 11.311 11.004 11.576 11.322 C 11.841 11.64 11.798 12.113 11.48 12.379 C 10.267 13.391 8.703 14 7 14 C 3.134 14 0 10.866 0 7 C 0 3.134 3.134 0 7 0 C 10.866 0 14 3.134 14 7 C 14 8.381 12.881 9.5 11.5 9.5 C 10.899 9.5 10.348 9.288 9.917 8.935 C 9.29 9.878 8.218 10.5 7 10.5 C 5.067 10.5 3.5 8.933 3.5 7 C 3.5 5.067 5.067 3.5 7 3.5 C 8.933 3.5 10.5 5.067 10.5 7 C 10.5 7.552 10.948 8 11.5 8 C 12.052 8 12.5 7.552 12.5 7 C 12.5 3.962 10.038 1.5 7 1.5 Z M 9 7 C 9 5.895 8.105 5 7 5 C 5.895 5 5 5.895 5 7 C 5 8.105 5.895 9 7 9 C 8.105 9 9 8.105 9 7 Z" />
+    </group>
+</vector>

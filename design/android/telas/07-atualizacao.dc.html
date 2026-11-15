@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/tokens/fonts.css">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/styles.css">
+<script src="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/_ds_bundle.js"></script>
+<style>body{margin:0;background:#0C0C0E;color:#FCFCFC;font-family:Inter,sans-serif;-webkit-font-smoothing:antialiased}a{color:#FCFCFC;text-decoration:underline;text-underline-offset:2px}a:hover{color:#61A8FC}</style>
+</helmet>
+<div style="padding:48px;display:flex;flex-direction:column;gap:32px;font-family:Inter,sans-serif;letter-spacing:-0.02em;color:#FCFCFC">
+  <div style="display:flex;flex-direction:column;gap:8px;max-width:76ch">
+    <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">harmony · app Android · 7 de 7</span>
+    <h1 style="margin:0;font-size:24px;line-height:32px;font-weight:600;letter-spacing:-0.01em">Versão nova disponível</h1>
+    <p style="margin:0;font-size:14px;line-height:20px;color:#A1A1AA;text-wrap:pretty">A faixa entra no layout logo abaixo do cabeçalho e empurra a lista, do mesmo jeito que a faixa da chamada. Não flutua sobre nada. Some sozinha quando a versão nova abre.</p>
+    <p style="margin:0;font-size:13px;line-height:20px;color:#A1A1AA"><a href="Entrar.dc.html">1 Entrar</a> · <a href="Lista.dc.html">2 Lista</a> · <a href="Conversa.dc.html">3 Conversa</a> · <a href="Sala%20de%20voz.dc.html">4 Sala de voz</a> · <a href="Painel%20da%20pessoa.dc.html">5 Painel da pessoa</a> · <a href="Ajustes.dc.html">6 Ajustes</a> · <a href="Atualiza%C3%A7%C3%A3o.dc.html">7 Atualização</a> · <a href="Especifica%C3%A7%C3%A3o.dc.html">Especificação</a></p>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+    <sc-for list="{{ frames }}" as="f" hint-placeholder-count="2">
+      <div style="display:flex;flex-direction:column;gap:12px;width:390px">
+        <span style="font-size:13px;line-height:20px;font-weight:600">{{ f.label }}</span>
+        <div data-screen-label="{{ f.id }}" style="position:relative;width:390px;height:844px;flex:none;background:#060607;border-radius:36px;overflow:hidden;box-shadow:0 0 0 8px #232325;display:flex;flex-direction:column">
+          <div style="height:36px;flex:none;position:relative;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font-size:13px;line-height:16px;font-weight:500">
+            <span>21:12</span>
+            <span style="display:flex;align-items:center;gap:6px"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="antenna-signal" size="{{ s12 }}" hint-size="12px,12px"></x-import><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="bar-high" size="{{ s12 }}" hint-size="12px,12px"></x-import></span>
+            <span style="position:absolute;left:189px;top:12px;width:12px;height:12px;border-radius:9999px;background:#000"></span>
+          </div>
+          <sc-if value="{{ f.web }}" hint-placeholder-val="{{ false }}">
+            <div style="height:56px;flex:none;display:flex;align-items:center;gap:4px;padding:0 4px 0 12px;background:#18181B">
+              <span style="flex:1;min-width:0;height:40px;display:flex;align-items:center;gap:8px;padding:0 14px;border-radius:9999px;background:#232325;font-size:14px;line-height:20px"><span style="color:#A1A1AA;display:flex"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="lock" size="{{ s12 }}" hint-size="12px,12px"></x-import></span>harmony.taleshernandes.com</span>
+              <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;color:#A1A1AA"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="ellipsis-vertical" size="{{ s16 }}" hint-size="16px,16px"></x-import></span>
+            </div>
+          </sc-if>
+          <div style="flex:1;min-height:0;display:flex;flex-direction:column;padding:8px;gap:8px">
+            <div style="height:56px;flex:none;background:#18181B;border-radius:8px;display:flex;align-items:center;gap:4px;padding:0 4px">
+              <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="bars" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+              <span style="color:#A1A1AA;display:flex;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="hashtag" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+              <span style="flex:1;min-width:0;font-size:20px;line-height:28px;font-weight:600;padding-left:4px">música</span>
+              <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="magnifier" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+              <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="persons" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+            </div>
+            <div style="flex:none;background:#18181B;border-radius:8px;padding:8px 8px 8px 12px;display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;align-items:center;gap:12px">
+                <span style="width:32px;height:32px;flex:none;border-radius:8px;background:rgba(4,133,247,0.12);color:#61A8FC;display:flex;align-items:center;justify-content:center"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="arrow-down-to-line" size="{{ s16 }}" hint-size="16px,16px"></x-import></span>
+                <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+                  <span style="font-size:15px;line-height:20px;font-weight:500">{{ f.titulo }}</span>
+                  <span style="font-size:13px;line-height:16px;color:#A1A1AA">{{ f.linha }}</span>
+                </span>
+                <span style="height:48px;display:flex;align-items:center;padding:0 16px;border-radius:8px;background:{{ f.botaoFundo }};font-size:15px;line-height:20px;font-weight:600;flex:none">{{ f.botao }}</span>
+              </div>
+              <sc-if value="{{ f.progresso }}" hint-placeholder-val="{{ false }}">
+                <span style="height:4px;border-radius:9999px;background:#323235;position:relative;margin:0 4px 4px 0;display:block"><span style="position:absolute;left:0;top:0;bottom:0;width:40%;border-radius:9999px;background:#0485F7"></span></span>
+              </sc-if>
+            </div>
+            <div style="flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0 8px">
+              <sc-for list="{{ msgs }}" as="m" hint-placeholder-count="3">
+                <div style="display:grid;grid-template-columns:48px minmax(0,1fr);padding-top:12px">
+                  <span style="width:36px;height:36px;border-radius:9999px;background:#323235;font-size:14px;line-height:36px;font-weight:600;text-align:center;margin-top:4px">{{ m.ini }}</span>
+                  <div style="display:flex;flex-direction:column;min-width:0">
+                    <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:15px;line-height:22px;font-weight:600">{{ m.nome }}</span><span style="font-size:13px;line-height:16px;color:#A1A1AA">{{ m.hora }}</span></div>
+                    <span style="font-size:16px;line-height:24px;letter-spacing:-0.005em;text-wrap:pretty">{{ m.texto }}</span>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="flex:none;background:#18181B;border-radius:8px;padding:4px;display:flex;align-items:flex-end;gap:4px">
+              <span style="width:48px;height:48px;color:#A1A1AA;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="paperclip" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+              <span style="flex:1;min-width:0;font-size:16px;line-height:24px;color:#A1A1AA;padding:12px 0">Mensagem em #música</span>
+              <span style="width:48px;height:48px;color:#A1A1AA;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="face-smile" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+            </div>
+          </div>
+          <div style="height:24px;flex:none;position:relative"><span style="position:absolute;left:141px;bottom:10px;width:108px;height:4px;border-radius:9999px;background:#A1A1AA"></span></div>
+        </div>
+        <span style="font-size:12px;line-height:16px;color:#A1A1AA;text-wrap:pretty">{{ f.note }}</span>
+      </div>
+    </sc-for>
+    <div style="display:flex;flex-direction:column;gap:16px;width:390px">
+      <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">A faixa no Android, estado por estado</span>
+      <sc-for list="{{ estados }}" as="e" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div data-screen-label="{{ e.id }}" style="width:374px;background:#18181B;border-radius:8px;padding:8px 8px 8px 12px;box-sizing:border-box;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:12px">
+              <span style="width:32px;height:32px;flex:none;border-radius:8px;background:{{ e.iconeFundo }};color:{{ e.iconeCor }};display:flex;align-items:center;justify-content:center"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="{{ e.icone }}" size="{{ s16 }}" hint-size="16px,16px"></x-import></span>
+              <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+                <span style="font-size:15px;line-height:20px;font-weight:500">{{ e.titulo }}</span>
+                <span style="font-size:13px;line-height:16px;color:#A1A1AA">{{ e.linha }}</span>
+              </span>
+              <span style="height:48px;display:flex;align-items:center;padding:0 16px;border-radius:8px;background:{{ e.botaoFundo }};font-size:15px;line-height:20px;font-weight:600;flex:none">{{ e.botao }}</span>
+            </div>
+            <sc-if value="{{ e.progresso }}" hint-placeholder-val="{{ false }}">
+              <span style="height:4px;border-radius:9999px;background:#323235;position:relative;margin:0 4px 4px 0;display:block"><span style="position:absolute;left:0;top:0;bottom:0;width:40%;border-radius:9999px;background:#0485F7"></span></span>
+            </sc-if>
+          </div>
+          <span style="font-size:12px;line-height:16px;color:#A1A1AA;text-wrap:pretty;max-width:374px">{{ e.note }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;width:340px">
+      <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">O que mudou, e por quê</span>
+      <sc-for list="{{ mudancas }}" as="m" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:4px;padding:12px 14px;background:#18181B;border-radius:8px">
+          <span style="font-size:14px;line-height:20px;font-weight:600">{{ m.t }}</span>
+          <span style="font-size:13px;line-height:20px;color:#A1A1AA;text-wrap:pretty">{{ m.c }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const acc = { iconeFundo: 'rgba(4,133,247,0.12)', iconeCor: '#61A8FC', icone: 'arrow-down-to-line' };
+    return {
+      s12: 12, s16: 16, s20: 20,
+      frames: [
+        { id: '7 Web', label: 'Web · Chrome no celular', web: true, titulo: 'Versão nova disponível', linha: 'Atualizar recarrega a página', botao: 'Atualizar', botaoFundo: '#0485F7', note: 'No web, Atualizar só recarrega. Leva um segundo e não tem progresso.' },
+        { id: '7 Android', label: 'Android · baixando', titulo: 'Baixando a versão 1.9.0', linha: '12,4 de 31 MB', botao: 'Cancelar', botaoFundo: '#232325', progresso: true, note: 'A faixa cresce 12dp para caber a barra. A conversa continua funcionando por baixo.' }
+      ],
+      msgs: [
+        { ini: 'RQ', nome: 'Rafa Quintela', hora: '21:04', texto: 'alguém tem a versão ao vivo daquela do cavaquinho?' },
+        { ini: 'TB', nome: 'Tainá Bezerra', hora: '21:09', texto: 'tenho no hd externo, mando amanhã' }
+      ],
+      estados: [
+        Object.assign({ id: '7a Disponível', titulo: 'Versão nova disponível', linha: '1.9.0 · 31 MB', botao: 'Atualizar', botaoFundo: '#0485F7', note: 'Aparece quando o app abre ou quando você toca em Procurar atualização. Arrastar para o lado adia até amanhã.' }, acc),
+        Object.assign({ id: '7b Baixando', titulo: 'Baixando a versão 1.9.0', linha: '12,4 de 31 MB', botao: 'Cancelar', botaoFundo: '#232325', progresso: true, note: 'Continua se você sair do app, com a mesma barra na notificação do sistema.' }, acc),
+        Object.assign({ id: '7c Pronta', titulo: 'Versão 1.9.0 baixada', linha: 'O Android vai pedir para instalar', botao: 'Instalar', botaoFundo: '#0485F7', note: 'Instalar abre a caixa do instalador do Android. Na primeira vez, antes dela, vem o pedido de licença (Permissões 3d).' }, acc),
+        { id: '7d Parou', icone: 'circle-exclamation', iconeFundo: 'rgba(219,59,62,0.15)', iconeCor: '#F5645B', titulo: 'O download parou', linha: 'Sem internet · 12,4 de 31 MB', botao: 'Tentar de novo', botaoFundo: '#232325', note: 'Erro é danger. Quando a internet volta, o download retoma sozinho de onde parou.' }
+      ],
+      mudancas: [
+        { t: 'O web recarrega, o app baixa', c: 'O site troca de versão ao recarregar. O app precisa baixar o pacote inteiro, por isso a faixa ganha progresso, Cancelar e um estado de erro.' },
+        { t: 'Instalar é do Android', c: 'O app não desenha a caixa de instalação. Na primeira vez, pede a licença de instalar apps (folha 3d). Depois disso, só a caixa do sistema.' },
+        { t: 'Fora do app', c: 'O download segue numa notificação do sistema com a mesma barra. Quando o app abre na versão nova, a notificação usa o ícone notif-app-atualizado.' },
+        { t: 'O resto é igual', c: 'Mesmo lugar no layout, mesma ilha, mesmo ícone em accent suave e mesmo botão de 48.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

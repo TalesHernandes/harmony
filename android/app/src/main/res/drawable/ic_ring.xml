@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A loudspeaker, for being called into a voice room, on the notification. The HeroUI kit's
+     "volume" glyph, copied from web/harmony/src/Icon.tsx. White on
+     transparent: the system tints it. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="16"
+    android:viewportHeight="16">
+    <group android:translateX="0" android:translateY="2">
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:fillType="evenOdd"
+            android:pathData="M 2 3 L 4 3 L 6.482 0.518 C 6.814 0.186 7.263 0 7.732 0 C 8.709 0 9.5 0.791 9.5 1.768 L 9.5 10.232 C 9.5 11.209 8.709 12 7.732 12 C 7.263 12 6.814 11.814 6.482 11.482 L 4 9 L 2 9 C 0.895 9 0 8.105 0 7 L 0 5 C 0 3.895 0.895 3 2 3 Z M 14.162 11.103 C 13.897 11.422 13.419 11.419 13.127 11.127 C 12.834 10.834 12.838 10.361 13.095 10.037 C 13.975 8.928 14.5 7.525 14.5 6 C 14.5 4.475 13.975 3.072 13.095 1.963 C 12.838 1.639 12.834 1.166 13.127 0.874 C 13.419 0.581 13.897 0.579 14.162 0.897 C 15.31 2.282 16 4.061 16 6 C 16 7.94 15.31 9.718 14.162 11.103 Z M 12.024 8.968 C 11.778 9.301 11.298 9.298 11.005 9.005 C 10.712 8.712 10.721 8.241 10.945 7.892 C 11.296 7.347 11.5 6.697 11.5 6 C 11.5 5.303 11.296 4.653 10.945 4.108 C 10.721 3.76 10.712 3.288 11.005 2.995 C 11.298 2.702 11.778 2.699 12.024 3.032 C 12.638 3.862 13 4.889 13 6 C 13 7.111 12.638 8.138 12.024 8.968 Z" />
+    </group>
+</vector>

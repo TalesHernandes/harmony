@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/tokens/fonts.css">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/styles.css">
+<script src="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/_ds_bundle.js"></script>
+<style>body{margin:0;background:#0C0C0E;color:#FCFCFC;font-family:Inter,sans-serif}a{color:#0485F7}a:hover{color:#FCFCFC}</style>
+</helmet>
+<div style="padding:48px;display:flex;flex-direction:column;gap:40px;font-family:Inter,sans-serif;letter-spacing:-0.02em">
+  <div style="display:flex;flex-direction:column;gap:6px;max-width:72ch">
+    <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">harmony · Android · 1</span>
+    <h1 style="margin:0;font-size:24px;line-height:32px;font-weight:600">Tela cheia deitada — assistir a live</h1>
+    <p style="margin:0;font-size:14px;line-height:20px;color:#A1A1AA;text-wrap:pretty">844×390, modo imersivo (barras do sistema escondidas). A live em 16:9 tem 693×390 e sobram 75,5 de cada lado. O recorte da câmera cai na faixa preta da esquerda, e a barra de gestos cai embaixo, no meio. Os controles são peças opacas: aparecem com um toque e somem depois de 3 s sem toque, animando só a opacidade (180 ms).</p>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="font-size:13px;line-height:20px;font-weight:600">A · só o vídeo</span>
+      <div data-screen-label="1A Tela cheia sem controles" style="position:relative;width:844px;height:390px;background:#060607;border-radius:28px;overflow:hidden;box-shadow:0 0 0 8px #232325">
+        <div style="position:absolute;left:75.5px;top:0;width:693px;height:390px;background:#18181B">
+          <x-import component-from-global-scope="image-slot" from="../../image-slot.js" id="live-quadro-1" placeholder="Quadro da live (16:9)" hint-size="100%,100%"></x-import>
+        </div>
+        <span style="position:absolute;left:14px;top:189px;width:12px;height:12px;border-radius:9999px;background:#000"></span>
+      </div>
+      <span style="font-size:12px;line-height:16px;color:#A1A1AA;max-width:844px">Nada por cima. No imersivo, a alça de gestos também some; um deslize a partir da borda traz de volta.</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="font-size:13px;line-height:20px;font-weight:600">B · controles depois de um toque</span>
+      <div data-screen-label="1B Tela cheia com controles" style="position:relative;width:844px;height:390px;background:#060607;border-radius:28px;overflow:hidden;box-shadow:0 0 0 8px #232325">
+        <div style="position:absolute;left:75.5px;top:0;width:693px;height:390px;background:#18181B">
+          <x-import component-from-global-scope="image-slot" from="../../image-slot.js" id="live-quadro-2" placeholder="Quadro da live (16:9)" hint-size="100%,100%"></x-import>
+        </div>
+        <span style="position:absolute;left:14px;top:189px;width:12px;height:12px;border-radius:9999px;background:#000"></span>
+        <div style="position:absolute;left:48px;top:16px;height:48px;display:flex;align-items:center;gap:10px;padding:0 14px 0 8px;background:#18181B;border-radius:8px">
+          <span style="width:32px;height:32px;border-radius:9999px;background:#323235;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600">L</span>
+          <div style="display:flex;flex-direction:column">
+            <span style="font-size:14px;line-height:20px;font-weight:600">Lia</span>
+            <span style="display:flex;align-items:center;gap:4px;font-size:12px;line-height:16px;color:#A1A1AA"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="display-pulse" size="{{ s12 }}" hint-size="12px,12px"></x-import>mostrando a tela</span>
+          </div>
+        </div>
+        <div style="position:absolute;right:16px;top:16px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#18181B;border-radius:8px">
+          <x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="chevrons-collapse-up-right" size="{{ s20 }}" hint-size="20px,20px"></x-import>
+        </div>
+        <div style="position:absolute;left:48px;bottom:24px;height:48px;width:248px;display:flex;align-items:center;gap:8px;padding-right:16px;background:#18181B;border-radius:8px;box-sizing:border-box">
+          <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="volume" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+          <div style="position:relative;flex:1;height:48px;display:flex;align-items:center">
+            <span style="position:absolute;left:0;right:0;height:4px;border-radius:9999px;background:#323235"></span>
+            <span style="position:absolute;left:0;width:70%;height:4px;border-radius:9999px;background:#0485F7"></span>
+            <span style="position:absolute;left:calc(70% - 8px);width:16px;height:16px;border-radius:9999px;background:#FCFCFC"></span>
+          </div>
+        </div>
+        <div style="position:absolute;right:16px;bottom:24px;display:flex;gap:8px">
+          <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#18181B;border-radius:8px"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="microphone" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+          <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#DB3B3E;border-radius:8px"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="handset-arrow-out" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+        </div>
+        <span style="position:absolute;left:368px;bottom:8px;width:108px;height:4px;border-radius:9999px;background:#A1A1AA"></span>
+      </div>
+      <span style="font-size:12px;line-height:16px;color:#A1A1AA;max-width:844px">Esquerda: volume da live. Direita: mudo do meu microfone e sair da sala (danger: é destrutivo). No alto: quem transmite e sair da tela cheia. Os controles de baixo ficam 24 acima da borda, livres da faixa de gestos.</span>
+    </div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="font-size:13px;line-height:20px;font-weight:600">B′ · microfone no mudo</span>
+      <div style="display:flex;gap:8px;padding:16px;background:#060607;border-radius:8px">
+        <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#FCFCFC;color:#060607;border-radius:8px"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="microphone-slash" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+        <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#DB3B3E;border-radius:8px"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="handset-arrow-out" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+      </div>
+      <span style="font-size:12px;line-height:16px;color:#A1A1AA;max-width:36ch">No mudo, a peça inverte (fundo foreground, ícone background): continua opaca e dá para ler de relance em cima de qualquer quadro.</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="font-size:13px;line-height:20px;font-weight:600">B″ · som da live no zero</span>
+      <div style="height:48px;width:248px;display:flex;align-items:center;gap:8px;padding-right:16px;background:#18181B;border-radius:8px;box-sizing:border-box">
+        <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;flex:none;color:#A1A1AA"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="volume-xmark" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+        <div style="position:relative;flex:1;height:48px;display:flex;align-items:center">
+          <span style="position:absolute;left:0;right:0;height:4px;border-radius:9999px;background:#323235"></span>
+          <span style="position:absolute;left:0;width:16px;height:16px;border-radius:9999px;background:#FCFCFC"></span>
+        </div>
+      </div>
+      <span style="font-size:12px;line-height:16px;color:#A1A1AA;max-width:36ch">Tocar no ícone zera o som ou volta ao valor de antes.</span>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() { return { s12: 12, s20: 20 }; }
+}
+</script>
+</body>
+</html>

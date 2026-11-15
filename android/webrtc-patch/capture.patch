@@ -1,0 +1,85 @@
+--- baseline/WebRtcAudioRecord.java
++++ src/org/webrtc/audio/WebRtcAudioRecord.java
+@@ -44,7 +44,22 @@
+ import org.webrtc.audio.JavaAudioDeviceModule.AudioRecordStateCallback;
+ import org.webrtc.audio.JavaAudioDeviceModule.SamplesReadyCallback;
+ 
+-class WebRtcAudioRecord {
++public class WebRtcAudioRecord {
++  // Lifecycle runs outside the read loop. A processor must preserve raw PCM on failure.
++  public interface CaptureProcessor {
++    void captureStarted(ByteBuffer pcm16, int sampleRate, int channels);
++    void process(ByteBuffer pcm16, int bytes, int sampleRate, int channels);
++    default void processAfterMute(ByteBuffer pcm16, int bytes, int sampleRate, int channels) {}
++    void captureStopped(ByteBuffer pcm16);
++  }
++
++  public static volatile CaptureProcessor captureProcessor;
++  // The source of the next AudioRecord, or -1 for the one given at module
++  // creation: the app switches between call mode and media mid-call and
++  // restarts recording to apply it.
++  public static volatile int sourceOverride = -1;
++  private CaptureProcessor recordingProcessor;
++
+   private static final String TAG = "WebRtcAudioRecordExternal";
+ 
+   // Requested size of each recorded buffer provided to the client.
+@@ -141,9 +156,18 @@
+       while (keepAlive) {
+         int bytesRead = audioRecord.read(byteBuffer, byteBuffer.capacity());
+         if (bytesRead == byteBuffer.capacity()) {
++          CaptureProcessor processor = recordingProcessor;
++          if (keepAlive && processor != null) {
++            processor.process(byteBuffer, bytesRead,
++                audioRecord.getSampleRate(), audioRecord.getChannelCount());
++          }
+           if (microphoneMute) {
+             byteBuffer.clear();
+             byteBuffer.put(emptyBytes);
++          }
++          if (keepAlive && processor != null) {
++            processor.processAfterMute(byteBuffer, bytesRead,
++                audioRecord.getSampleRate(), audioRecord.getChannelCount());
+           }
+           // It's possible we've been shut down during the read, and stopRecording() tried and
+           // failed to join this thread. To be a bit safer, try to avoid calling any native methods
+@@ -335,7 +359,7 @@
+         // Use the AudioRecord.Builder class on Android M (23) and above.
+         // Throws IllegalArgumentException.
+         audioRecord = createAudioRecordOnMOrHigher(
+-        audioSource, sampleRate, channelConfig, audioFormat, bufferSizeInBytes);
++        sourceOverride >= 0 ? sourceOverride : audioSource, sampleRate, channelConfig, audioFormat, bufferSizeInBytes);
+         audioSourceMatchesRecordingSessionRef.set(null);
+         if (preferredDevice != null) {
+           setPreferredDevice(preferredDevice);
+@@ -344,7 +368,7 @@
+         // Use the old AudioRecord constructor for API levels below 23.
+         // Throws UnsupportedOperationException.
+         audioRecord = createAudioRecordOnLowerThanM(
+-        audioSource, sampleRate, channelConfig, audioFormat, bufferSizeInBytes);
++        sourceOverride >= 0 ? sourceOverride : audioSource, sampleRate, channelConfig, audioFormat, bufferSizeInBytes);
+         audioSourceMatchesRecordingSessionRef.set(null);
+       }
+     } catch (IllegalArgumentException | UnsupportedOperationException e) {
+@@ -375,6 +399,10 @@
+       // upcoming call to startRecording() will fail under these conditions.
+       Logging.w(
+       TAG, "Potential microphone conflict. Active sessions: " + numActiveRecordingSessions);
++    }
++    recordingProcessor = captureProcessor;
++    if (recordingProcessor != null) {
++      recordingProcessor.captureStarted(byteBuffer, sampleRate, channels);
+     }
+     return framesPerBuffer;
+   }
+@@ -647,6 +675,10 @@
+   // Releases the native AudioRecord resources.
+   private void releaseAudioResources() {
+     Logging.d(TAG, "releaseAudioResources");
++    if (recordingProcessor != null) {
++      recordingProcessor.captureStopped(byteBuffer);
++      recordingProcessor = null;
++    }
+     if (audioRecord != null) {
+       audioRecord.release();
+       audioRecord = null;

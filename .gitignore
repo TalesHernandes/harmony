@@ -1,0 +1,53 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Front-end build output and dependencies
+node_modules/
+dist/
+
+# Go build output
+*.exe
+*.test
+
+# Caddy local (se rodado fora do compose)
+caddy_data/
+caddy_config/
+
+# Local secrets and browser test output
+.env
+test-results/
+playwright-report/
+
+# Local tooling
+.claude/
+
+# Sprint D0 (harmony): the machine-local env file and the SQLite data directory
+.env.harmony
+data/
+e2e-harmony/invites.json
+
+# Os binários de teste com caminho fixo (scripts/go-test.sh), para o Windows
+# não perguntar do firewall a cada corrida.
+.gotestbin/
+.go-cache/
+
+# Saidas de ferramenta que nao sao do projeto
+resposta.md
+auditoria.md
+
+# DeepFilterNet 3: model and wasm, fetched and checked by web/harmony/scripts/fetch-dfn.sh
+web/harmony/vendor/
+
+# A bancada (D11): os perfis do servidor e os diag de cada rodada sao grandes e
+# recriaveis; o .json e o .md da rodada real sao o historico e ficam. A
+# sintetica (camera e tela falsas) nao e historico de nada.
+scripts/bancada/resultados/*-perfis/
+scripts/bancada/resultados/sintetica/
+
+# The Windows program (D8): the SDK is fetched, the build is made
+windows/third_party/
+windows/build/
+
+# The native Windows program (W1): build output
+windows/native/build/

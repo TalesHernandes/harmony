@@ -1,0 +1,47 @@
+﻿{
+    "bytes":  98959849,
+    "mib":  94.375466346740723,
+    "files":  271,
+    "dlls":  [
+                 {
+                     "Name":  "Microsoft.ui.xaml.dll",
+                     "Length":  15324472
+                 },
+                 {
+                     "Name":  "Microsoft.UI.Xaml.Controls.dll",
+                     "Length":  6943032
+                 },
+                 {
+                     "Name":  "WinUIEdit.dll",
+                     "Length":  3419448
+                 },
+                 {
+                     "Name":  "DWriteCore.dll",
+                     "Length":  3252576
+                 },
+                 {
+                     "Name":  "dcompi.dll",
+                     "Length":  3233560
+                 },
+                 {
+                     "Name":  "dwmcorei.dll",
+                     "Length":  2914104
+                 },
+                 {
+                     "Name":  "Microsoft.WindowsAppRuntime.dll",
+                     "Length":  2608480
+                 },
+                 {
+                     "Name":  "DwmSceneI.dll",
+                     "Length":  2365224
+                 },
+                 {
+                     "Name":  "Microsoft.UI.Input.dll",
+                     "Length":  1599256
+                 },
+                 {
+                     "Name":  "Microsoft.ui.xaml.resources.19h1.dll",
+                     "Length":  1120568
+                 }
+             ]
+}

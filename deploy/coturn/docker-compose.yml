@@ -1,0 +1,13 @@
+services:
+  coturn:
+    image: coturn/coturn:4.17.2-r0-alpine
+    restart: unless-stopped
+    network_mode: host
+    env_file: .env
+    volumes:
+      - ./turnserver.conf:/etc/coturn/turnserver.conf:ro
+    command:
+      - "--static-auth-secret=$$TURN_SECRET"
+      - "--listening-ip=$$TURN_PRIVATE_IP"
+      - "--relay-ip=$$TURN_PRIVATE_IP"
+      - "--external-ip=$$TURN_PUBLIC_IP/$$TURN_PRIVATE_IP"

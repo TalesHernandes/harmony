@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/tokens/fonts.css">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/styles.css">
+<script src="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/_ds_bundle.js"></script>
+<style>body{margin:0;background:#0C0C0E;color:#FCFCFC;font-family:Inter,sans-serif;-webkit-font-smoothing:antialiased}a{color:#FCFCFC;text-decoration:underline;text-underline-offset:2px}a:hover{color:#61A8FC}</style>
+</helmet>
+<div style="padding:48px;display:flex;flex-direction:column;gap:32px;font-family:Inter,sans-serif;letter-spacing:-0.02em;color:#FCFCFC">
+  <div style="display:flex;flex-direction:column;gap:8px;max-width:76ch">
+    <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">harmony · app Android · 4 de 7</span>
+    <h1 style="margin:0;font-size:24px;line-height:32px;font-weight:600;letter-spacing:-0.01em">Na sala de voz</h1>
+    <p style="margin:0;font-size:14px;line-height:20px;color:#A1A1AA;text-wrap:pretty">Quando alguém transmite, o palco fica em cima e os assentos embaixo. Sobre o vídeo só vão peças opacas: nome e tela cheia, sem sombra, borrão ou gradiente. A barra da chamada é a última ilha, acima da barra de gestos.</p>
+    <p style="margin:0;font-size:13px;line-height:20px;color:#A1A1AA"><a href="Entrar.dc.html">1 Entrar</a> · <a href="Lista.dc.html">2 Lista</a> · <a href="Conversa.dc.html">3 Conversa</a> · <a href="Sala%20de%20voz.dc.html">4 Sala de voz</a> · <a href="Painel%20da%20pessoa.dc.html">5 Painel da pessoa</a> · <a href="Ajustes.dc.html">6 Ajustes</a> · <a href="Atualiza%C3%A7%C3%A3o.dc.html">7 Atualização</a> · <a href="Especifica%C3%A7%C3%A3o.dc.html">Especificação</a> · deitado: <a href="Tela%20cheia.dc.html">Tela cheia</a> · fora do app: <a href="Quadrinho%20flutuante.dc.html">Quadrinho flutuante</a></p>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+    <sc-for list="{{ frames }}" as="f" hint-placeholder-count="3">
+      <div style="display:flex;flex-direction:column;gap:12px;width:390px">
+        <span style="font-size:13px;line-height:20px;font-weight:600">{{ f.label }}</span>
+        <div data-screen-label="{{ f.id }}" style="position:relative;width:390px;height:844px;flex:none;background:#060607;border-radius:36px;overflow:hidden;box-shadow:0 0 0 8px #232325;display:flex;flex-direction:column">
+          <div style="height:36px;flex:none;position:relative;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font-size:13px;line-height:16px;font-weight:500">
+            <span>00:14</span>
+            <span style="display:flex;align-items:center;gap:6px"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="antenna-signal" size="{{ s12 }}" hint-size="12px,12px"></x-import><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="bar-high" size="{{ s12 }}" hint-size="12px,12px"></x-import></span>
+            <span style="position:absolute;left:189px;top:12px;width:12px;height:12px;border-radius:9999px;background:#000"></span>
+          </div>
+          <sc-if value="{{ f.web }}" hint-placeholder-val="{{ false }}">
+            <div style="height:56px;flex:none;display:flex;align-items:center;gap:4px;padding:0 4px 0 12px;background:#18181B">
+              <span style="flex:1;min-width:0;height:40px;display:flex;align-items:center;gap:8px;padding:0 14px;border-radius:9999px;background:#232325;font-size:14px;line-height:20px"><span style="color:#A1A1AA;display:flex"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="lock" size="{{ s12 }}" hint-size="12px,12px"></x-import></span>harmony.taleshernandes.com</span>
+              <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;color:#A1A1AA"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="ellipsis-vertical" size="{{ s16 }}" hint-size="16px,16px"></x-import></span>
+            </div>
+          </sc-if>
+          <div style="flex:1;min-height:0;display:flex;flex-direction:column;padding:8px;gap:8px">
+            <div style="height:56px;flex:none;background:#18181B;border-radius:8px;display:flex;align-items:center;gap:4px;padding:0 4px">
+              <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="chevron-left" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+              <div style="display:flex;flex-direction:column;flex:1;min-width:0">
+                <span style="font-size:16px;line-height:20px;font-weight:600">Mesa grande</span>
+                <span style="font-size:13px;line-height:16px;color:#A1A1AA">5 pessoas · 1:12:04</span>
+              </div>
+              <span style="width:48px;height:48px;color:#A1A1AA;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="persons" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+            </div>
+            <sc-if value="{{ f.tela }}" hint-placeholder-val="{{ true }}">
+              <div style="height:210px;flex:none;position:relative;border-radius:8px;background:#232325;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#A1A1AA">
+                <x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="display" size="{{ s24 }}" hint-size="24px,24px"></x-import>
+                <span style="position:absolute;left:8px;bottom:8px;display:flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:9999px;background:#060607;color:#FCFCFC;font-size:13px;line-height:16px;font-weight:500"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="display-pulse" size="{{ s12 }}" hint-size="12px,12px"></x-import>Gabi · tela</span>
+                <span style="position:absolute;right:8px;top:8px;width:48px;height:48px;border-radius:8px;background:#18181B;color:#FCFCFC;display:flex;align-items:center;justify-content:center"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="chevrons-expand-up-right" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+              </div>
+              <div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8px">
+                <sc-for list="{{ assentosTela }}" as="a" hint-placeholder-count="4">
+                  <div style="position:relative;border-radius:8px;background:#18181B;box-shadow:{{ a.anel }};display:flex;align-items:center;justify-content:center;min-height:0">
+                    <span style="width:56px;height:56px;border-radius:9999px;background:#323235;font-size:20px;line-height:56px;font-weight:600;text-align:center">{{ a.ini }}</span>
+                    <span style="position:absolute;left:8px;bottom:8px;display:flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:9999px;background:#060607;font-size:13px;line-height:16px;font-weight:500"><sc-if value="{{ a.icone }}" hint-placeholder-val="{{ false }}"><span style="color:#A1A1AA;display:flex"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="{{ a.icone }}" size="{{ s12 }}" hint-size="12px,12px"></x-import></span></sc-if>{{ a.nome }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{ f.camera }}" hint-placeholder-val="{{ false }}">
+              <div style="flex:1;min-height:0;position:relative;border-radius:8px;background:#232325;box-shadow:inset 0 0 0 2px #17C964;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#A1A1AA">
+                <x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="camera" size="{{ s24 }}" hint-size="24px,24px"></x-import>
+                <span style="position:absolute;left:8px;bottom:8px;display:flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:9999px;background:#060607;color:#FCFCFC;font-size:13px;line-height:16px;font-weight:500">Iuri · câmera</span>
+                <span style="position:absolute;right:8px;top:8px;width:48px;height:48px;border-radius:8px;background:#18181B;color:#FCFCFC;display:flex;align-items:center;justify-content:center"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="chevrons-expand-up-right" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+              </div>
+              <div style="height:96px;flex:none;display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+                <sc-for list="{{ assentosCamera }}" as="a" hint-placeholder-count="4">
+                  <div style="position:relative;border-radius:8px;background:#18181B;box-shadow:{{ a.anel }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px">
+                    <span style="width:40px;height:40px;border-radius:9999px;background:#323235;font-size:15px;line-height:40px;font-weight:600;text-align:center">{{ a.ini }}</span>
+                    <span style="display:flex;align-items:center;gap:4px;font-size:12px;line-height:16px;font-weight:500"><sc-if value="{{ a.icone }}" hint-placeholder-val="{{ false }}"><span style="color:#A1A1AA;display:flex"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="{{ a.icone }}" size="{{ s12 }}" hint-size="12px,12px"></x-import></span></sc-if>{{ a.curto }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+            <div style="flex:none;background:#18181B;border-radius:8px;padding:8px;display:flex;align-items:center;gap:8px">
+              <span style="width:48px;height:48px;border-radius:8px;background:#27272A;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="microphone" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+              <span style="width:48px;height:48px;border-radius:8px;background:#27272A;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="volume" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+              <span style="width:48px;height:48px;border-radius:8px;background:#27272A;color:#A1A1AA;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="camera" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+              <sc-if value="{{ f.saida }}" hint-placeholder-val="{{ false }}">
+                <span style="width:48px;height:48px;border-radius:8px;background:#27272A;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="headphones" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+              </sc-if>
+              <span style="flex:1;min-width:8px"></span>
+              <span style="width:48px;height:48px;border-radius:8px;background:#DB3B3E;display:flex;align-items:center;justify-content:center;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="handset-arrow-out" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+            </div>
+          </div>
+          <div style="height:24px;flex:none;position:relative"><span style="position:absolute;left:141px;bottom:10px;width:108px;height:4px;border-radius:9999px;background:#A1A1AA"></span></div>
+        </div>
+        <span style="font-size:12px;line-height:16px;color:#A1A1AA;text-wrap:pretty">{{ f.note }}</span>
+      </div>
+    </sc-for>
+    <div style="display:flex;flex-direction:column;gap:8px;width:340px">
+      <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">O que mudou, e por quê</span>
+      <sc-for list="{{ mudancas }}" as="m" hint-placeholder-count="5">
+        <div style="display:flex;flex-direction:column;gap:4px;padding:12px 14px;background:#18181B;border-radius:8px">
+          <span style="font-size:14px;line-height:20px;font-weight:600">{{ m.t }}</span>
+          <span style="font-size:13px;line-height:20px;color:#A1A1AA;text-wrap:pretty">{{ m.c }}</span>
+        </div>
+      </sc-for>
+      <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA;padding-top:12px">Saída do som · a folha</span>
+      <div data-screen-label="4 Folha saída do som" style="background:#18181B;border-radius:8px;padding:8px;display:flex;flex-direction:column">
+        <div style="height:24px;display:flex;align-items:center;justify-content:center"><span style="width:36px;height:4px;border-radius:9999px;background:#323235"></span></div>
+        <span style="font-size:20px;line-height:28px;font-weight:600;letter-spacing:-0.01em;padding:4px 12px 8px">Por onde sai o som</span>
+        <sc-for list="{{ saidas }}" as="s" hint-placeholder-count="3">
+          <div style="display:flex;align-items:center;gap:16px;height:56px;padding:0 12px;border-radius:8px;background:{{ s.fundo }}">
+            <span style="color:{{ s.cor }};display:flex;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="{{ s.icone }}" size="{{ s20 }}" hint-size="20px,20px"></x-import></span>
+            <span style="flex:1;min-width:0;font-size:16px;line-height:20px;font-weight:500">{{ s.nome }}</span>
+            <sc-if value="{{ s.sel }}" hint-placeholder-val="{{ false }}"><span style="color:#0485F7;display:flex"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="check" size="{{ s20 }}" hint-size="20px,20px"></x-import></span></sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const anel = 'inset 0 0 0 2px #17C964';
+    return {
+      s12: 12, s16: 16, s20: 20, s24: 24,
+      frames: [
+        { id: '4 Web', label: 'Web · Chrome no celular', web: true, tela: true, note: 'Sem botão de saída do som: o Chrome no celular não deixa o site escolher.' },
+        { id: '4 Android tela', label: 'Android · Gabi transmite a tela', tela: true, saida: true, note: 'O palco em 16:9 na largura toda e os quatro assentos dividindo o resto.' },
+        { id: '4 Android câmera', label: 'Android · Iuri com a câmera', camera: true, saida: true, note: 'Câmera em pé ocupa a altura. Os assentos viram uma fileira, e o anel de jade vai para o palco porque é o Iuri quem fala.' }
+      ],
+      assentosTela: [
+        { ini: 'TB', nome: 'Tainá', anel },
+        { ini: 'IL', nome: 'Iuri', icone: 'microphone-slash', anel: 'none' },
+        { ini: 'RQ', nome: 'Rafa', icone: 'volume-xmark', anel: 'none' },
+        { ini: 'MS', nome: 'Mel (você)', anel: 'none' }
+      ],
+      assentosCamera: [
+        { ini: 'GA', curto: 'Gabi', anel: 'none' },
+        { ini: 'TB', curto: 'Tainá', anel: 'none' },
+        { ini: 'RQ', curto: 'Rafa', icone: 'volume-xmark', anel: 'none' },
+        { ini: 'MS', curto: 'Você', anel: 'none' }
+      ],
+      saidas: [
+        { nome: 'Fone Bluetooth', icone: 'headphones', sel: true, fundo: '#27272A', cor: '#FCFCFC' },
+        { nome: 'Alto-falante', icone: 'megaphone', fundo: 'transparent', cor: '#A1A1AA' },
+        { nome: 'Fone do aparelho', icone: 'smartphone', fundo: 'transparent', cor: '#A1A1AA' }
+      ],
+      mudancas: [
+        { t: 'Saída do som', c: 'É o único botão novo. O Chrome no celular não deixa o site escolher por onde sai o som; o Android deixa. O ícone mostra a saída de agora e o toque abre a folha abaixo. Só aparece quando há mais de uma saída.' },
+        { t: 'Sem a barra do navegador', c: 'Com os 56dp a mais, os assentos passam de 175 para 203 de altura.' },
+        { t: 'Sair do app sem sair da sala', c: 'No web, trocar de app pode cortar o áudio. No Android a sala continua, com a notificação de chamada em andamento, e o palco vira o quadrinho flutuante.' },
+        { t: 'Tela cheia', c: 'O botão do palco é o mesmo. No Android ele também deita a tela e esconde as barras do sistema (página Tela cheia).' },
+        { t: 'O resto é igual', c: 'Cabeçalho, palco, assentos, anel de jade, mudo, sem som, câmera e sair em danger, na mesma ordem e na mesma medida.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

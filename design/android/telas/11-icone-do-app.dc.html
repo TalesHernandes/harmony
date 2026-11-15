@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/tokens/fonts.css">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/styles.css">
+<script src="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/_ds_bundle.js"></script>
+<style>body{margin:0;background:#0C0C0E;color:#FCFCFC;font-family:Inter,sans-serif}a{color:#0485F7}a:hover{color:#FCFCFC}</style>
+</helmet>
+<div style="padding:48px;display:flex;flex-direction:column;gap:48px;font-family:Inter,sans-serif;letter-spacing:-0.02em">
+  <div style="display:flex;flex-direction:column;gap:6px;max-width:72ch">
+    <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">harmony · Android · 4</span>
+    <h1 style="margin:0;font-size:24px;line-height:32px;font-weight:600">Ícone do app e ícones de notificação</h1>
+    <p style="margin:0;font-size:14px;line-height:20px;color:#A1A1AA;text-wrap:pretty">A marca ainda não chegou, então a frente e a versão monocromática são vagas: solte o arquivo em cada uma. A geometria já está definida (tela de 108 dp, 72 dp visíveis, marca dentro do círculo seguro de 66 dp) e está aqui em 2×.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <span style="font-size:13px;line-height:20px;font-weight:600">Camadas · 108×108 dp</span>
+    <div style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div data-screen-label="4A Fundo" style="width:216px;height:216px;background:#18181B"></div>
+        <span style="font-size:13px;line-height:20px;font-weight:500">Fundo</span>
+        <span style="font-size:12px;line-height:16px;color:#A1A1AA;max-width:216px">Cor sólida surface #18181B. Não é accent: o azul quer dizer "o que você escolheu". Nem background: o #060607 some em launcher escuro.</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div data-screen-label="4B Frente" style="position:relative;width:216px;height:216px;background:repeating-conic-gradient(#1D1D20 0 25%,#232325 0 50%) 0 0/16px 16px">
+          <div style="position:absolute;left:42px;top:42px;width:132px;height:132px;border-radius:9999px;overflow:hidden">
+            <x-import component-from-global-scope="image-slot" from="../../image-slot.js" id="icone-frente" placeholder="Marca (frente)" shape="circle" hint-size="100%,100%"></x-import>
+          </div>
+          <span style="position:absolute;left:36px;top:36px;width:144px;height:144px;box-shadow:inset 0 0 0 1px #A1A1AA;pointer-events:none"></span>
+        </div>
+        <span style="font-size:13px;line-height:20px;font-weight:500">Frente</span>
+        <span style="font-size:12px;line-height:16px;color:#A1A1AA;max-width:216px">Fundo transparente (xadrez). Quadrado: os 72 dp visíveis. Círculo: a área segura de 66 dp, onde a marca inteira precisa caber.</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div data-screen-label="4C Monocromática" style="position:relative;width:216px;height:216px;background:repeating-conic-gradient(#1D1D20 0 25%,#232325 0 50%) 0 0/16px 16px">
+          <div style="position:absolute;left:42px;top:42px;width:132px;height:132px;border-radius:9999px;overflow:hidden">
+            <x-import component-from-global-scope="image-slot" from="../../image-slot.js" id="icone-mono" placeholder="Marca em uma cor só" shape="circle" hint-size="100%,100%"></x-import>
+          </div>
+          <span style="position:absolute;left:36px;top:36px;width:144px;height:144px;box-shadow:inset 0 0 0 1px #A1A1AA;pointer-events:none"></span>
+        </div>
+        <span style="font-size:13px;line-height:20px;font-weight:500">Monocromática</span>
+        <span style="font-size:12px;line-height:16px;color:#A1A1AA;max-width:216px">Silhueta de uma cor sobre transparente. O Android pinta com as cores do tema do usuário (Android 13 ou mais novo).</span>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <span style="font-size:13px;line-height:20px;font-weight:600">Máscaras · 72×72 dp visíveis</span>
+    <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+      <sc-for list="{{ masks }}" as="m" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-start">
+          <div style="width:144px;height:144px;border-radius:{{ m.r }};background:{{ m.bg }};display:flex;align-items:center;justify-content:center;overflow:hidden">
+            <span style="width:108px;height:108px;border-radius:9999px;box-shadow:inset 0 0 0 1px {{ m.fg }};display:flex;align-items:center;justify-content:center;font-size:12px;line-height:16px;color:{{ m.fg }}">marca</span>
+          </div>
+          <span style="font-size:13px;line-height:20px;font-weight:500">{{ m.name }}</span>
+          <span style="font-size:12px;line-height:16px;color:#A1A1AA;max-width:160px">{{ m.note }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px;max-width:880px">
+    <span style="font-size:13px;line-height:20px;font-weight:600">Ícones de notificação · 24×24 dp</span>
+    <div style="display:flex;align-items:center;gap:14px;height:36px;padding:0 20px;background:#060607;border-radius:8px;color:#FCFCFC;width:max-content">
+      <span style="font-size:13px;font-weight:500">21:14</span>
+      <sc-for list="{{ notifs }}" as="n" hint-placeholder-count="5">
+        <x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="{{ n.icon }}" size="{{ s16 }}" hint-size="16px,16px"></x-import>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px">
+      <sc-for list="{{ notifs }}" as="n" hint-placeholder-count="5">
+        <div style="display:flex;flex-direction:column;gap:10px;padding:16px;background:#18181B;border-radius:8px;min-width:0">
+          <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#232325;border-radius:8px;color:#FCFCFC"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="{{ n.icon }}" size="{{ s24 }}" hint-size="24px,24px"></x-import></span>
+          <span style="font-size:14px;line-height:20px;font-weight:600">{{ n.label }}</span>
+          <span style="font-size:12px;line-height:16px;color:#A1A1AA;overflow-wrap:anywhere">{{ n.file }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <p style="margin:0;font-size:12px;line-height:16px;color:#A1A1AA;max-width:72ch;text-wrap:pretty">Os arquivos em harmony/android/icones/ têm o glifo do kit sem nenhuma mudança: viewBox 0 0 16 16, width e height 24, fill currentColor. Como o Android usa só o alfa, o contorno aparece do mesmo jeito que apareceria uma silhueta. A chamada direta tem dois paths no kit e ficou assim.</p>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      s16: 16, s24: 24,
+      masks: [
+        { name: 'Círculo', r: '9999px', bg: '#18181B', fg: '#A1A1AA', note: 'Pixel e a maioria dos launchers.' },
+        { name: 'Quadrado arredondado', r: '32px', bg: '#18181B', fg: '#A1A1AA', note: 'Samsung One UI, Xiaomi.' },
+        { name: 'Gota', r: '72px 72px 16px 72px', bg: '#18181B', fg: '#A1A1AA', note: 'Canto de baixo à direita quase reto.' },
+        { name: 'Temático (exemplo)', r: '9999px', bg: '#1E2B3A', fg: '#A8C8F0', note: 'Cores do tema do usuário, não do harmony.' }
+      ],
+      notifs: [
+        { icon: 'comment', label: 'Mensagem direta', file: 'notif-mensagem-direta.svg' },
+        { icon: 'at', label: 'Menção', file: 'notif-mencao.svg' },
+        { icon: 'headphones', label: 'Chamado para sala', file: 'notif-chamado-sala.svg' },
+        { icon: 'handset-arrow-in', label: 'Chamada direta', file: 'notif-chamada-direta.svg' },
+        { icon: 'arrow-rotate-right', label: 'App atualizado', file: 'notif-app-atualizado.svg' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/tokens/fonts.css">
+<link rel="stylesheet" href="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/styles.css">
+<script src="../../_ds/heroui-3-design-system-9e479f82-000f-4714-ae2f-45a2b953e16e/_ds_bundle.js"></script>
+<style>body{margin:0;background:#0C0C0E;color:#FCFCFC;font-family:Inter,sans-serif;-webkit-font-smoothing:antialiased}a{color:#FCFCFC;text-decoration:underline;text-underline-offset:2px}a:hover{color:#61A8FC}</style>
+</helmet>
+<div style="padding:48px;display:flex;flex-direction:column;gap:32px;font-family:Inter,sans-serif;letter-spacing:-0.02em;color:#FCFCFC">
+  <div style="display:flex;flex-direction:column;gap:8px;max-width:76ch">
+    <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">harmony · app Android · 1 de 7</span>
+    <h1 style="margin:0;font-size:24px;line-height:32px;font-weight:600;letter-spacing:-0.01em">Entrar</h1>
+    <p style="margin:0;font-size:14px;line-height:20px;color:#A1A1AA;text-wrap:pretty">À esquerda, o harmony aberto no Chrome do celular. Ao lado, o app. O desenho é o mesmo: mesmos tokens, Inter, raio 8, ilhas sem linha nem sombra. Muda só o que o telefone obriga.</p>
+    <p style="margin:0;font-size:13px;line-height:20px;color:#A1A1AA"><a href="Entrar.dc.html">1 Entrar</a> · <a href="Lista.dc.html">2 Lista</a> · <a href="Conversa.dc.html">3 Conversa</a> · <a href="Sala%20de%20voz.dc.html">4 Sala de voz</a> · <a href="Painel%20da%20pessoa.dc.html">5 Painel da pessoa</a> · <a href="Ajustes.dc.html">6 Ajustes</a> · <a href="Atualiza%C3%A7%C3%A3o.dc.html">7 Atualização</a> · <a href="Especifica%C3%A7%C3%A3o.dc.html">Especificação</a></p>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+    <sc-for list="{{ frames }}" as="f" hint-placeholder-count="3">
+      <div style="display:flex;flex-direction:column;gap:12px;width:390px">
+        <span style="font-size:13px;line-height:20px;font-weight:600">{{ f.label }}</span>
+        <div data-screen-label="{{ f.id }}" style="position:relative;width:390px;height:844px;flex:none;background:#060607;border-radius:36px;overflow:hidden;box-shadow:0 0 0 8px #232325;display:flex;flex-direction:column">
+          <div style="height:36px;flex:none;position:relative;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font-size:13px;line-height:16px;font-weight:500">
+            <span>23:40</span>
+            <span style="display:flex;align-items:center;gap:6px"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="antenna-signal" size="{{ s12 }}" hint-size="12px,12px"></x-import><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="bar-high" size="{{ s12 }}" hint-size="12px,12px"></x-import></span>
+            <span style="position:absolute;left:189px;top:12px;width:12px;height:12px;border-radius:9999px;background:#000"></span>
+          </div>
+          <sc-if value="{{ f.web }}" hint-placeholder-val="{{ false }}">
+            <div style="height:56px;flex:none;display:flex;align-items:center;gap:4px;padding:0 4px 0 12px;background:#18181B">
+              <span style="flex:1;min-width:0;height:40px;display:flex;align-items:center;gap:8px;padding:0 14px;border-radius:9999px;background:#232325;font-size:14px;line-height:20px"><span style="color:#A1A1AA;display:flex"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="lock" size="{{ s12 }}" hint-size="12px,12px"></x-import></span>harmony.taleshernandes.com</span>
+              <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;color:#A1A1AA"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="ellipsis-vertical" size="{{ s16 }}" hint-size="16px,16px"></x-import></span>
+            </div>
+          </sc-if>
+          <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;padding:8px;gap:8px">
+            <div style="background:#18181B;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:16px">
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <span style="font-size:20px;line-height:28px;font-weight:600;letter-spacing:-0.01em">harmony</span>
+                <span style="font-size:13px;line-height:20px;color:#A1A1AA">Entre para continuar.</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">usuário</span>
+                  <span style="display:flex;align-items:center;height:48px;padding:0 12px;border-radius:8px;background:#232325;font-size:16px;line-height:24px">mel</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">senha</span>
+                  <sc-if value="{{ f.senhaFoco }}" hint-placeholder-val="{{ true }}">
+                    <span style="display:flex;align-items:center;height:48px;padding:0 12px;border-radius:8px;background:#232325;font-size:16px;line-height:24px;letter-spacing:0.2em;box-shadow:0 0 0 2px #18181B,0 0 0 4px #0485F7">••••••••••</span>
+                  </sc-if>
+                  <sc-if value="{{ f.senhaParada }}" hint-placeholder-val="{{ false }}">
+                    <span style="display:flex;align-items:center;height:48px;padding:0 12px;border-radius:8px;background:#232325;font-size:16px;line-height:24px;letter-spacing:0.2em">••••••••••</span>
+                  </sc-if>
+                </div>
+              </div>
+              <span style="display:flex;align-items:center;justify-content:center;height:48px;border-radius:8px;background:#0485F7;font-size:16px;line-height:24px;font-weight:600">Entrar</span>
+              <span style="font-size:13px;line-height:20px;color:#A1A1AA;text-wrap:pretty">Contas novas só por convite de quem já está dentro.</span>
+            </div>
+            <sc-if value="{{ f.servidorFechado }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;gap:8px;height:48px;padding:0 0 0 12px">
+                <span style="color:#A1A1AA;display:flex;flex:none"><x-import component-from-global-scope="HeroUI3DesignSystem_9e479f.Icon" name="server" size="{{ s16 }}" hint-size="16px,16px"></x-import></span>
+                <span style="flex:1;min-width:0;font-size:13px;line-height:20px;color:#A1A1AA;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">harmony.taleshernandes.com</span>
+                <span style="height:48px;display:flex;align-items:center;padding:0 12px;font-size:13px;line-height:20px;font-weight:600">Trocar</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ f.servidorAberto }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#18181B;border-radius:8px;padding:16px 20px 20px;display:flex;flex-direction:column;gap:6px">
+                <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">endereço do servidor</span>
+                <span style="display:flex;align-items:center;height:48px;padding:0 12px;border-radius:8px;background:#232325;font-size:16px;line-height:24px;box-shadow:0 0 0 2px #18181B,0 0 0 4px #0485F7">harmony.taleshernandes.com<span style="display:inline-block;width:1px;height:18px;background:#FCFCFC;margin-left:1px"></span></span>
+                <span style="font-size:13px;line-height:20px;color:#A1A1AA;text-wrap:pretty">O mesmo endereço que você abre no navegador.</span>
+              </div>
+            </sc-if>
+          </div>
+          <div style="height:24px;flex:none;position:relative"><span style="position:absolute;left:141px;bottom:10px;width:108px;height:4px;border-radius:9999px;background:#A1A1AA"></span></div>
+        </div>
+        <span style="font-size:12px;line-height:16px;color:#A1A1AA;text-wrap:pretty">{{ f.note }}</span>
+      </div>
+    </sc-for>
+    <div style="display:flex;flex-direction:column;gap:8px;width:340px">
+      <span style="font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#A1A1AA">O que mudou, e por quê</span>
+      <sc-for list="{{ mudancas }}" as="m" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:4px;padding:12px 14px;background:#18181B;border-radius:8px">
+          <span style="font-size:14px;line-height:20px;font-weight:600">{{ m.t }}</span>
+          <span style="font-size:13px;line-height:20px;color:#A1A1AA;text-wrap:pretty">{{ m.c }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      s12: 12, s16: 16,
+      frames: [
+        { id: '1 Web', label: 'Web · Chrome no celular', web: true, senhaFoco: true, note: 'Como está no ar hoje.' },
+        { id: '1 Android', label: 'Android', senhaFoco: true, servidorFechado: true, note: 'O cartão igual, e o servidor numa linha só, embaixo de tudo.' },
+        { id: '1 Android servidor', label: 'Android · depois de tocar em Trocar', senhaParada: true, servidorAberto: true, note: 'O campo abre embaixo do cartão, com o teclado já nele. Quem não toca em Trocar nunca vê este campo.' }
+      ],
+      mudancas: [
+        { t: 'Sem a barra do navegador', c: 'O app ganha os 56dp da barra de endereço do Chrome. O cartão continua centrado no espaço que sobra.' },
+        { t: 'O endereço do servidor', c: 'No navegador ele já está na barra de endereço. O app precisa perguntar. Ele vem preenchido com o último usado e ocupa uma linha só, depois de tudo, porque quase ninguém troca.' },
+        { t: 'Senha salva', c: 'O Android oferece a senha guardada em cima do teclado (Autofill). Isso é do sistema e não muda a tela: os campos só precisam ser marcados como usuário e senha.' },
+        { t: 'O resto é igual', c: 'Cartão, campos de 48, foco em accent, botão, raio 8 e a frase do convite têm a mesma medida no web e no app.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

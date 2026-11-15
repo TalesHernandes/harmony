@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations"><ProjectConfiguration Include="Release|x64"><Configuration>Release</Configuration><Platform>x64</Platform></ProjectConfiguration></ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4362267E-47A8-4C44-B21A-4B25E02AD6B9}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
+    <TargetPlatformVersion>10.0.26100.0</TargetPlatformVersion>
+    <TargetPlatformDisplayName>Windows SDK 10.0.26100.0</TargetPlatformDisplayName>
+    <TargetPlatformSdkPath>C:\Program Files (x86)\Windows Kits\10\</TargetPlatformSdkPath>
+    <WindowsSdkPath>C:\Program Files (x86)\Windows Kits\10\</WindowsSdkPath>
+    <WindowsTargetPlatformMinVersion>10.0.19041.0</WindowsTargetPlatformMinVersion>
+    <WindowsPackageType>None</WindowsPackageType><AppxPackage>false</AppxPackage>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <WindowsAppSdkBootstrapInitialize>false</WindowsAppSdkBootstrapInitialize>
+    <CppWinRTOptimized>true</CppWinRTOptimized><CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
+    <RestoreConfigFile>$(MSBuildThisFileDirectory)nuget.config</RestoreConfigFile>
+    <RestorePackagesPath>$(MSBuildThisFileDirectory).nuget-packages</RestorePackagesPath>
+    <RestoreSources>$(USERPROFILE)\harmony-deps\nuget</RestoreSources>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
+  <PropertyGroup Label="Configuration"><ConfigurationType>Application</ConfigurationType><PlatformToolset>v145</PlatformToolset><UseDebugLibraries>false</UseDebugLibraries></PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
+  <ImportGroup Label="PropertySheets">
+    <Import Project=".nuget-packages\Microsoft.Windows.SDK.BuildTools.10.0.26100.4654\build\Microsoft.Windows.SDK.BuildTools.props" Condition="Exists('.nuget-packages\Microsoft.Windows.SDK.BuildTools.10.0.26100.4654\build\Microsoft.Windows.SDK.BuildTools.props')"/>
+    <Import Project=".nuget-packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.251221100\build\Microsoft.Windows.SDK.BuildTools.MSIX.props" Condition="Exists('.nuget-packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.251221100\build\Microsoft.Windows.SDK.BuildTools.MSIX.props')"/>
+    <Import Project=".nuget-packages\Microsoft.WindowsAppSDK.Base.2.0.4\build\native\Microsoft.WindowsAppSDK.Base.props" Condition="Exists('.nuget-packages\Microsoft.WindowsAppSDK.Base.2.0.4\build\native\Microsoft.WindowsAppSDK.Base.props')"/>
+    <Import Project=".nuget-packages\Microsoft.WindowsAppSDK.InteractiveExperiences.2.1.9\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.props" Condition="Exists('.nuget-packages\Microsoft.WindowsAppSDK.InteractiveExperiences.2.1.9\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.props')"/>
+    <Import Project=".nuget-packages\Microsoft.WindowsAppSDK.Foundation.2.3.12\build\native\Microsoft.WindowsAppSDK.Foundation.props" Condition="Exists('.nuget-packages\Microsoft.WindowsAppSDK.Foundation.2.3.12\build\native\Microsoft.WindowsAppSDK.Foundation.props')"/>
+    <Import Project=".nuget-packages\Microsoft.WindowsAppSDK.DWrite.2.1.0\build\Microsoft.WindowsAppSDK.DWrite.props" Condition="Exists('.nuget-packages\Microsoft.WindowsAppSDK.DWrite.2.1.0\build\Microsoft.WindowsAppSDK.DWrite.props')"/>
+    <Import Project=".nuget-packages\Microsoft.WindowsAppSDK.WinUI.2.3.9\build\native\Microsoft.WindowsAppSDK.WinUI.props" Condition="Exists('.nuget-packages\Microsoft.WindowsAppSDK.WinUI.2.3.9\build\native\Microsoft.WindowsAppSDK.WinUI.props')"/>
+    <Import Project=".nuget-packages\Microsoft.Windows.CppWinRT.3.0.260818.1\build\native\Microsoft.Windows.CppWinRT.props" Condition="Exists('.nuget-packages\Microsoft.Windows.CppWinRT.3.0.260818.1\build\native\Microsoft.Windows.CppWinRT.props')"/>
+  </ImportGroup>
+  <PropertyGroup><OutDir>$(ProjectDir)out\</OutDir><IntDir>$(ProjectDir)obj\</IntDir><TargetName>harmony-nativo</TargetName></PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile><AdditionalIncludeDirectories>$(ProjectDir)src;$(USERPROFILE)\harmony-deps\nvidia\Video_Codec_SDK_13.0.37\Interface;$(USERPROFILE)\harmony-deps\webrtc-m155.8059.4.1\webrtc\include\third_party\libyuv\include;$(USERPROFILE)\harmony-deps\webrtc-m155.8059.4.1\webrtc\include;$(USERPROFILE)\harmony-deps\webrtc-m155.8059.4.1\webrtc\include\third_party\abseil-cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories><DisableSpecificWarnings>4068;4996;4146;%(DisableSpecificWarnings)</DisableSpecificWarnings><LanguageStandard>stdcpp20</LanguageStandard><AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions><ExceptionHandling>Sync</ExceptionHandling><Optimization>MaxSpeed</Optimization><PrecompiledHeader>NotUsing</PrecompiledHeader><WarningLevel>Level4</WarningLevel><RuntimeLibrary>MultiThreaded</RuntimeLibrary><PreprocessorDefinitions>UNICODE;_UNICODE;NOMINMAX;WEBRTC_WIN;WIN32_LEAN_AND_MEAN;NDEBUG;HARMONY_GPU=1;%(PreprocessorDefinitions)</PreprocessorDefinitions></ClCompile>
+    <Link><SubSystem>Windows</SubSystem><AdditionalDependencies>$(USERPROFILE)\harmony-deps\webrtc-m155.8059.4.1\webrtc\lib\webrtc.lib;winmm.lib;ws2_32.lib;secur32.lib;iphlpapi.lib;msdmo.lib;dmoguids.lib;wmcodecdspuuid.lib;strmiids.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;mfreadwrite.lib;mfplat.lib;mfuuid.lib;mf.lib;runtimeobject.lib;dwmapi.lib;mmdevapi.lib;user32.lib;gdi32.lib;windowsapp.lib;psapi.lib;shell32.lib;ole32.lib;oleaut32.lib;winhttp.lib;crypt32.lib;advapi32.lib;comctl32.lib;propsys.lib;%(AdditionalDependencies)</AdditionalDependencies></Link>
+    <ResourceCompile><AdditionalIncludeDirectories>$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories></ResourceCompile>
+    <Manifest><AdditionalManifestFiles>src\app.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles></Manifest>
+  </ItemDefinitionGroup>
+  <!-- Keep the shipping binary free of harness entry points; retain full local symbols. -->
+  <PropertyGroup Condition="'$(HarmonyPublish)' == 'true' Or '$(HarmonyOptimized)' == 'true'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(HarmonyPublish)' == 'true' Or '$(HarmonyOptimized)' == 'true'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization><FunctionLevelLinking>true</FunctionLevelLinking>
+      <StringPooling>true</StringPooling><DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <PreprocessorDefinitions Condition="'$(HarmonyPublish)' == 'true'">HARMONY_PUBLISH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link><OptimizeReferences>true</OptimizeReferences><EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\chat.cpp"/><ClCompile Include="src\upload.cpp"/><ClCompile Include="src\emoji.cpp"/>
+    <Reference Include="Microsoft.Web.WebView2.Core"><HintPath>$(ProjectDir).nuget-packages\Microsoft.Web.WebView2.1.0.3719.77\lib\Microsoft.Web.WebView2.Core.winmd</HintPath><IsWinMDFile>true</IsWinMDFile></Reference>
+    <None Include="packages.config"/>
+    <ClCompile Include="src\main.cpp"/><ClCompile Include="src\media-sources.cpp"/><ClCompile Include="src\media-preview.cpp"/><ClCompile Include="..\native\src\camera.cpp"/><ClCompile Include="..\native\gpu\capture.cpp"/><ClCompile Include="..\native\gpu\decoder.cpp"/><ClCompile Include="..\native\gpu\device.cpp"/><ClCompile Include="..\native\gpu\encoder.cpp"/><ClCompile Include="..\native\gpu\mf.cpp"/><ClCompile Include="..\native\gpu\nvenc.cpp"/><ClCompile Include="..\native\gpu\presenter.cpp"/><ClCompile Include="src\rooms.cpp"/><ClCompile Include="src\platform.cpp"/><ClCompile Include="src\service.cpp"/><ClCompile Include="src\direct-call.cpp"/><ClCompile Include="src\notices.cpp"/><ClCompile Include="src\toast.cpp"/><ClCompile Include="src\direct-selftest.cpp"><ExcludedFromBuild Condition="'$(HarmonyPublish)' == 'true'">true</ExcludedFromBuild></ClCompile><ClCompile Include="src\selftest.cpp"><ExcludedFromBuild Condition="'$(HarmonyPublish)' == 'true'">true</ExcludedFromBuild></ClCompile><ClCompile Include="src\screen-selftest.cpp"><ExcludedFromBuild Condition="'$(HarmonyPublish)' == 'true'">true</ExcludedFromBuild></ClCompile><ClCompile Include="src\voice-engine.cpp"/><ClCompile Include="src\voice-selftest.cpp"><ExcludedFromBuild Condition="'$(HarmonyPublish)' == 'true'">true</ExcludedFromBuild></ClCompile><ClCompile Include="..\native\src\voice.cpp"/><ClCompile Include="..\native\src\call-media.cpp"/><ClCompile Include="..\native\src\audio.cpp"/><ClCompile Include="..\native\src\loopback.cpp"/><ClCompile Include="..\native\src\net.cpp"/><ClCompile Include="..\native\src\json.cpp"/><ClCompile Include="..\native\src\log.cpp"/><ClCompile Include="..\native\src\perf.cpp"/><ResourceCompile Include="src\app.rc"/>
+    <Content Include="assets\*.*"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="THIRD-PARTY.md"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project=".nuget-packages\Microsoft.Windows.SDK.BuildTools.10.0.26100.4654\build\Microsoft.Windows.SDK.BuildTools.targets" Condition="Exists('.nuget-packages\Microsoft.Windows.SDK.BuildTools.10.0.26100.4654\build\Microsoft.Windows.SDK.BuildTools.targets')"/>
+    <Import Project=".nuget-packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.251221100\build\Microsoft.Windows.SDK.BuildTools.MSIX.targets" Condition="Exists('.nuget-packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.251221100\build\Microsoft.Windows.SDK.BuildTools.MSIX.targets')"/>
+    <Import Project=".nuget-packages\Microsoft.WindowsAppSDK.Base.2.0.4\build\native\Microsoft.WindowsAppSDK.Base.targets" Condition="Exists('.nuget-packages\Microsoft.WindowsAppSDK.Base.2.0.4\build\native\Microsoft.WindowsAppSDK.Base.targets')"/>
+    <Import Project=".nuget-packages\Microsoft.WindowsAppSDK.InteractiveExperiences.2.1.9\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.targets" Condition="Exists('.nuget-packages\Microsoft.WindowsAppSDK.InteractiveExperiences.2.1.9\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.targets')"/>
+    <Import Project=".nuget-packages\Microsoft.WindowsAppSDK.Foundation.2.3.12\build\native\Microsoft.WindowsAppSDK.Foundation.targets" Condition="Exists('.nuget-packages\Microsoft.WindowsAppSDK.Foundation.2.3.12\build\native\Microsoft.WindowsAppSDK.Foundation.targets')"/>
+    <Import Project=".nuget-packages\Microsoft.WindowsAppSDK.DWrite.2.1.0\build\Microsoft.WindowsAppSDK.DWrite.targets" Condition="Exists('.nuget-packages\Microsoft.WindowsAppSDK.DWrite.2.1.0\build\Microsoft.WindowsAppSDK.DWrite.targets')"/>
+    <Import Project=".nuget-packages\Microsoft.Web.WebView2.1.0.3719.77\build\native\Microsoft.Web.WebView2.targets" Condition="Exists('.nuget-packages\Microsoft.Web.WebView2.1.0.3719.77\build\native\Microsoft.Web.WebView2.targets')"/>
+    <Import Project=".nuget-packages\Microsoft.WindowsAppSDK.WinUI.2.3.9\build\native\Microsoft.WindowsAppSDK.WinUI.targets" Condition="Exists('.nuget-packages\Microsoft.WindowsAppSDK.WinUI.2.3.9\build\native\Microsoft.WindowsAppSDK.WinUI.targets')"/>
+    <Import Project=".nuget-packages\Microsoft.Windows.CppWinRT.3.0.260818.1\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('.nuget-packages\Microsoft.Windows.CppWinRT.3.0.260818.1\build\native\Microsoft.Windows.CppWinRT.targets')"/>
+  </ImportGroup>
+  <Target Name="DeployProofAssets" AfterTargets="Build">
+    <ItemGroup><ProofEmoji Include="$(ProjectDir)assets\*.*"/></ItemGroup>
+    <MakeDir Directories="$(OutDir)assets"/>
+    <Copy SourceFiles="@(ProofEmoji)" DestinationFiles="@(ProofEmoji->'$(OutDir)assets\%(Filename)%(Extension)')"/>
+    <Copy SourceFiles="$(ProjectDir)THIRD-PARTY.md" DestinationFolder="$(OutDir)"/>
+  </Target>
+</Project>

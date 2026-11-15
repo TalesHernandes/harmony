@@ -1,0 +1,7 @@
+out/
+obj/
+temp/
+.nuget-packages/
+build-*.log
+build-*.err
+*.runtime-error.txt
