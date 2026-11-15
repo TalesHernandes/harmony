@@ -118,8 +118,9 @@ class Monitor {
 //                  Android probe's format): the microphone before and after
 //                  it, and the reference it cancels against;
 //   enviado.wav  — what the call really sends, after DFN and the gain slider;
-//   numeros.txt  — one line a second: levels, clipping, echo statistics, and
-//                  the network as both sides report it.
+//   numeros.txt  — one line a second: levels, clipping, what DFN did (blocks
+//                  it filtered, fallbacks, slowest call, the reason), echo
+//                  statistics, and the network as both sides report it.
 // Only the two newest folders are kept. It holds everyone's voice, so it
 // never leaves the computer.
 struct RecordingStatus {

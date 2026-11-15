@@ -35,14 +35,21 @@ class FilterSlot {
   std::atomic<double> micGain{1};
   std::atomic<int> strength{50};
   std::atomic<uint64_t> fallbacks{0};
+  // How long the backend took on the last block it was handed, probes
+  // included (0 when it was not called): the call recording prints the
+  // slowest of each second, since "DFN excedeu 10 ms" is a matter of how far.
+  std::atomic<uint32_t> lastMicros{0};
   bool Process(std::vector<int16_t>& samples, int rate, size_t channels, int overrideStrength = -1, bool publish = true) {
+    lastMicros=0;
     if (!enabled) { active=false; reason=Disabled; return false; }
     block_.assign(samples.begin(), samples.end());
     auto& block = block_;
     auto start=std::chrono::steady_clock::now(); bool ok=false;
     reason=backend_ && backend_->Available() ? Rejected : Unavailable;
     try { if (backend_) ok=backend_->Process(block,rate,channels,std::clamp(overrideStrength<0?strength.load():overrideStrength,10,100)); } catch (...) { reason=Exception; }
-    if (!ok || block.size()!=samples.size() || std::chrono::steady_clock::now()-start >= std::chrono::milliseconds(10)) {
+    auto took=std::chrono::steady_clock::now()-start;
+    lastMicros=uint32_t(std::chrono::duration_cast<std::chrono::microseconds>(took).count());
+    if (!ok || block.size()!=samples.size() || took >= std::chrono::milliseconds(10)) {
       if (ok) reason=block.size()!=samples.size() ? Shape : Deadline;
       active=false; ++fallbacks; return false;
     }

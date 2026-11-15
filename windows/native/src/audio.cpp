@@ -128,6 +128,11 @@ struct Recording {
   // Capture thread only.
   std::vector<int16_t> pending;
   double inSquares = 0, outSquares = 0; int inPeak = 0, outPeak = 0, inClipped = 0, outClipped = 0, block = 0;
+  // DFN over the second: blocks it filtered, calls that fell back and why,
+  // and the slowest call. The level columns alone could not tell a call
+  // where DFN never once ran from one where it ran (03/11/2026).
+  int dfnBlocks = 0, dfnFailures = 0; uint32_t dfnSlowest = 0;
+  std::array<int, FilterSlot::Alone + 1> dfnWhy{};
   // Recording queue only.
   Wave sent; FILE* numbers = nullptr; bool attached = false;
   // Stats threads, under the recorder's lock. Per stream: people come and go,
@@ -218,6 +223,7 @@ std::shared_ptr<Recording> ClaimRecording(webrtc::AudioProcessing* apm, uint32_t
            "harmony nativo · gravação da chamada\n"
            "microfone %u Hz %zu canais · eco=%d ruído=%d nivelar=%d DFN=%d força=%d ganho=%.0f%%\n\n"
            "segundo | entrada dBFS (média pico estouros) | enviado dBFS (média pico estouros) | filtro | "
+           "DFN: blocos_filtrados/100 falhas maior_ms motivo | "
            "eco: ERL ERLE atraso_ms divergência eco_residual | atraso informado ms\n"
            "segundo rede | ida_volta_ms rota | envio kbit/s alvo | o outro recebe: perda%% jitter_ms | "
            "você recebe: perdidos jitter_ms buracos%% espera_ms\n\n",
@@ -248,10 +254,20 @@ void FinishRecording(std::shared_ptr<Recording> rec) {
     RecordingQueue()->PostTask([rec] { if (rec->attached) CloseRecording(rec, true); });
   }).detach();
 }
+// What DFN did with one quantum: `tried` when it was handed the block (as the
+// published filter or as a recovery probe), `failed` when it gave it back.
+struct DfnQuantum {
+  bool tried = false, failed = false, published = false; FilterSlot::Reason reason = FilterSlot::Warming; uint32_t micros = 0;
+  // Right after FilterSlot::Process. Switched off in Ajustes is not a failure.
+  void Took(const FilterSlot& slot, bool ok) {
+    reason = slot.reason.load(); micros = slot.lastMicros.load();
+    tried = slot.enabled.load(); failed = tried && !ok;
+  }
+};
 // Capture thread, every quantum once the files are open. `raw` is the
 // device's own samples (clipping happens there), `out` what the track sends.
 void RecordQuantum(Recording& rec, const int16_t* raw, size_t rawCount, const std::vector<int16_t>& out,
-                   const char* effective, uint32_t delayMs) {
+                   const char* effective, uint32_t delayMs, const DfnQuantum& dfn) {
   for (size_t i = 0; i < rawCount; ++i) {
     int v = raw[i], a = std::abs(v); rec.inPeak = std::max(rec.inPeak, a);
     if (v >= 32767 || v <= -32768) ++rec.inClipped;
@@ -262,6 +278,9 @@ void RecordQuantum(Recording& rec, const int16_t* raw, size_t rawCount, const st
     if (v >= 32767 || v <= -32768) ++rec.outClipped;
     rec.outSquares += double(v) * v;
   }
+  if (dfn.published) ++rec.dfnBlocks;
+  if (dfn.tried) rec.dfnSlowest = std::max(rec.dfnSlowest, dfn.micros);
+  if (dfn.failed) { ++rec.dfnFailures; ++rec.dfnWhy[dfn.reason]; }
   rec.pending.insert(rec.pending.end(), out.begin(), out.end());
   if (rec.pending.size() >= 4800) {
     RecordingQueue()->PostTask([self = rec.self.lock(), pcm = std::move(rec.pending)] { self->sent.Write(pcm); });
@@ -271,15 +290,21 @@ void RecordQuantum(Recording& rec, const int16_t* raw, size_t rawCount, const st
   if (++rec.block < 100) return;
   auto stats = rec.apm->GetStatistics(true);
   auto opt = [](std::optional<int32_t> v) { return v ? std::optional<double>(*v) : std::nullopt; };
-  char line[384];
-  snprintf(line, sizeof line, "%3.0f | %6.1f %6.1f %4d | %6.1f %6.1f %4d | %s | %s %s %s %s %s | %u\n",
+  // The reason most failures gave this second; with none, the filter's own
+  // state at the end of it ("ativo", "verificando 20 blocos estáveis", ...).
+  FilterSlot::Reason why = dfn.reason;
+  if (rec.dfnFailures) why = FilterSlot::Reason(std::max_element(rec.dfnWhy.begin(), rec.dfnWhy.end()) - rec.dfnWhy.begin());
+  char line[512];
+  snprintf(line, sizeof line, "%3.0f | %6.1f %6.1f %4d | %6.1f %6.1f %4d | %s | %3d %3d %5.1f %s | %s %s %s %s %s | %u\n",
            rec.Seconds(), Dbfs(std::sqrt(rec.inSquares / (100 * 480))), Dbfs(rec.inPeak), rec.inClipped,
            Dbfs(std::sqrt(rec.outSquares / (100 * 480))), Dbfs(rec.outPeak), rec.outClipped, effective,
+           rec.dfnBlocks, rec.dfnFailures, rec.dfnSlowest / 1000.0, FilterSlot::ReasonText(why),
            Fixed(stats.echo_return_loss).c_str(), Fixed(stats.echo_return_loss_enhancement).c_str(),
            Fixed(opt(stats.delay_ms), "%.0f").c_str(), Fixed(stats.divergent_filter_fraction, "%.2f").c_str(),
            Fixed(stats.residual_echo_likelihood, "%.2f").c_str(), delayMs);
   rec.Line(line);
   rec.block = 0; rec.inSquares = rec.outSquares = 0; rec.inPeak = rec.outPeak = rec.inClipped = rec.outClipped = 0;
+  rec.dfnBlocks = rec.dfnFailures = 0; rec.dfnSlowest = 0; rec.dfnWhy.fill(0);
 }
 
 // The microphone's processed 10 ms blocks on their way back to the ears, for
@@ -400,6 +425,7 @@ class Transport : public webrtc::AudioTransport {
     filter_->nsApplied=processed && ns_enabled_;
     if (!processed) { out_=normalized_; filter_->active=false; filter_->reason=FilterSlot::Apm; dfn_ready_=false; good_blocks_=0; }
     bool clean=false;
+    DfnQuantum dfn;
     if (!audience) {
       // Keep APM and microphone publication (including the own speaking meter)
       // alive, but do not even probe DFN when nobody can hear the result.
@@ -407,6 +433,7 @@ class Transport : public webrtc::AudioTransport {
       filter_->reason=filter_->enabled ? FilterSlot::Alone : FilterSlot::Disabled;
     } else if (dfn_ready_) {
       clean=filter_->Process(out_, 48000, 1);
+      dfn.Took(*filter_, clean); dfn.published=clean;
       if (!clean) {
         dfn_ready_=false; good_blocks_=0;
         // This quantum can be unsuppressed; NS protects the very next one.
@@ -416,6 +443,7 @@ class Transport : public webrtc::AudioTransport {
     } else {
       probe_.assign(out_.begin(), out_.end());
       bool good=filter_->Process(probe_, 48000, 1, -1, false);
+      dfn.Took(*filter_, good);
       good_blocks_=good ? good_blocks_+1 : 0;
       // Discard probes: no published block ever receives both NS and DFN.
       dfn_ready_=good_blocks_>=kDfnRecoveryBlocks;
@@ -431,7 +459,10 @@ class Transport : public webrtc::AudioTransport {
     if (!recording_ && audience && TheRecorder().armedFast.load(std::memory_order_relaxed))
       recording_=ClaimRecording(apm_, rate, channels, *filter_);
     if (recording_) {
-      if (recording_->ready) RecordQuantum(*recording_, in, frames*channels, out_, effective, delay_ms);
+      if (recording_->ready) {
+        if (!dfn.tried) dfn.reason=filter_->reason.load();
+        RecordQuantum(*recording_, in, frames*channels, out_, effective, delay_ms, dfn);
+      }
       if (recording_->quanta>=recording_->limit || recording_->stop) FinishRecording(std::exchange(recording_, nullptr));
     }
     timer.Done();

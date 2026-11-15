@@ -742,6 +742,8 @@ static void RunCallRecording() {
     Check(std::filesystem::file_size(s.folder/L"enviado.wav",error)==44+100*480*2,"recording writes one second of the sent microphone");
     std::ifstream numbers(s.folder/L"numeros.txt");std::string text((std::istreambuf_iterator<char>(numbers)),{});
     Check(text.find("microfone 48000 Hz 2 canais")!=std::string::npos&&text.find(" 300 | ")!=std::string::npos,"recording counts clipped device samples each second");
+    Check(text.find("DFN: blocos_filtrados/100 falhas maior_ms motivo")!=std::string::npos&&text.find(" ms ")!=std::string::npos,
+          "recording says each second how much DFN filtered, how often it fell back and why");
   }
   size_t folders=0;for(auto& e:std::filesystem::directory_iterator(root))folders+=e.is_directory();
   Check(folders==2&&!std::filesystem::exists(first),"recording keeps only the two newest folders");
